@@ -1,0 +1,629 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/API-Corelease/api/master_prefix": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data คำนำหน้าชื่อ",
+                "description": "คำนำหน้าชื่อ",
+                "operationId": "Master_prefix",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_nationality": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data สัญชาติ",
+                "description": "สัญชาติ",
+                "operationId": "master_nationality",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_marital_status": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data สถานะสมรส",
+                "description": "สถานะสมรส",
+                "operationId": "master_marital_status",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_occupation": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data อาชีพ",
+                "description": "อาชีพ",
+                "operationId": "master_occupation",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_level_type": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data ระดับการศึกษา",
+                "description": "ระดับการศึกษา",
+                "operationId": "master_level_type",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_level": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data ชั้นปี",
+                "description": "ชั้นปี",
+                "operationId": "master_level",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_rerationship_ref": {
+            "get": {
+                "tags": [
+                    "API Personal Information"
+                ],
+                "summary": "Master Data ความสัมพันธ์",
+                "description": "ความสัมพันธ์",
+                "operationId": "master_rerationship_ref",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_branch_type": {
+            "get": {
+                "tags": [
+                    "API Branch"
+                ],
+                "summary": "Master Data ประเภทสาขา",
+                "description": "ประเภทสาขา",
+                "operationId": "master_branch_type",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_setup_company/{BRANCH_TYPE_ID}": {
+            "get": {
+                "tags": [
+                    "API Branch"
+                ],
+                "summary": "Master Data สาขา",
+                "description": "สาขา",
+                "operationId": "master_setup_company",
+                "parameters": [
+                    {
+                        "name": "BRANCH_TYPE_ID",
+                        "in": "path",
+                        "description": "รหัสประเภทสาขา",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_category": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data หมวดสินค้า",
+                "description": "หมวดสินค้า",
+                "operationId": "master_category",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_brand": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data ยี่ห้อสินค้า",
+                "description": "ยี่ห้อสินค้า",
+                "operationId": "master_brand",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_series/{BRAND_ID}": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data รุ่นสินค้า",
+                "description": "รุ่นสินค้า",
+                "operationId": "master_series",
+                "parameters": [
+                    {
+                        "name": "BRAND_ID",
+                        "in": "path",
+                        "description": "รหัสยี่ห้อ เช่น 9",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_sub_series/{SERIES_ID}": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data ความจุ",
+                "description": "ความจุ",
+                "operationId": "master_sub_series",
+                "parameters": [
+                    {
+                        "name": "SERIES_ID",
+                        "in": "path",
+                        "description": "รหัสรุ่นสินค้า เช่น 59",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_color/{SERIES_ID}": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data สี",
+                "description": "สี",
+                "operationId": "master_color",
+                "parameters": [
+                    {
+                        "name": "SERIES_ID",
+                        "in": "path",
+                        "description": "รหัสรุ่นสินค้า เช่น 59",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_assets_information": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data อุปกรณ์เสริม",
+                "description": "อุปกรณ์เสริม",
+                "operationId": "master_assets_information",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_insure/{SERIES_ID}": {
+            "get": {
+                "tags": [
+                    "API Production"
+                ],
+                "summary": "Master Data บริการคุ้มครองเสริม",
+                "description": "บริการคุ้มครองเสริม",
+                "operationId": "master_insure",
+                "parameters": [
+                    {
+                        "name": "SERIES_ID",
+                        "in": "path",
+                        "description": "รหัสรุ่นสินค้า เช่น 59",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_installment": {
+            "get": {
+                "tags": [
+                    "API INSTALLMENT"
+                ],
+                "summary": "Master Data จำนวนงวด",
+                "description": "จำนวนงวด",
+                "operationId": "master_installment",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_province": {
+            "get": {
+                "tags": [
+                    "API Address"
+                ],
+                "summary": "Master Data จังหวัด",
+                "description": "จังหวัด",
+                "operationId": "master_province",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_district/{PROVINCE_ID}": {
+            "get": {
+                "tags": [
+                    "API Address"
+                ],
+                "summary": "Master Data อำเภอ",
+                "description": "อำเภอ",
+                "operationId": "master_district",
+                "parameters": [
+                    {
+                        "name": "PROVINCE_ID",
+                        "in": "path",
+                        "description": "รหัสจังหวัด เช่น 10",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_sub_district/{DISTRICT_ID}": {
+            "get": {
+                "tags": [
+                    "API Address"
+                ],
+                "summary": "Master Data ตำบล",
+                "description": "ตำบล",
+                "operationId": "master_sub_district",
+                "parameters": [
+                    {
+                        "name": "DISTRICT_ID",
+                        "in": "path",
+                        "description": "รหัสอำเภอ เช่น 1001",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
