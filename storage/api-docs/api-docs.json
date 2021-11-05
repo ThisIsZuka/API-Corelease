@@ -6,6 +6,34 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/API-Corelease/api/AllMaster": {
+            "get": {
+                "tags": [
+                    "API Master"
+                ],
+                "summary": "Master Data All",
+                "description": "ข้อมูล Master ทั้งหมด",
+                "operationId": "AllMaster",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/API-Corelease/api/master_prefix": {
             "get": {
                 "tags": [
@@ -602,6 +630,95 @@
                         "required": false
                     }
                 ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_university/{PROVINCE_ID}": {
+            "get": {
+                "tags": [
+                    "API University"
+                ],
+                "summary": "Master Data มหาวิทยาลัย",
+                "description": "มหาวิทยาลัย",
+                "operationId": "master_university",
+                "parameters": [
+                    {
+                        "name": "PROVINCE_ID",
+                        "in": "path",
+                        "description": "รหัสจังหวัด เช่น 10",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong Data. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/master_university": {
+            "post": {
+                "tags": [
+                    "API University"
+                ],
+                "summary": "Master Data มหาวิทยาลัย",
+                "description": "มหาวิทยาลัย",
+                "operationId": "Post-master_university",
+                "requestBody": {
+                    "description": "PROVINCE_ID, DISTRICT_ID",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "PROVINCE_ID",
+                                    "DISTRICT_ID"
+                                ],
+                                "properties": {
+                                    "PROVINCE_ID": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "DISTRICT_ID": {
+                                        "type": "integer",
+                                        "example": null
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",

@@ -454,23 +454,23 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SUB_SERIES.SERIES_ID', $data_get)
                 ->distinct('MT_SUB_SERIES.SUB_SERIES_ID')
                 ->get();
-                
+
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
 
             return $return_data;
         } catch (Exception $e) {
-            // if ($e->getPrevious()) {
-            //     return response()->json(array(
-            //         'status' => 'Error',
-            //         'message' => $e->getPrevious()
-            //     ));
-            // } else {
+            if ($e->getPrevious()) {
+                return response()->json(array(
+                    'status' => 'Error',
+                    'message' => $e->getPrevious()
+                ));
+            } else {
                 return response()->json(array(
                     'status' => 'Error', 'message' => $e->getMessage()
                 ));
-            // }
+            }
         }
     }
 
@@ -677,6 +677,103 @@ class API_MT_Controller extends BaseController
 
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
+
+            return $return_data;
+        } catch (Exception $e) {
+            if ($e->getPrevious()) {
+                return response()->json(array(
+                    'status' => 'Error',
+                    'message' => $e->getPrevious()
+                ));
+            } else {
+                return response()->json(array(
+                    'status' => 'Error', 'message' => $e->getMessage()
+                ));
+            }
+        }
+    }
+
+
+    // University
+    public function MT_UNIVERSITY(Request $request)
+    {
+        try {
+            // 
+            $return_data = new \stdClass();
+
+            if ($request->PROVINCE_ID == null) {
+                return ('error');
+            }
+            $data_get = $request->PROVINCE_ID;
+
+            // if($data_get != 10){
+            //     $data_get = null;
+            // }
+
+            $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
+                ->select('*')
+                ->where('PROVINCE_ID', $data_get)
+                ->get();
+
+            $return_data->status = 'Sucsess';
+            $return_data->data = $MT;
+
+            return $return_data;
+        } catch (Exception $e) {
+            if ($e->getPrevious()) {
+                return response()->json(array(
+                    'status' => 'Error',
+                    'message' => $e->getPrevious()
+                ));
+            } else {
+                return response()->json(array(
+                    'status' => 'Error', 'message' => $e->getMessage()
+                ));
+            }
+        }
+    }
+
+    public function POST_MT_UNIVERSITY(Request $request)
+    {
+        try {
+            // 
+            $data = $request->all();
+            $return_data = new \stdClass();
+            $PROVINCE_ID = null;
+            $DISTRICT_ID = null;
+            // dd($data);
+            if ($data) {
+                // return $data;
+                if (isset($data['PROVINCE_ID'])) {
+                    $PROVINCE_ID = $data['PROVINCE_ID'];
+
+                    $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
+                        ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID', 'ZONE_ENG', 'EDU_TYPE')
+                        ->where('PROVINCE_ID', $PROVINCE_ID)
+                        ->get();
+
+                    $return_data->status = 'Sucsess';
+                    $return_data->data = $MT;
+
+                    if (isset($data['DISTRICT_ID']) && $PROVINCE_ID == 10) {
+                        $DISTRICT_ID = $data['DISTRICT_ID'];
+                        $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
+                            ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID', 'ZONE_ENG', 'EDU_TYPE')
+                            ->where('PROVINCE_ID', $PROVINCE_ID)
+                            ->where('DISTRICT_ID', $DISTRICT_ID)
+                            ->get();
+
+                        $return_data->status = 'Sucsess';
+                        $return_data->data = $MT;
+                    }
+                } else {
+                    $return_data->status = 'Error';
+                    $return_data->message = 'required PROVINCE_ID';
+                }
+            } else {
+                $return_data->status = 'Error';
+                $return_data->message = 'required Data';
+            }
 
             return $return_data;
         } catch (Exception $e) {
