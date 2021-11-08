@@ -650,75 +650,28 @@
                 }
             }
         },
-        "/API-Corelease/api/master_university/{PROVINCE_ID}": {
+        "/API-Corelease/api/master_university": {
             "get": {
                 "tags": [
                     "API University"
                 ],
                 "summary": "Master Data มหาวิทยาลัย",
                 "description": "มหาวิทยาลัย",
-                "operationId": "master_university",
+                "operationId": "Get-master_university",
                 "parameters": [
                     {
                         "name": "PROVINCE_ID",
-                        "in": "path",
+                        "in": "query",
                         "description": "รหัสจังหวัด เช่น 10",
-                        "required": true
+                        "required": false
+                    },
+                    {
+                        "name": "DISTRICT_ID",
+                        "in": "query",
+                        "description": "รหัสอำเภอ เช่น 1010",
+                        "required": false
                     }
                 ],
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_university": {
-            "post": {
-                "tags": [
-                    "API University"
-                ],
-                "summary": "Master Data มหาวิทยาลัย",
-                "description": "มหาวิทยาลัย",
-                "operationId": "Post-master_university",
-                "requestBody": {
-                    "description": "PROVINCE_ID, DISTRICT_ID",
-                    "required": false,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "PROVINCE_ID",
-                                    "DISTRICT_ID"
-                                ],
-                                "properties": {
-                                    "PROVINCE_ID": {
-                                        "type": "integer",
-                                        "example": 10
-                                    },
-                                    "DISTRICT_ID": {
-                                        "type": "integer",
-                                        "example": null
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",

@@ -376,42 +376,25 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * 
- * @OA\Get(
- * path="/API-Corelease/api/master_university/{PROVINCE_ID}",
- * summary="Master Data มหาวิทยาลัย",
- * description="มหาวิทยาลัย",
- * operationId="master_university",
- * tags={"API University"},
- * @OA\Parameter(
- *     name="PROVINCE_ID",
- *     in="path",
- *     description="รหัสจังหวัด เช่น 10",
- *     required=true,
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Sorry, wrong Data. Please try again")
- *        )
- *     )
- * ),
  * 
- * @OA\Post(
+* @OA\Get(
  * path="/API-Corelease/api/master_university",
  * summary="Master Data มหาวิทยาลัย",
  * description="มหาวิทยาลัย",
- * operationId="Post-master_university",
+ * operationId="Get-master_university",
  * tags={"API University"},
- * @OA\RequestBody(
- *    required=false,
- *    description="PROVINCE_ID, DISTRICT_ID",
- *    @OA\JsonContent(
- *       required={"PROVINCE_ID","DISTRICT_ID"},
- *       @OA\Property(property="PROVINCE_ID", type="integer", example=10),
- *       @OA\Property(property="DISTRICT_ID", type="integer", example=null),
- *    ),
- * ),
+ *  @OA\Parameter(
+ *          name="PROVINCE_ID",
+ *          in="query",
+ *          description="รหัสจังหวัด เช่น 10",
+ *          required=false,
+ *   ),
+ *  @OA\Parameter(
+ *          name="DISTRICT_ID",
+ *          in="query",
+ *          description="รหัสอำเภอ เช่น 1010",
+ *          required=false,
+ *   ),
  * @OA\Response(
  *    response=422,
  *    description="Wrong credentials response",
@@ -419,7 +402,7 @@ use Illuminate\Routing\Controller as BaseController;
  *       @OA\Property(property="message", type="string", example="Sorry, wrong Data. Please try again")
  *        )
  *     )
- * )
+ * ),
  */
 
 class Controller extends BaseController
