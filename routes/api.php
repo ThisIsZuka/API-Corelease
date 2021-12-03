@@ -67,3 +67,5 @@ Route::get('/master_sub_district/{DISTRICT_ID}', [API_MT_Controller::class, 'MT_
 Route::get('/master_university', [API_MT_Controller::class, 'GET_MT_UNIVERSITY']);
 
 // Route::post('/master_university', [API_MT_Controller::class, 'POST_MT_UNIVERSITY']);
+
+Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);

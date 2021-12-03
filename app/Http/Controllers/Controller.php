@@ -7,31 +7,17 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
+
+
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="L5 OpenApi",
+ *      title="L5 OpenApi API-Corelease",
  *      description="L5 Swagger OpenApi description"
  * )
  *
  */
-
 /**
- * @OA\Get(
- * path="/API-Corelease/api/AllMaster",
- * summary="Master Data All",
- * description="ข้อมูล Master ทั้งหมด",
- * operationId="AllMaster",
- * tags={"API Master"},
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Sorry, wrong Data. Please try again")
- *        )
- *     )
- * ),
- * 
  * @OA\Get(
  * path="/API-Corelease/api/master_prefix",
  * summary="Master Data คำนำหน้าชื่อ",

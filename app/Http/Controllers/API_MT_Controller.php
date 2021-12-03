@@ -70,6 +70,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // คำนำหน้าชื่อ
     public function MT_PREFIX()
     {
         try {
@@ -99,7 +101,7 @@ class API_MT_Controller extends BaseController
         }
     }
 
-
+    // สัญชาติ
     public function MT_NATIONALITY()
     {
         try {
@@ -129,6 +131,7 @@ class API_MT_Controller extends BaseController
         }
     }
 
+    // สถานะสมรส
     public function MT_MARITAL_STATUS()
     {
         try {
@@ -158,6 +161,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // อาชีพ
     public function MT_OCCUPATION()
     {
         try {
@@ -188,6 +193,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // ระดับการศึกษา
     public function MT_LEVEL_TYPE()
     {
         try {
@@ -217,6 +224,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // ชั้นปี
     public function MT_LEVEL()
     {
         try {
@@ -246,6 +255,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // ความสัมพันธ์
     public function MT_RELATIONSHIP_REF()
     {
         try {
@@ -276,6 +287,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // ประเภทสาขา
     public function MT_BRANCH_TYPE()
     {
         try {
@@ -307,6 +319,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // สาขา
     public function SETUP_COMPANY_BRANCH(Request $request)
     {
         try {
@@ -342,6 +355,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // หมวดสินค้า
     public function MT_CATEGORY()
     {
         try {
@@ -375,6 +389,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // ยี่ห้อสินค้า
     public function MT_BRAND()
     {
         try {
@@ -405,6 +420,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // รุ่นสินค้า
     public function MT_SERIES(Request $request)
     {
         try {
@@ -439,6 +456,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // ความจุ
     public function MT_SUB_SERIES(Request $request)
     {
         try {
@@ -474,6 +492,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // สี
     public function MT_COLOR(Request $request)
     {
         try {
@@ -508,6 +528,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // อุปกรณ์เสริม
     public function ASSETS_INFORMATION()
     {
         try {
@@ -539,6 +560,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // บริการคุ้มครองเสริม
     public function INSURE(Request $request)
     {
         try {
@@ -571,6 +594,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // จำนวนงวด
     public function MT_INSTALLMENT()
     {
         try {
@@ -599,6 +624,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // จังหวัด
     public function MT_PROVINCE()
     {
         try {
@@ -628,6 +655,7 @@ class API_MT_Controller extends BaseController
     }
 
 
+    // อำเภอ
     public function MT_DISTRICT(Request $request)
     {
         try {
@@ -663,6 +691,8 @@ class API_MT_Controller extends BaseController
         }
     }
 
+
+    // ตำบล
     public function MT_SUB_DISTRICT(Request $request)
     {
         try {
@@ -671,7 +701,7 @@ class API_MT_Controller extends BaseController
             $data_get = $request->DISTRICT_ID;
 
             $MT = DB::table('dbo.MT_SUB_DISTRICT')
-                ->select('MT_SUB_DISTRICT.SUB_DISTRICT_ID' , 'MT_SUB_DISTRICT.SUB_DISTRICT_NAME', 'MT_SUB_DISTRICT.DISTRICT_ID', 'MT_POST_CODE.POST_CODE_ID')
+                ->select('MT_SUB_DISTRICT.SUB_DISTRICT_ID', 'MT_SUB_DISTRICT.SUB_DISTRICT_NAME', 'MT_SUB_DISTRICT.DISTRICT_ID', 'MT_POST_CODE.POST_CODE_ID')
                 ->leftJoin('MT_POST_CODE', 'MT_SUB_DISTRICT.SUB_DISTRICT_ID', '=', 'MT_POST_CODE.SUB_DISTRICT_ID')
                 ->where('DISTRICT_ID', $data_get)
                 ->get();
@@ -703,8 +733,16 @@ class API_MT_Controller extends BaseController
             $data = $request->all();
             // var_dump($data['PROVINCE_ID']);
             if (isset($data['PROVINCE_ID'])) {
-                if ($data['PROVINCE_ID'] == 10) {
+                if (!preg_match('/^\d+$/', $data['PROVINCE_ID'])) {
+                    $return_data->status = 'Failed';
+                    $return_data->message = 'Required DISTRICT_ID is Integer';
+                } else if ($data['PROVINCE_ID'] == 10) {
                     if (isset($data['DISTRICT_ID'])) {
+                        if (!preg_match('/^\d+$/', $data['DISTRICT_ID'])) {
+                            $return_data->status = 'Failed';
+                            $return_data->message = 'Required DISTRICT_ID is Integer';
+                            return $return_data;
+                        }
                         $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
                             ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID', 'ZONE_ENG', 'EDU_TYPE')
                             ->where('PROVINCE_ID', $data['PROVINCE_ID'])
@@ -747,4 +785,31 @@ class API_MT_Controller extends BaseController
     }
 
 
+    public function GET_MT_STATUS(){
+        try {
+
+            $return_data = new \stdClass();
+
+            $MT = DB::table('dbo.MT_STATUS')
+                ->select('*')
+                ->get();
+
+            $return_data->status = 'Sucsess';
+            $return_data->data = $MT;
+
+
+            return $return_data;
+        } catch (Exception $e) {
+            if ($e->getPrevious()) {
+                return response()->json(array(
+                    'status' => 'Error',
+                    'message' => $e->getPrevious()
+                ));
+            } else {
+                return response()->json(array(
+                    'status' => 'Error', 'message' => $e->getMessage()
+                ));
+            }
+        }
+    }
 }

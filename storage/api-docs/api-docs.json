@@ -1,39 +1,11 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "L5 OpenApi",
+        "title": "L5 OpenApi API-Corelease",
         "description": "L5 Swagger OpenApi description",
         "version": "1.0.0"
     },
     "paths": {
-        "/API-Corelease/api/AllMaster": {
-            "get": {
-                "tags": [
-                    "API Master"
-                ],
-                "summary": "Master Data All",
-                "description": "ข้อมูล Master ทั้งหมด",
-                "operationId": "AllMaster",
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/API-Corelease/api/master_prefix": {
             "get": {
                 "tags": [
