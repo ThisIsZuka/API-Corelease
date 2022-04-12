@@ -3,9 +3,72 @@
     "info": {
         "title": "L5 OpenApi API-Corelease",
         "description": "L5 Swagger OpenApi description",
-        "version": "1.0.0"
+        "version": "1.2.0"
     },
     "paths": {
+        "/API-Corelease/api/Get_Token": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login",
+                "description": "Get_Token",
+                "operationId": "Get_Token",
+                "requestBody": {
+                    "description": "Customer information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "api_ufund"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "U6undp0Rt4l"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/API-Corelease/api/master_prefix": {
             "get": {
                 "tags": [
@@ -21,9 +84,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -49,9 +120,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -77,9 +156,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -105,9 +192,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -133,9 +228,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -161,9 +264,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -189,9 +300,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -217,9 +336,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -253,9 +380,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -281,9 +416,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -309,9 +452,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -345,9 +496,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -381,9 +540,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -417,9 +584,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -445,9 +620,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -481,9 +664,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -509,9 +700,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -537,9 +736,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -573,9 +780,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -609,9 +824,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -651,9 +874,17 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "Code": {
                                             "type": "string",
-                                            "example": "Sorry, wrong Data. Please try again"
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
                                         }
                                     },
                                     "type": "object"
@@ -662,6 +893,358 @@
                         }
                     }
                 }
+            }
+        },
+        "/API-Corelease/api/master_faculty": {
+            "get": {
+                "tags": [
+                    "API University"
+                ],
+                "summary": "Master Data คณะ",
+                "description": "คณะ",
+                "operationId": "Get-master_faculty",
+                "parameters": [
+                    {
+                        "name": "MT_UNIVERSITY_ID",
+                        "in": "query",
+                        "description": "รหัสมหาวิทยาลัย เช่น 2",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/new_customer": {
+            "post": {
+                "tags": [
+                    "API QUTATATION"
+                ],
+                "summary": "Insert new customer",
+                "description": "new custome",
+                "operationId": "new_customer",
+                "requestBody": {
+                    "description": "Customer information",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "BRANCH_TYPE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "BRANCH_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "31"
+                                    },
+                                    "TAX_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "4856465441239"
+                                    },
+                                    "CUSTOMER_NAME": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "TEST API"
+                                    },
+                                    "OCCUPATION_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "2"
+                                    },
+                                    "UNIVERSITY_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "13"
+                                    },
+                                    "FACULTY_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "807"
+                                    },
+                                    "PRODUCT_SERIES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "194252038338"
+                                    },
+                                    "PROD_PRICE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "35400"
+                                    },
+                                    "DOWN_PERCENT": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "0.1"
+                                    },
+                                    "INSTALL_NUM": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "24"
+                                    },
+                                    "ACS_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "484"
+                                    },
+                                    "ACS_DES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Apple Pencil 2"
+                                    },
+                                    "ACS_PRICE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "4190"
+                                    },
+                                    "INSURE_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "42"
+                                    },
+                                    "INSURE_DES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "AppleCare+ for iPhone 13"
+                                    },
+                                    "INSURE_SUM": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "5090"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "BRANCH_TYPE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "BRANCH_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "31"
+                                    },
+                                    "TAX_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "4856465441239"
+                                    },
+                                    "CUSTOMER_NAME": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "TEST API"
+                                    },
+                                    "OCCUPATION_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "2"
+                                    },
+                                    "UNIVERSITY_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "13"
+                                    },
+                                    "FACULTY_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "807"
+                                    },
+                                    "PRODUCT_SERIES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "194252038338"
+                                    },
+                                    "PROD_PRICE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "35400"
+                                    },
+                                    "DOWN_PERCENT": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "0.1"
+                                    },
+                                    "INSTALL_NUM": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "24"
+                                    },
+                                    "ACS_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "484"
+                                    },
+                                    "ACS_DES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Apple Pencil 2"
+                                    },
+                                    "ACS_PRICE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "4190"
+                                    },
+                                    "INSURE_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "42"
+                                    },
+                                    "INSURE_DES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "AppleCare+ for iPhone 13"
+                                    },
+                                    "INSURE_SUM": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "5090"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Api-Token": []
+                    }
+                ]
+            }
+        },
+        "/API-Corelease/api/new_prospect_cus": {
+            "post": {
+                "tags": [
+                    "API QUTATATION"
+                ],
+                "summary": "Insert new customer",
+                "description": "new prospect",
+                "operationId": "new_prospect",
+                "requestBody": {
+                    "description": "Prospect customer information",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "file",
+                                        "format": "binary"
+                                    },
+                                    "resume": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "TAX_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "4856465441239"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Api-Token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Api-Token": {
+                "type": "apiKey",
+                "description": "Login with username and password to get the authentication token",
+                "name": "Api-Token",
+                "in": "header"
             }
         }
     },

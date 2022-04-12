@@ -12,65 +12,6 @@ use Session;
 
 class API_MT_Controller extends BaseController
 {
-    public function AllMaster_Information()
-    {
-        try {
-            $return_data = new \stdClass();
-
-
-            $MT_PREFIX = DB::table('dbo.MT_PREFIX')
-                ->select('*')
-                ->get();
-            $return_data->MT_PREFIX = $MT_PREFIX;
-
-
-            $MT_NATIONALITY = DB::table('dbo.MT_NATIONALITY')
-                ->select('*')
-                ->get();
-            $return_data->MT_NATIONALITY = $MT_NATIONALITY;
-
-
-            $MT_MARITAL_STATUS = DB::table('dbo.MT_MARITAL_STATUS')
-                ->select('*')
-                ->get();
-            $return_data->MT_MARITAL_STATUS = $MT_MARITAL_STATUS;
-
-
-            $MT_OCCUPATION = DB::table('dbo.MT_OCCUPATION')
-                ->select('*')
-                ->get();
-            $return_data->MT_OCCUPATION = $MT_OCCUPATION;
-
-
-            $MT_LEVEL_TYPE = DB::table('dbo.MT_LEVEL_TYPE')
-                ->select('*')
-                ->get();
-            $return_data->MT_LEVEL_TYPE = $MT_LEVEL_TYPE;
-
-
-            $MT_LEVEL = DB::table('dbo.MT_LEVEL')
-                ->select('*')
-                ->get();
-            $return_data->MT_LEVEL = $MT_LEVEL;
-
-
-            return $return_data;
-        } catch (Exception $e) {
-            // return response()->json(array('message' => $e->getMessage()));
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'status' => 'Error',
-                    'message' => $e->getPrevious()
-                ));
-            } else {
-                return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
-                ));
-            }
-        }
-    }
-
-
     // คำนำหน้าชื่อ
     public function MT_PREFIX()
     {
@@ -82,6 +23,8 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            
+        $return_data->Code = '9999';    $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -90,12 +33,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -112,6 +58,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -120,12 +67,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -142,6 +92,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -150,12 +101,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -174,6 +128,7 @@ class API_MT_Controller extends BaseController
                 ->where('Ocpt_name', 'like', '%นักเรียน%')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -182,12 +137,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -205,6 +163,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -213,12 +172,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -236,6 +198,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -244,12 +207,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -267,6 +233,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -275,12 +242,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -299,6 +269,7 @@ class API_MT_Controller extends BaseController
                 ->where('ACTIVE_STATUS', '=', 'T')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -307,12 +278,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -335,6 +309,7 @@ class API_MT_Controller extends BaseController
                 ->where('SETUP_COMPANY_BRANCH.BRANCH_TYPE', '=', $data_get)
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -343,12 +318,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -369,6 +347,7 @@ class API_MT_Controller extends BaseController
                 ->orWhere('CATEGORY_NAME', 'MacBook')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -377,12 +356,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -401,6 +383,7 @@ class API_MT_Controller extends BaseController
                 ->where('BRAND_NAME', 'Apple')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -409,12 +392,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -436,6 +422,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SERIES.BRAND_ID', $data_get)
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -444,12 +431,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -473,6 +463,7 @@ class API_MT_Controller extends BaseController
                 ->distinct('MT_SUB_SERIES.SUB_SERIES_ID')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -481,12 +472,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -508,6 +502,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SERIES.SERIES_ID', $data_get)
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -516,12 +511,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -540,6 +538,7 @@ class API_MT_Controller extends BaseController
                 ->where('DESCRIPTION', 'like', '%Apple Pencil%')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -549,12 +548,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -576,6 +578,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SERIES.SERIES_ID', '=', $data_get)
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -583,12 +586,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -606,6 +612,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -613,12 +620,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -636,6 +646,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -643,12 +654,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -673,6 +687,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_DISTRICT.PROVINCE_ID', $data_get)
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -680,12 +695,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -706,6 +724,7 @@ class API_MT_Controller extends BaseController
                 ->where('DISTRICT_ID', $data_get)
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -713,12 +732,15 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -749,6 +771,7 @@ class API_MT_Controller extends BaseController
                             ->where('DISTRICT_ID', $data['DISTRICT_ID'])
                             ->get();
 
+                        $return_data->Code = '9999';
                         $return_data->status = 'Sucsess';
                         $return_data->data = $MT;
                     } else {
@@ -761,10 +784,12 @@ class API_MT_Controller extends BaseController
                         ->where('PROVINCE_ID', $data['PROVINCE_ID'])
                         ->get();
 
+                    $return_data->Code = '9999';
                     $return_data->status = 'Sucsess';
                     $return_data->data = $MT;
                 }
             } else {
+                $return_data->Code = '0003';
                 $return_data->status = 'Failed';
                 $return_data->message = 'Required PROVINCE_ID';
             }
@@ -773,12 +798,51 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
-                    'status' => 'Error', 'message' => $e->getMessage()
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
+                ));
+            }
+        }
+    }
+
+
+    // คณะ
+    public function GET_MT_FACULTY(Request $request)
+    {
+        try {
+
+            $return_data = new \stdClass();
+            $data_get = $request->MT_UNIVERSITY_ID;
+
+            $MT = DB::table('dbo.MT_FACULTY')
+                ->select('MT_FACULTY_ID', 'FACULTY_NAME', 'MT_CAMPUS_ID', 'MT_UNIVERSITY_ID', 'UNIVERSITY_CODE')
+                ->where('MT_UNIVERSITY_ID', $data_get)
+                ->get();
+
+            $return_data->Code = '9999';
+            $return_data->status = 'Sucsess';
+            $return_data->data = $MT;
+
+            return $return_data;
+        } catch (Exception $e) {
+            if ($e->getPrevious()) {
+                return response()->json(array(
+                    'Code' => '0500',
+                    'status' => 'Error',
+                    'message' => $e->getPrevious()
+                ));
+            } else {
+                return response()->json(array(
+                    'Code' => '0500',
+                    'status' => 'Error', 
+                    'message' => $e->getMessage()
                 ));
             }
         }
@@ -794,6 +858,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
+            $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -802,11 +867,13 @@ class API_MT_Controller extends BaseController
         } catch (Exception $e) {
             if ($e->getPrevious()) {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error',
                     'message' => $e->getPrevious()
                 ));
             } else {
                 return response()->json(array(
+                    'Code' => '0500',
                     'status' => 'Error', 'message' => $e->getMessage()
                 ));
             }

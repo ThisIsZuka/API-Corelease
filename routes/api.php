@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API_MT_Controller;
+use App\Http\Controllers\JWT_Controller;
+use App\Http\Controllers\API_Quatation;
+use App\Http\Controllers\API_PROSPECT_CUSTOMER;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,25 @@ use App\Http\Controllers\API_MT_Controller;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET');
+header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
+
+///////////////////////////////---Auth----////////////////////////////////////////////
+
+Route::post('/Get_Token', [JWT_Controller::class, 'Get_Token']);
+
+Route::group(['middleware' => ['JWT_Token']], function () {
+
+    Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
+
+    Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
+
+});
+
+
+///////////////////////////////////////////////////////////////////////////
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -66,6 +89,16 @@ Route::get('/master_sub_district/{DISTRICT_ID}', [API_MT_Controller::class, 'MT_
 
 Route::get('/master_university', [API_MT_Controller::class, 'GET_MT_UNIVERSITY']);
 
+Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
+
 // Route::post('/master_university', [API_MT_Controller::class, 'POST_MT_UNIVERSITY']);
 
 Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
+
+
+
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
