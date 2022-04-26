@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use DateTimeZone;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
 
 use \Gumlet\ImageResize;
 
@@ -30,28 +29,42 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
 
 
-    public function ResizeImage($image){
+    public function ResizeImage($image)
+    {
 
         // $img_resize = $image;
         if (filesize($image) > 2000000) {
 
             $img_resize = filesize($image);
             $new_img_resize = $img_resize;
-            $num_count = 0.1;
-            while($new_img_resize > 2000000){
-                $new_img_resize = $new_img_resize - (filesize($image)  * $num_count) ;
+            $num_count = 0;
+            while ($new_img_resize > 2000000) {
+                if ($new_img_resize > 10000000) {
+                    $num_count = 0.8;
+                    break;
+                }
                 $num_count += 0.1;
+                $new_img_resize = $img_resize;
+                // var_dump($new_img_resize . " = " . $new_img_resize . " - " . " ( " . filesize($image) * $num_count . ")");
+                // echo "<br>";
+                $new_img_resize = $new_img_resize - (filesize($image)  * $num_count);
                 // var_dump($num_count);
+                
+                if ($num_count > 0.70) {
+                    $num_count = 0.70;
+                    break;
+                }
             }
             $num_count = $num_count * 100;
-            // dd(filesize($image));
+
             $image_resize = base64_encode(file_get_contents($image));
 
-            // $image = new ImageResize($image);
+            $num_count =  100 - $num_count;
+
             $image_resize = ImageResize::createFromString(base64_decode($image_resize));
             $image_resize->scale($num_count);
             $image_resize = base64_encode($image_resize);
-        }else{
+        } else {
             $image_resize = base64_encode(file_get_contents($image));
         }
         return $image_resize;
@@ -133,10 +146,10 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
                     'numeric' => true,
                 ],
-                "UNIVERSITY_DISTRICT" => [
-                    'message' => 'Request Parameter [UNIVERSITY_DISTRICT]',
-                    'numeric' => true,
-                ],
+                // "UNIVERSITY_DISTRICT" => [
+                //     'message' => 'Request Parameter [UNIVERSITY_DISTRICT]',
+                //     'numeric' => true,
+                // ],
                 "UNIVERSITY_NAME" => [
                     'message' => 'Request Parameter [UNIVERSITY_NAME]',
                     'numeric' => true,
@@ -185,6 +198,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 "REF_BIRTHDAY" => [
                     'message' => 'Request Parameter [REF_BIRTHDAY]',
                     'numeric' => false,
+                    'typeDate' => true,
                 ],
                 // "REF_AGE" => [
                 //     'message' => 'Request Parameter [REF_AGE]',
@@ -263,7 +277,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ->where('PST_CUST_ID', $data['PST_CUST_ID'])
                 ->where('QUOTATION_ID', $data['QUOTATION_ID'])
                 ->where('TAX_ID', $data['TAX_ID'])
-                ->orderBy('PST_CUST_ID' , 'DESC')
+                ->orderBy('PST_CUST_ID', 'DESC')
                 ->get();
 
             if (count($GET_PROSPECT_CUSTOMER) == 0) {
@@ -274,7 +288,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
             $date_now = Carbon::now(new DateTimeZone('Asia/Bangkok'))->format('Y-m-d H:i:s');
             // Check Cerate Or Update
             $UpdateTime = null;
-            if(isset($GET_PROSPECT_CUSTOMER[0]->CREATE_DATE)){
+            if (isset($GET_PROSPECT_CUSTOMER[0]->CREATE_DATE)) {
                 $UpdateTime = $date_now;
             }
             // dd($GET_PROSPECT_CUSTOMER[0]->CREATE_DATE );
@@ -287,13 +301,17 @@ class API_PROSPECT_CUSTOMER extends BaseController
             // dd($BIRTHDAY);
 
 
-            // if (filesize($data['IDCARD_FILE']) > 2000000) {
-            //     // $data['IDCARD_FILE'] = resize_image($data['IDCARD_FILE'] , ( $IDCARD_width * 0.65 ), ( $IDCARD_height * 0.65 ));
-            // }
-            // $IDCARD_FILE = base64_encode(file_get_contents($data['IDCARD_FILE']));
-            $IDCARD_FILE = "<file><name>Img-IDCard-".$data['TAX_ID']."</name><content>".$this->ResizeImage( $data['IDCARD_FILE'] )."</content></file>";
-            $STUDENTCARD_FILE = "<file><name>Img-StudentCard-".$data['TAX_ID']."</name><content>".$this->ResizeImage( $data['STUDENTCARD_FILE'] )."</content></file>";
-            $FACE_FILE = "<file><name>Img-Face-".$data['TAX_ID']."</name><content>".$this->ResizeImage( $data['FACE_FILE'] )."</content></file>";
+            $IDCARD_FILE = "<file><name>Img-IDCard-" . $data['TAX_ID'] . "</name><content>" . $this->ResizeImage($data['IDCARD_FILE']) . "</content></file>";
+            $STUDENTCARD_FILE = "<file><name>Img-StudentCard-" . $data['TAX_ID'] . "</name><content>" . $this->ResizeImage($data['STUDENTCARD_FILE']) . "</content></file>";
+            $FACE_FILE = "<file><name>Img-Face-" . $data['TAX_ID'] . "</name><content>" . $this->ResizeImage($data['FACE_FILE']) . "</content></file>";
+
+            // $IDCARD_FILE = "<file><name>Img-IDCard-".$data['TAX_ID']."</name><content>".base64_encode(file_get_contents($data['IDCARD_FILE']))."</content></file>";
+            // $STUDENTCARD_FILE = "<file><name>Img-StudentCard-".$data['TAX_ID']."</name><content>".base64_encode(file_get_contents($data['STUDENTCARD_FILE']))."</content></file>";
+            // $FACE_FILE = "<file><name>Img-Face-".$data['TAX_ID']."</name><content>".base64_encode(file_get_contents($data['FACE_FILE']))."</content></file>";
+
+            // $IDCARD_FILE = "";
+            // $STUDENTCARD_FILE = "";
+            // $FACE_FILE = "";
 
             // dd($data['IDCARD_FILE']);
             // dd($IDCARD_FILE);
@@ -329,7 +347,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'SUBJECT_NAME' => isset($data['SUBJECT_NAME']) ? $data['SUBJECT_NAME'] : null,
                     'LEVEL_TYPE' => $data['LEVEL_TYPE'],
                     'U_LEVEL' => $data['U_LEVEL'],
-                    'LOAN_KYS' => null,
+                    'LOAN_KYS' => isset($data['LOAN_KYS']) ? $data['LOAN_KYS'] : null,
                     'OFFICE_NAME' => null,
                     'OFFICE_YEAR' => null,
                     'OFFICE_MONTH' => null,
@@ -348,15 +366,19 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'STUDENTCARD_FILE' => $STUDENTCARD_FILE,
                     'FACE_FILE' => $FACE_FILE,
                     'URLMAP' => $data['URLMAP'],
-                    'CREATE_DATE' => $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE == null ? $date_now  : $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE ,
-                    'UPDATE_DATE' => $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE == null ? null  : $date_now ,
+                    'CREATE_DATE' => $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE == null ? $date_now : $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE,
+                    'UPDATE_DATE' => null,
                     'NAME_MAKE' => "API",
                 ]);
 
             return response()->json(array(
                 'Code' => '9999',
                 'status' => 'Success',
-                'data' => []
+                'data' => [
+                    'TAX_ID' => $data['TAX_ID'],
+                    'QUOTATION_ID' => $data['QUOTATION_ID'],
+                    'PST_CUST_ID' => $data['PST_CUST_ID']
+                ]
             ));
         } catch (Exception $e) {;
             // dd($e->getPrevious()->getMessage());

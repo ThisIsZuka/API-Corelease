@@ -29,8 +29,8 @@ class JWT_Controller extends BaseController
             }
 
             date_default_timezone_set("Asia/Bangkok");
-            $now = Carbon::now();
-            $exp = Carbon::now()->addHours(12);
+            $now = Carbon::now()->timestamp;
+            $exp = Carbon::now()->addHours(8)->timestamp;
             $payload = [
                 'iat' => $now,
                 'uid' => 1,
@@ -38,9 +38,9 @@ class JWT_Controller extends BaseController
                 'iss' => 'ufundportal.com',
                 'user' => $data['username']
             ];
-            // dd($payload);
-            // $secret = 'C0M$7uF0NdT0K@n';
+            // $secret = '!C0M$7uF0NdT0K@n*';
             $secret = ENV('JWT_SECRET');
+            // dd($secret);
 
             $token = Token::customPayload($payload, $secret);
 

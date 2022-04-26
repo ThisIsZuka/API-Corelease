@@ -145,7 +145,7 @@ class API_Quatation extends BaseController
             ];
 
 
-            if ((isset($data['ACS_ID']) &&  $data['ACS_ID'] != null) || (isset($data['ACS_DES']) &&  $data['ACS_DES'] != null) || (isset($data['ACS_SUM'])  && $data['ACS_SUM'] != null)) {
+            if ( isset($data['ACS_ID']) || isset($data['ACS_DES']) || isset($data['ACS_SUM']) ) {
                 foreach ($validate_acs as $key => $value) {
                     if (!isset($data[$key])) {
                         throw new Exception($value['message']);
@@ -177,7 +177,7 @@ class API_Quatation extends BaseController
             ];
 
 
-            if ((isset($data['INSURE_ID']) && $data['INSURE_ID'] != null) || (isset($data['INSURE_DES'])  && $data['INSURE_DES'] != null) || (isset($data['INSURE_SUM'])  && $data['INSURE_SUM'] != null)) {
+            if ( isset($data['INSURE_ID']) || isset($data['INSURE_DES'])  || isset($data['INSURE_SUM']) ) {
                 foreach ($validate_insure as $key => $value) {
                     if (!isset($data[$key]) || $data[$key] == null || $data[$key] == "") {
                         throw new Exception($value['message']);
@@ -211,7 +211,7 @@ class API_Quatation extends BaseController
             $all_vat = number_format((((int)$data['PROD_PRICE'] + (int)$GET_ACS_PRICE + (int)$GET_INSURE_SUM) * 7) / 107, 2, '.', '');
             $PROD_PRICE = number_format((int)$data['PROD_PRICE'] - $all_vat, 2, '.', '');
 
-            $ACS_PRICE_CAL = number_format(((int)$data['ACS_PRICE'] * 0.07), 2, '.', '');
+            $ACS_PRICE_CAL = number_format(((int)$GET_ACS_PRICE * 0.07), 2, '.', '');
             $ACS_PRICE = (int)$ACS_PRICE_CAL == 0 ? 0 : $ACS_PRICE_CAL;
             // dd('$ACS_PRICE');
 
@@ -299,12 +299,19 @@ class API_Quatation extends BaseController
                 'TAX_ID' =>  $data['TAX_ID'],
             ]);
 
+            $ADD_CUST_ID = DB::table('dbo.ADDRESS_PROSPECT_CUSTOMER')->insertGetId([
+                'QUOTATION_ID' => $ID_QT,
+                'PST_CUST_ID' =>  $PST_CUST_ID,
+            ]);
+
             return response()->json(array(
                 'Code' => '9999',
                 'status' => 'Success',
                 'data' => [
+                    'TAX_ID' => $data['TAX_ID'],
                     'QUATATION_ID' => $ID_QT,
-                    'PST_CUST_ID' => $PST_CUST_ID
+                    'PST_CUST_ID' => $PST_CUST_ID,
+                    'ADD_CUST_ID' => $ADD_CUST_ID,
                 ]
             ));
         } catch (Exception $e) {;

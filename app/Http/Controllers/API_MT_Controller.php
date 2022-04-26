@@ -635,6 +635,40 @@ class API_MT_Controller extends BaseController
     }
 
 
+        // สถานะผู้อาศัย
+        public function MT_RESIDENCE_STATUS()
+        {
+            try {
+    
+                $return_data = new \stdClass();
+    
+                $MT = DB::table('dbo.MT_RESIDENCE_STATUS')
+                    ->select('*')
+                    ->get();
+    
+                $return_data->Code = '9999';
+                $return_data->status = 'Sucsess';
+                $return_data->data = $MT;
+    
+                return $return_data;
+            } catch (Exception $e) {
+                if ($e->getPrevious()) {
+                    return response()->json(array(
+                        'Code' => '0500',
+                        'status' => 'Error',
+                        'message' => $e->getPrevious()
+                    ));
+                } else {
+                    return response()->json(array(
+                        'Code' => '0500',
+                        'status' => 'Error', 
+                        'message' => $e->getMessage()
+                    ));
+                }
+            }
+        }
+
+
     // จังหวัด
     public function MT_PROVINCE()
     {

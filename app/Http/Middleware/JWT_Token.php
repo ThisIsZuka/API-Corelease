@@ -24,7 +24,7 @@ class JWT_Token
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {  
+    {
         try {
             $data = $request->all();
             $headers = $request->header();
@@ -34,7 +34,14 @@ class JWT_Token
             // }else{
             //     dd('have');
             // }
-            if(!isset($headers['api-token'])) throw new Exception('Request header [api-token]');
+            if (!isset($headers['api-token'])) {
+                return response()->json(array(
+                    'Code' => '00X1',
+                    'status' => 'Error',
+                    'message' => 'Request header [api-token]',
+                ));
+            }
+            //  throw new Exception('Request header [api-token]');
 
             date_default_timezone_set("Asia/Bangkok");
 
@@ -43,8 +50,11 @@ class JWT_Token
             $token = $headers['api-token'][0];
 
             $secret = ENV('JWT_SECRET');
+            // $secret = "!C0M$7uF0NdT0K@n*";
 
             // $result = Token::validate($token, $secret);
+            // if(!$result) throw new Exception('Token is invalid');
+            // dd($result);
             $Header = Token::getHeader($token, $secret);
 
             // Return the payload claims
@@ -57,23 +67,24 @@ class JWT_Token
             $jwt = new Jwt($token, $secret);
             // dd($jwt->getSecret());
 
-            if($now > $exp){
+            if ($now > $exp) {
                 // throw new Exception('Token Expired');
                 return response()->json(array(
-                    'Code' => '00X1',
+                    'Code' => '00X3',
                     'status' => 'Error',
                     'message' => 'Token Expired',
                 ));
             }
 
-            return $next($request);
 
+            return $next($request);
         } catch (Exception $e) {
+            // dd($e);
             return response()->json(array(
-                'Code' => '00X1',
+                'Code' => '00X9',
                 'status' => 'Error',
-                'message' => $e->getMessage(),
-                // 'message' => 'Invalid Token',
+                // 'message' => $e->getMessage(),
+                'message' => 'Token Invalid',
             ));
         }
     }

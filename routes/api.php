@@ -6,7 +6,9 @@ use App\Http\Controllers\API_MT_Controller;
 use App\Http\Controllers\JWT_Controller;
 use App\Http\Controllers\API_Quatation;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
+use App\Http\Controllers\API_ADDRESS_PROSCPECT;
 
+use App\Http\Controllers\test;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,8 @@ Route::group(['middleware' => ['JWT_Token']], function () {
     Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
 
     Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
+
+    Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
 
 });
 
@@ -78,6 +82,8 @@ Route::get('/master_insure/{SERIES_ID}', [API_MT_Controller::class, 'INSURE']);
 
 Route::get('/master_installment', [API_MT_Controller::class, 'MT_INSTALLMENT']);
 
+Route::get('/master_residence', [API_MT_Controller::class, 'MT_RESIDENCE_STATUS']);
+
 Route::get('/master_province', [API_MT_Controller::class, 'MT_PROVINCE']);
 
 Route::get('/master_district/{PROVINCE_ID}', [API_MT_Controller::class, 'MT_DISTRICT']);
@@ -96,6 +102,9 @@ Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
 Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
 
 
+
+
+Route::any('ppvv', [test::class, 'file']);
 
 
 Route::get('/clear-cache', function() {

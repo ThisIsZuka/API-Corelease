@@ -12,7 +12,7 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "rbdwllr/reallysimplejwt": "^3.1",
+        "rbdwllr/reallysimplejwt": "^3.5",
         "gumlet/php-image-resize": "2.0.*"
     },
     "require-dev": {
