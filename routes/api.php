@@ -7,6 +7,9 @@ use App\Http\Controllers\JWT_Controller;
 use App\Http\Controllers\API_Quatation;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\API_ADDRESS_PROSCPECT;
+use App\Http\Controllers\API_CheckDown_Guarantor;
+use App\Http\Controllers\API_GET_ASSEST;
+use App\Http\Controllers\API_GET_Warrantee;
 
 use App\Http\Controllers\test;
 
@@ -36,8 +39,16 @@ Route::group(['middleware' => ['JWT_Token']], function () {
     Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
 
     Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
-
 });
+
+Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guarantor']);
+
+Route::post('SKU_ASSETS', [API_GET_ASSEST::class, 'API_GET_ASSEST']);
+
+Route::post('SKU_Warrantee', [API_GET_Warrantee::class, 'API_GET_Warrantee']);
+
+
+Route::post('Check_Tenor', [API_CheckDown_Guarantor::class, 'Check_Tenor']);
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -93,21 +104,24 @@ Route::get('/master_sub_district/{DISTRICT_ID}', [API_MT_Controller::class, 'MT_
 
 // Route::get('/master_university/{PROVINCE_ID?}', [API_MT_Controller::class, 'MT_UNIVERSITY']);
 
-Route::get('/master_university', [API_MT_Controller::class, 'GET_MT_UNIVERSITY']);
+Route::post('/master_university', [API_MT_Controller::class, 'GET_MT_UNIVERSITY']);
 
 Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
 
-// Route::post('/master_university', [API_MT_Controller::class, 'POST_MT_UNIVERSITY']);
+// Route::group(['middleware' => ['throttle:500,1'] ], function () {
+//     Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
+// });
+
 
 Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
 
 
 
 
-Route::any('ppvv', [test::class, 'file']);
+// Route::any('ppvv', [test::class, 'simulater_working']);
 
 
-Route::get('/clear-cache', function() {
-    Artisan::call('cache:clear');
-    return "Cache is cleared";
-});
+// Route::get('clear-cache', function() {
+//     Artisan::call('cache:clear');
+//     return "Cache is cleared";
+// });

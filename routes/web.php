@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
+use App\Http\Controllers\Check_Calculator;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,12 @@ use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 //     return view('welcome');
 // });
 
-Route::get('test-post-api', function () {
+Route::get('test_post_api', function () {
     return view('test_api');
 });
 
 
 Route::post('test_new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
+
+
+Route::get('test_EF', [Check_Calculator::class, 'test_EF']);

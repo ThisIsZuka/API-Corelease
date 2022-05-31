@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use DateTimeZone;
 use Carbon\Carbon;
+use stdClass;
 
 use \Gumlet\ImageResize;
 
@@ -49,7 +50,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 // echo "<br>";
                 $new_img_resize = $new_img_resize - (filesize($image)  * $num_count);
                 // var_dump($num_count);
-                
+
                 if ($num_count > 0.70) {
                     $num_count = 0.70;
                     break;
@@ -81,36 +82,68 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
             $validate = [
                 "PST_CUST_ID" => [
-                    'message' => 'Request Parameter [PST_CUST_ID]',
+                    // 'message' => 'Request Parameter [PST_CUST_ID]',
+                    'message' => [
+                        'TH' => 'Request Parameter [PST_CUST_ID]',
+                        'EN' => 'Request Parameter [PST_CUST_ID]'
+                    ],
                     'numeric' => true,
                 ],
                 "QUOTATION_ID" => [
-                    'message' => 'Request Parameter [QUOTATION_ID]',
+                    // 'message' => 'Request Parameter [QUOTATION_ID]',
+                    'message' => [
+                        'TH' => 'Request Parameter [QUOTATION_ID]',
+                        'EN' => 'Request Parameter [QUOTATION_ID]'
+                    ],
                     'numeric' => true,
                 ],
                 "PREFIX" => [
-                    'message' => 'Request Parameter [PREFIX]',
+                    // 'message' => 'Request Parameter [PREFIX]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุคำนำหน้า',
+                        'EN' => 'Please identify prefix'
+                    ],
                     'numeric' => true,
                 ],
                 "FIRST_NAME" => [
-                    'message' => 'Request Parameter [FIRST_NAME]',
+                    // 'message' => 'Request Parameter [FIRST_NAME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุชื่อ',
+                        'EN' => 'Please identify first name'
+                    ],
                     'numeric' => false,
                 ],
                 "LAST_NAME" => [
-                    'message' => 'Request Parameter [LAST_NAME]',
+                    // 'message' => 'Request Parameter [LAST_NAME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุนามสกุล',
+                        'EN' => 'Please identify last name'
+                    ],
                     'numeric' => false,
                 ],
                 "TAX_ID" => [
-                    'message' => 'Request Parameter [TAX_ID]',
+                    // 'message' => 'Request Parameter [TAX_ID]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเลขบัตรประชาชน',
+                        'EN' => 'Please identify tax ID'
+                    ],
                     'numeric' => true,
                     'tax_id' => true,
                 ],
-                // "STUDENT_ID" => [
-                //     'message' => 'Request Parameter [STUDENT_ID]',
-                //     'numeric' => true,
-                // ],
+                "STUDENT_ID" => [
+                    // 'message' => 'Request Parameter [STUDENT_ID]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุรหัสนักศึกษา',
+                        'EN' => 'Please identify student ID'
+                    ],
+                    'numeric' => false,
+                ],
                 "BIRTHDAY" => [
-                    'message' => 'Request Parameter [BIRTHDAY]',
+                    // 'message' => 'Request Parameter [BIRTHDAY]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุวันเกิด',
+                        'EN' => 'Please identify birthday'
+                    ],
                     'numeric' => false,
                     'typeDate' => true,
                 ],
@@ -119,31 +152,59 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 //     'numeric' => true,
                 // ],
                 "SEX" => [
-                    'message' => 'Request Parameter [SEX]',
+                    // 'message' => 'Request Parameter [SEX]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเพศ',
+                        'EN' => 'Please identify gender'
+                    ],
                     'numeric' => true,
                 ],
                 "MARITAL_STATUS" => [
-                    'message' => 'Request Parameter [MARITAL_STATUS]',
+                    // 'message' => 'Request Parameter [MARITAL_STATUS]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุสถานะ',
+                        'EN' => 'Please identify marital status'
+                    ],
                     'numeric' => true,
                 ],
                 "PHONE" => [
-                    'message' => 'Request Parameter [PHONE]',
+                    // 'message' => 'Request Parameter [PHONE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเบอร์โทรศัทพ์',
+                        'EN' => 'Please identify phone number'
+                    ],
                     'numeric' => false,
                 ],
                 "EMAIL" => [
-                    'message' => 'Request Parameter [EMAIL]',
+                    // 'message' => 'Request Parameter [EMAIL]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุอีเมล',
+                        'EN' => 'Please identify E-mail'
+                    ],
                     'numeric' => false,
                 ],
                 "OCCUPATION_CODE" => [
-                    'message' => 'Request Parameter [OCCUPATION_CODE]',
+                    // 'message' => 'Request Parameter [OCCUPATION_CODE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุอาชีพ',
+                        'EN' => 'Please identify occupation'
+                    ],
                     'numeric' => true,
                 ],
                 "MAIN_INCOME" => [
-                    'message' => 'Request Parameter [MAIN_INCOME]',
+                    // 'message' => 'Request Parameter [MAIN_INCOME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุรายได้',
+                        'EN' => 'Please identify main income'
+                    ],
                     'numeric' => true,
                 ],
                 "UNIVERSITY_PROVINCE" => [
-                    'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
+                    // 'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุจังหวัดที่ตั้งของมหาวิทยาลัย',
+                        'EN' => 'Please identify provice of university'
+                    ],
                     'numeric' => true,
                 ],
                 // "UNIVERSITY_DISTRICT" => [
@@ -151,97 +212,99 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 //     'numeric' => true,
                 // ],
                 "UNIVERSITY_NAME" => [
-                    'message' => 'Request Parameter [UNIVERSITY_NAME]',
+                    // 'message' => 'Request Parameter [UNIVERSITY_NAME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุมหาวิทยาลัย',
+                        'EN' => 'Please identify university'
+                    ],
                     'numeric' => true,
                 ],
                 "FACULTY_NAME" => [
-                    'message' => 'Request Parameter [FACULTY_NAME]',
+                    // 'message' => 'Request Parameter [FACULTY_NAME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุคณะ',
+                        'EN' => 'Please identify faculty'
+                    ],
                     'numeric' => true,
                 ],
                 "LEVEL_TYPE" => [
-                    'message' => 'Request Parameter [LEVEL_TYPE]',
+                    // 'message' => 'Request Parameter [LEVEL_TYPE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุระดับการศึกษา',
+                        'EN' => 'Please identify education level'
+                    ],
                     'numeric' => false,
                 ],
                 "U_LEVEL" => [
-                    'message' => 'Request Parameter [U_LEVEL]',
+                    // 'message' => 'Request Parameter [U_LEVEL]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุชั้นปี',
+                        'EN' => 'Please identify university level'
+                    ],
                     'numeric' => true,
-                ],
-                "REF_TAX_ID" => [
-                    'message' => 'Request Parameter [REF_TAX_ID]',
-                    'numeric' => true,
-                    'tax_id' => true,
-                ],
-                "REF_TITLE" => [
-                    'message' => 'Request Parameter [REF_TITLE]',
-                    'numeric' => true,
-                ],
-                "REF_FIRSTNAME" => [
-                    'message' => 'Request Parameter [REF_FIRSTNAME]',
-                    'numeric' => false,
-                ],
-                "REF_LASTNAME" => [
-                    'message' => 'Request Parameter [REF_LASTNAME]',
-                    'numeric' => false,
-                ],
-                "RELATION_REFERENCE" => [
-                    'message' => 'Request Parameter [RELATION_REFERENCE]',
-                    'numeric' => true,
-                ],
-                // "RELATION_REF_DES" => [
-                //     'message' => 'Request Parameter [RELATION_REF_DES]',
-                //     'numeric' => false,
-                // ],
-                "REF_OCCUPATION" => [
-                    'message' => 'Request Parameter [REF_OCCUPATION]',
-                    'numeric' => true,
-                ],
-                "REF_BIRTHDAY" => [
-                    'message' => 'Request Parameter [REF_BIRTHDAY]',
-                    'numeric' => false,
-                    'typeDate' => true,
-                ],
-                // "REF_AGE" => [
-                //     'message' => 'Request Parameter [REF_AGE]',
-                //     'numeric' => true,
-                // ],
-                "REF_PHONE" => [
-                    'message' => 'Request Parameter [REF_PHONE]',
-                    'numeric' => false,
                 ],
                 // File image
                 "IDCARD_FILE" => [
-                    'message' => 'Request Parameter [IDCARD_FILE]',
+                    // 'message' => 'Request Parameter [IDCARD_FILE]',
+                    'message' => [
+                        'TH' => 'กรุณาเพิ่มรูปถายบัตรประชาชน',
+                        'EN' => 'Please attach of your ID card'
+                    ],
                     'numeric' => false,
                     'file' => true,
                 ],
                 "STUDENTCARD_FILE" => [
-                    'message' => 'Request Parameter [STUDENTCARD_FILE]',
+                    // 'message' => 'Request Parameter [STUDENTCARD_FILE]',
+                    'message' => [
+                        'TH' => 'กรุณาเพิ่มรูปถ่ายบัตรนักศึกษา',
+                        'EN' => 'Please attach of your student card'
+                    ],
                     'numeric' => false,
                     'file' => true,
                 ],
                 "FACE_FILE" => [
-                    'message' => 'Request Parameter [FACE_FILE]',
+                    // 'message' => 'Request Parameter [FACE_FILE]',
+                    'message' => [
+                        'TH' => 'กรุณาเพิ่มรูปถ่ายหน้าตรง',
+                        'EN' => 'Please attach of your photo'
+                    ],
                     'numeric' => false,
                     'file' => true,
                 ],
+                // "Guarantor" => [
+                //     'message' => 'Request Parameter [Guarantor]',
+                //     'numeric' => true,
+                // ],
             ];
 
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception($value['message']);
+                    // throw new Exception($value['message']);
+                    throw new Exception(json_encode($value['message']));
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        // throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        $mes_error = new stdClass;
+                        foreach ($value['message'] as $key => $value) {
+                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                            $mes_error->$key = $txt;
+                        }
+                        throw new Exception(json_encode($mes_error));
                     }
                 }
 
                 if (isset($value['tax_id'])) {
                     // var_dump(strlen($data[$key]));
                     if (strlen($data[$key]) != 13) {
-                        throw new Exception("TAX ID must have 13 digits.");
+                        // throw new Exception("TAX ID must have 13 digits.");
+                        $mes_error = (object)[
+                            'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                            'EN' => 'TAX ID must have 13 digits'
+                        ];
+                        throw new Exception(json_encode($mes_error));
                     }
                 }
 
@@ -250,25 +313,39 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     // $newformat = date('Y-m-d',$time);
                     // var_dump($newformat);
                     if (strtotime($data[$key]) == false) {
-                        throw new Exception('Request Type of $(date) [' . $key . '] ');
+                        // throw new Exception('Request Type of $(date) [' . $key . '] ');
+                        $mes_error = new stdClass;
+                        foreach ($value['message'] as $key => $value) {
+                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                            $mes_error->$key = $txt;
+                        }
+                        throw new Exception(json_encode($mes_error));
                     }
                 }
 
 
                 if (isset($value['file'])) {
-                    // var_dump($this->is_image($data[$key]));
+                    // dd($this->is_image($data[$key]));
                     if (!is_file($data[$key])) {
-                        throw new Exception('Request File [' . $key . '] ');
+                        // throw new Exception('Request File [' . $key . '] ');
+                        $mes_error = new stdClass;
+                        foreach ($value['message'] as $key => $value) {
+                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                            $mes_error->$key = $txt;
+                        }
+                        throw new Exception(json_encode($mes_error));
                     } else if ($this->is_image($data[$key]) == false) {
-                        throw new Exception('Request Image File [' . $key . '] ');
+                        // throw new Exception('Request Image File [' . $key . '] ');
+                        $mes_error = new stdClass;
+                        foreach ($value['message'] as $key => $value) {
+                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                            $mes_error->$key = $txt;
+                        }
+                        throw new Exception(json_encode($mes_error));
                     }
-
-                    // return is_file($data['file']);
-                    // dd(is_file($data['file']));
-                    // dd($id_card_img_base64);
-
                 }
             }
+
 
 
             // Get PROSPECT_CUSTOMER
@@ -281,7 +358,206 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ->get();
 
             if (count($GET_PROSPECT_CUSTOMER) == 0) {
-                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\'] , [\'TAX_ID\']');
+                // throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\'] , [\'TAX_ID\']');
+                $mes_error = (object)[
+                    'TH' => 'ไม่พบข้อมูลของท่าน',
+                    'EN' => 'Not found your Information'
+                ];
+                throw new Exception(json_encode($mes_error));
+            }
+
+
+
+            // Check Request Guarantor
+            $GET_FLAG_GUARANTOR = DB::table('dbo.QUOTATION')
+                ->select('FLAG_GUARANTOR')
+                ->where('QUOTATION_ID', $data['QUOTATION_ID'])
+                ->where('TAX_ID', $data['TAX_ID'])
+                ->get();
+            // if( $GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 && (int)$data['Guarantor'] != 1 ){
+            //     throw new Exception("QUOTATION_ID [". $data['QUOTATION_ID']."] is Request Guarantor");
+            // }elseif( $GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 0 && (int)$data['Guarantor'] == 1 ){
+            //     throw new Exception("QUOTATION_ID [". $data['QUOTATION_ID']."] is not Request Guarantor. Request person reference");
+            // }
+
+            // dd($GET_FLAG_GUARANTOR);
+
+
+            // Guarantor
+            $validateGuarantor = [
+                "PST_GUAR_ID" => [
+                    'message' => [
+                        'TH' => 'Request Parameter [PST_GUAR_ID]',
+                        'EN' => 'Request Parameter [PST_GUAR_ID]'
+                    ],
+                    'numeric' => true,
+                    'Guarantor' => true,
+                    'NotGuarantor' => true,
+                ],
+                "REF_TAX_ID" => [
+                    // 'message' => 'Request Parameter [REF_TAX_ID]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเลขบัตรประชาชนบุคคลอ้างอิง',
+                        'EN' => 'Please identify reference of id card'
+                    ],
+                    'numeric' => true,
+                    'tax_id' => true,
+                ],
+                "REF_TITLE" => [
+                    // 'message' => 'Request Parameter [REF_TITLE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุคำนำหน้า' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                        'EN' => 'Please identify ' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of prefix'
+                    ],
+                    'numeric' => true,
+                    'Guarantor' => true,
+                ],
+                "REF_FIRSTNAME" => [
+                    // 'message' => 'Request Parameter [REF_FIRSTNAME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุชื่อ' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                        'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of first name'
+                    ],
+                    'numeric' => false,
+                    'Guarantor' => true,
+                ],
+                "REF_LASTNAME" => [
+                    // 'message' => 'Request Parameter [REF_LASTNAME]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุนามสกุล' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                        'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of last name'
+                    ],
+                    'numeric' => false,
+                    'Guarantor' => true,
+                ],
+                "RELATION_REFERENCE" => [
+                    // 'message' => 'Request Parameter [RELATION_REFERENCE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุความสัมพันธ์กับบุลคลอ้างอิง',
+                        'EN' => 'Please identify relationship of reference'
+                    ],
+                    'numeric' => true,
+                ],
+                // "RELATION_REF_DES" => [
+                //     'message' => 'Request Parameter [RELATION_REF_DES]',
+                //     'numeric' => false,
+                // ],
+                "REF_OCCUPATION" => [
+                    // 'message' => 'Request Parameter [REF_OCCUPATION]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุอาชีพบุลคลอ้างอิง',
+                        'EN' => 'Please identify reference of occupation'
+                    ],
+                    'numeric' => true,
+                ],
+                "REF_BIRTHDAY" => [
+                    // 'message' => 'Request Parameter [REF_BIRTHDAY]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุวันเกิดบุลคลอ้างอิง',
+                        'EN' => 'Please identify reference of birthday'
+                    ],
+                    'numeric' => false,
+                    'typeDate' => true,
+                ],
+                "REF_PHONE" => [
+                    // 'message' => 'Request Parameter [REF_PHONE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเบอร์โทรศัพท์' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                        'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of phone number'
+                    ],
+                    'numeric' => false,
+                    'Guarantor' => true,
+                ],
+                "EMAILGuarantor" => [
+                    // 'message' => 'Request Parameter [EMAILGuarantor]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุอีเมลผู้ค้ำประกัน',
+                        'EN' => 'Please identify reference of E-mail'
+                    ],
+                    'numeric' => false,
+                    'Guarantor' => true,
+                    'NotGuarantor' => true,
+                ],
+            ];
+
+            if ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1) {
+                foreach ($validateGuarantor as $key => $value) {
+                    if (isset($value['Guarantor'])) {
+                        if (!isset($data[$key])) {
+                            throw new Exception(json_encode($value['message']));
+                        }
+
+                        if (isset($value['tax_id'])) {
+                            if (strlen($data[$key]) != 13) {
+                                // throw new Exception("TAX ID must have 13 digits.");
+                                $mes_error = (object)[
+                                    'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                                    'EN' => 'TAX ID must have 13 digits'
+                                ];
+                                throw new Exception(json_encode($mes_error));
+                            }
+                        }
+
+                        if ($value['numeric'] == true) {
+                            if (!is_numeric($data[$key])) {
+                                // throw new Exception('Request Type of $(int) [' . $key . '] ');
+                                $mes_error = new stdClass;
+                                foreach ($value['message'] as $key => $value) {
+                                    $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                                    $mes_error->$key = $txt;
+                                }
+                                throw new Exception(json_encode($mes_error));
+                            }
+                        }
+                    }
+                }
+            } else {
+                foreach ($validateGuarantor as $key => $value) {
+                    if (!isset($value['NotGuarantor'])) {
+                        if (!isset($data[$key])) {
+                            throw new Exception($value['message']);
+                        }
+
+                        if (isset($value['tax_id'])) {
+                            if (strlen($data[$key]) != 13) {
+                                // throw new Exception("TAX ID must have 13 digits.");
+                                $mes_error = (object)[
+                                    'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                                    'EN' => 'TAX ID must have 13 digits'
+                                ];
+                                throw new Exception(json_encode($mes_error));
+                            }
+                        }
+
+                        if ($value['numeric'] == true) {
+                            if (!is_numeric($data[$key])) {
+                                // throw new Exception('Request Type of $(int) [' . $key . '] ');
+                                $mes_error = new stdClass;
+                                foreach ($value['message'] as $key => $value) {
+                                    $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                                    $mes_error->$key = $txt;
+                                }
+                                throw new Exception(json_encode($mes_error));
+                            }
+                        }
+
+                        if (isset($value['typeDate'])) {
+                            // $time = strtotime($data[$key]);
+                            // $newformat = date('Y-m-d',$time);
+                            // var_dump($newformat);
+                            if (strtotime($data[$key]) == false) {
+                                // throw new Exception('Request Type of $(date) [' . $key . '] ');
+                                $mes_error = new stdClass;
+                                foreach ($value['message'] as $key => $value) {
+                                    $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                                    $mes_error->$key = $txt;
+                                }
+                                throw new Exception(json_encode($mes_error));
+                            }
+                        }
+
+                    }
+                }
             }
 
             // dd($GET_PROSPECT_CUSTOMER);
@@ -293,11 +569,18 @@ class API_PROSPECT_CUSTOMER extends BaseController
             }
             // dd($GET_PROSPECT_CUSTOMER[0]->CREATE_DATE );
 
+            
             $BIRTHDAY_Carbon = Carbon::parse($data['BIRTHDAY']);
             if ($BIRTHDAY_Carbon->isPast() == false) {
                 $BIRTHDAY_Carbon->add(-543, 'year');
             }
             $BIRTHDAY = $BIRTHDAY_Carbon->format('Y-m-d');
+
+            $REF_BIRTHDAY_Carbon = Carbon::parse($data['REF_BIRTHDAY']);
+            if ($REF_BIRTHDAY_Carbon->isPast() == false) {
+                $REF_BIRTHDAY_Carbon->add(-543, 'year');
+            }
+            $REF_BIRTHDAY = $REF_BIRTHDAY_Carbon->format('Y-m-d');
             // dd($BIRTHDAY);
 
 
@@ -351,17 +634,17 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'OFFICE_NAME' => null,
                     'OFFICE_YEAR' => null,
                     'OFFICE_MONTH' => null,
-                    'REF_TAX_ID' => $data['REF_TAX_ID'],
-                    'REF_TITLE' => $data['REF_TITLE'],
-                    'REF_TITLE_OTHER' => isset($data['REF_TITLE_OTHER']) ? $data['REF_TITLE_OTHER'] : null,
-                    'REF_FIRSTNAME' => $data['REF_FIRSTNAME'],
-                    'REF_LASTNAME' => $data['REF_LASTNAME'],
-                    'RELATION_REFERENCE' => $data['RELATION_REFERENCE'],
-                    'RELATION_REF_DES' => $data['RELATION_REF_DES'],
-                    'REF_OCCUPATION' => $data['REF_OCCUPATION'],
-                    'REF_AGE' => isset($data['REF_AGE']) ? $data['REF_AGE'] : null,
-                    'REF_BIRTHDAY' => $data['REF_BIRTHDAY'],
-                    'REF_PHONE' => $data['REF_PHONE'],
+                    // 'REF_TAX_ID' => $data['REF_TAX_ID'],
+                    // 'REF_TITLE' => $data['REF_TITLE'],
+                    // 'REF_TITLE_OTHER' => isset($data['REF_TITLE_OTHER']) ? $data['REF_TITLE_OTHER'] : null,
+                    // 'REF_FIRSTNAME' => $data['REF_FIRSTNAME'],
+                    // 'REF_LASTNAME' => $data['REF_LASTNAME'],
+                    // 'RELATION_REFERENCE' => $data['RELATION_REFERENCE'],
+                    // 'RELATION_REF_DES' => $data['RELATION_REF_DES'],
+                    // 'REF_OCCUPATION' => $data['REF_OCCUPATION'],
+                    // 'REF_AGE' => isset($data['REF_AGE']) ? $data['REF_AGE'] : null,
+                    // 'REF_BIRTHDAY' => $REF_BIRTHDAY,
+                    // 'REF_PHONE' => $data['REF_PHONE'],
                     'IDCARD_FILE' => $IDCARD_FILE,
                     'STUDENTCARD_FILE' => $STUDENTCARD_FILE,
                     'FACE_FILE' => $FACE_FILE,
@@ -370,6 +653,55 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'UPDATE_DATE' => null,
                     'NAME_MAKE' => "API",
                 ]);
+
+
+            if ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1) {
+                // DB::table('dbo.PROSPECT_GUARANTOR')->insert([
+                //     'QUOTATION_ID' => $data['QUOTATION_ID'],
+                //     'PREFIX' =>  $data['REF_TITLE'],
+                //     'FIRST_NAME' => $data['REF_FIRSTNAME'],
+                //     'LAST_NAME' => $data['REF_LASTNAME'],
+                //     'MOBILE' => $data['REF_PHONE'],
+                //     'EMAIL' => $data['EMAILGuarantor'],
+                //     'RESULT_GUARANTOR' => 'WAIT',
+                // ]);
+                DB::table('dbo.PROSPECT_CUSTOMER')
+                    ->where('PST_GUAR_ID', $data['PST_GUAR_ID'])
+                    ->where('QUOTATION_ID', $data['QUOTATION_ID'])
+                    ->update([
+                        'PREFIX' =>  $data['REF_TITLE'],
+                        'FIRST_NAME' => $data['REF_FIRSTNAME'],
+                        'LAST_NAME' => $data['REF_LASTNAME'],
+                        'MOBILE' => $data['REF_PHONE'],
+                        'EMAIL' => $data['EMAILGuarantor'],
+                        'RESULT_GUARANTOR' => 'WAIT',
+                    ]);
+            } else {
+
+                $RELATION_REF_DES = DB::table('dbo.MT_RELATIONSHIP_REF')
+                ->select('*')
+                ->where('RELATION_REF_ID', $data['RELATION_REFERENCE'])
+                ->get();
+
+                DB::table('dbo.PROSPECT_CUSTOMER')
+                    ->where('PST_CUST_ID', $data['PST_CUST_ID'])
+                    ->where('QUOTATION_ID', $data['QUOTATION_ID'])
+                    ->where('TAX_ID', $data['TAX_ID'])
+                    ->update([
+                        'REF_TAX_ID' => $data['REF_TAX_ID'],
+                        'REF_TITLE' => $data['REF_TITLE'],
+                        'REF_TITLE_OTHER' => isset($data['REF_TITLE_OTHER']) ? $data['REF_TITLE_OTHER'] : null,
+                        'REF_FIRSTNAME' => $data['REF_FIRSTNAME'],
+                        'REF_LASTNAME' => $data['REF_LASTNAME'],
+                        'RELATION_REFERENCE' => $data['RELATION_REFERENCE'],
+                        'RELATION_REF_DES' => isset($RELATION_REF_DES[0]->RELATION_REF_NAME) ? $RELATION_REF_DES[0]->RELATION_REF_NAME : null,
+                        'REF_OCCUPATION' => $data['REF_OCCUPATION'],
+                        'REF_AGE' => isset($data['REF_AGE']) ? $data['REF_AGE'] : null,
+                        'REF_BIRTHDAY' => $REF_BIRTHDAY,
+                        'REF_PHONE' => $data['REF_PHONE'],
+                    ]);
+            }
+
 
             return response()->json(array(
                 'Code' => '9999',
@@ -381,20 +713,24 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ]
             ));
         } catch (Exception $e) {;
-            // dd($e->getPrevious()->getMessage());
+            // dd($e->getMessage());
             // $getPrevious = $e->getPrevious();
             if ($e->getPrevious() != null) {
                 return response()->json(array(
                     'Code' => '0003',
                     'status' => 'Error',
-                    'message' => $e->getPrevious()->getMessage()
+                    // 'message' => $e->getPrevious()->getMessage()
+                    'message' => [
+                        'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                        'EN' => 'Data invalid. Please try again'
+                    ]
                 ));
             }
 
             return response()->json(array(
-                'Code' => '0003',
+                'Code' => '0013',
                 'status' => 'Error',
-                'message' => $e->getMessage()
+                'message' => json_decode($e->getMessage())
             ));
         }
     }

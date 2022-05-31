@@ -28,20 +28,53 @@
 </html>
 
 <script>
+    axios({
+            method: 'POST',
+            url: 'api/master_university',
+        }).then(function(response) {
+            // console.log(populateData(response.data))
+            read_Faculty(response.data.data)
+        })
+        .catch(function(error) {
+            // console.log(error);
+        });
+
+    // console.log(university)
+
+
+    function read_Faculty(data) {
+        for (i = 0; i < data.length; i++) {
+            // console.log(data[i].MT_UNIVERSITY_ID)
+            // http://localhost/API-Corelease/api/master_faculty?MT_UNIVERSITY_ID=2
+            axios({
+                    method: 'GET',
+                    url: 'api/master_faculty?MT_UNIVERSITY_ID=' + data[i].MT_UNIVERSITY_ID,
+                }).then(function(response) {
+                    // console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        }
+    }
+
+
+
+
     $('#test-api').on('click', function() {
 
         const formData = new FormData();
-        const file = document.querySelector('#formFile');
-        formData.append("aa", 'aa');
-        formData.append("file", file.files[0]);
-        console.log(file.files[0])
+        // const file = document.querySelector('#formFile');
+        formData.append("U_Search", 'ลาดกระบัง');
+        // formData.append("file", file.files[0]);
+        // console.log(file.files[0])
 
         axios({
                 // headers: {
                 //     'Content-Type': 'multipart/form-data'
                 // },
                 method: 'POST',
-                url: 'test_new_prospect_cus',
+                url: 'api/master_university',
                 data: formData
             }).then(function(response) {
                 console.log(response);

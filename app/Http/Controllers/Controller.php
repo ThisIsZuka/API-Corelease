@@ -451,24 +451,21 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * 
- * @OA\Get(
+ * @OA\Post(
  * path="/API-Corelease/api/master_university",
  * summary="Master Data มหาวิทยาลัย",
  * description="มหาวิทยาลัย",
  * operationId="Get-master_university",
  * tags={"API University"},
- *  @OA\Parameter(
- *          name="PROVINCE_ID",
- *          in="query",
- *          description="รหัสจังหวัด เช่น 10",
- *          required=false,
- *   ),
- *  @OA\Parameter(
- *          name="DISTRICT_ID",
- *          in="query",
- *          description="รหัสอำเภอ เช่น 1010",
- *          required=false,
- *   ),
+ * @OA\RequestBody(
+ *    required=false,
+ *    description="Customer information",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="PROVINCE_ID", type="string", format="string", example="10"),
+ *       @OA\Property(property="DISTRICT_ID", type="string", format="string", example="1007"),
+ *       @OA\Property(property="U_Search", type="string", format="string", example="จุฬา"),
+ *    ),
+ * ),
  * @OA\Response(
  *    response=422,
  *    description="Wrong credentials response",
@@ -521,7 +518,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Post(
  * path="/API-Corelease/api/new_customer",
  * summary="Insert new customer",
- * description="new custome",
+ * description="new custome <br> ข้อมูลสินค้า",
  * operationId="new_customer",
  * tags={"API QUTATATION"},
  * security={{ "Api-Token": {} }},
@@ -529,7 +526,7 @@ use Illuminate\Routing\Controller as BaseController;
  *      required=true,
  *      description="Customer information",
  *      @OA\JsonContent(
- *         required={"BRANCH_TYPE", "BRANCH_ID", "TAX_ID", "CUSTOMER_NAME", "OCCUPATION_ID", "UNIVERSITY_ID", "FACULTY_ID", "PRODUCT_SERIES", "PROD_PRICE", "DOWN_PERCENT"},
+ *         required={"BRANCH_TYPE", "BRANCH_ID", "TAX_ID", "CUSTOMER_NAME", "OCCUPATION_ID", "UNIVERSITY_ID", "FACULTY_ID", "PRODUCT_SERIES", "PROD_SUM_PRICE", "DOWN_SUM_AMT"},
  *         @OA\Property(property="BRANCH_TYPE", type="string", format="string", example="1"),
  *         @OA\Property(property="BRANCH_ID", type="string", format="string", example="31"),
  *         @OA\Property(property="TAX_ID", type="string", format="string", example="4856465441239"),
@@ -538,12 +535,12 @@ use Illuminate\Routing\Controller as BaseController;
  *         @OA\Property(property="UNIVERSITY_ID", type="string", format="string", example="13"),
  *         @OA\Property(property="FACULTY_ID", type="string", format="string", example="807"),
  *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
- *         @OA\Property(property="PROD_PRICE", type="string", format="string", example="35400"),
- *         @OA\Property(property="DOWN_PERCENT", type="string", format="string", example="0.1"),
+ *         @OA\Property(property="PROD_SUM_PRICE", type="string", format="string", example="35400"),
+ *         @OA\Property(property="DOWN_SUM_AMT", type="string", format="string", example="3540"),
  *         @OA\Property(property="INSTALL_NUM", type="string", format="string", example="24"),
  *         @OA\Property(property="ACS_ID", type="string", format="string", example="484"),
  *         @OA\Property(property="ACS_DES", type="string", format="string", example="Apple Pencil 2"),
- *         @OA\Property(property="ACS_PRICE", type="string", format="string", example="4190"),
+ *         @OA\Property(property="ACS_SUM", type="string", format="string", example="4190"),
  *         @OA\Property(property="INSURE_ID", type="string", format="string", example="42"),
  *         @OA\Property(property="INSURE_DES", type="string", format="string", example="AppleCare+ for iPhone 13"),
  *         @OA\Property(property="INSURE_SUM", type="string", format="string", example="5090"),
@@ -564,7 +561,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Post(
  * path="/API-Corelease/api/new_prospect_cus",
  * summary="Insert new customer",
- * description="new prospect",
+ * description="new prospect <br> ข้อมูลลูกค้า",
  * operationId="new_prospect",
  * tags={"API QUTATATION"},
  * security={{ "Api-Token": {} }},
@@ -576,13 +573,15 @@ use Illuminate\Routing\Controller as BaseController;
  *          @OA\Schema(
  *              required={"PST_CUST_ID", "QUOTATION_ID", "TAX_ID", "PREFIX", "FIRST_NAME", "LAST_NAME", "BIRTHDAY", "SEX", "MARITAL_STATUS", "PHONE", "EMAIL", 
  *                        "OCCUPATION_CODE", "MAIN_INCOME", "UNIVERSITY_PROVINCE", "UNIVERSITY_NAME", "FACULTY_NAME", "LEVEL_TYPE", "U_LEVEL", "LOAN_KYS", "REF_TAX_ID", 
- *                        "REF_TITLE", "REF_FIRSTNAME", "REF_LASTNAME", "RELATION_REFERENCE", "REF_OCCUPATION", "REF_BIRTHDAY", "REF_PHONE", "IDCARD_FILE", "STUDENTCARD_FILE", "FACE_FILE"},
+ *                        "REF_TITLE", "REF_FIRSTNAME", "REF_LASTNAME", "RELATION_REFERENCE", "REF_OCCUPATION", "REF_BIRTHDAY", "REF_PHONE", "IDCARD_FILE", "STUDENTCARD_FILE", 
+ *                        "FACE_FILE", "STUDENT_ID"},
  *              @OA\Property(property="PST_CUST_ID", type="string", format="string", example="592"),
  *              @OA\Property(property="QUOTATION_ID", type="string", format="string", example="629"),
  *              @OA\Property(property="PREFIX", type="string", format="string", example="2"),
  *              @OA\Property(property="FIRST_NAME", type="string", format="string", example="ทดสอบ"),
  *              @OA\Property(property="LAST_NAME", type="string", format="string", example="เอพีไอ"),
  *              @OA\Property(property="TAX_ID", type="int", format="int", example="4856465441255"),
+ *              @OA\Property(property="STUDENT_ID", type="int", format="int", example="1122334455"),
  *              @OA\Property(property="BIRTHDAY", type="string", format="date", example="2544-10-18"),
  *              @OA\Property(property="SEX", type="string", format="string", example="1"),
  *              @OA\Property(property="MARITAL_STATUS", type="string", format="string", example="1"),
@@ -607,12 +606,13 @@ use Illuminate\Routing\Controller as BaseController;
  *              @OA\Property(property="REF_LASTNAME", type="string", format="string", example="สกุลทดสอบ"),
  *              @OA\Property(property="RELATION_REFERENCE", type="int", format="int", example="1"),
  *              @OA\Property(property="REF_OCCUPATION", type="int", format="int", example="49"),
- *              @OA\Property(property="REF_BIRTHDAY", type="string", format="date", example="49"),
- *              @OA\Property(property="REF_PHONE", type="string", format="date", example="0876543211"),
+ *              @OA\Property(property="REF_BIRTHDAY", type="string", format="date", example="2544-10-18"),
+ *              @OA\Property(property="REF_PHONE", type="string", format="string", example="0876543211"),
  *              @OA\Property(property="IDCARD_FILE", type="file", format="binary" ),
  *              @OA\Property(property="STUDENTCARD_FILE", type="file", format="binary" ),
  *              @OA\Property(property="FACE_FILE", type="file", format="binary" ),
  *              @OA\Property(property="URLMAP", type="string", format="string", example="https://www.google.co.th/maps"),
+ *              @OA\Property(property="EMAILGuarantor", type="string", format="string"),
  *          ),
  *      ),
  *   ),
@@ -631,13 +631,13 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Post(
  * path="/API-Corelease/api/new_address_prospect",
  * summary="Insert new customer",
- * description="new address prospect <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
+ * description="new address prospect <br> ข้อมูลที่อยู่ลูกค้า <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
  * operationId="new_address_prospect",
  * tags={"API QUTATATION"},
  * security={{ "Api-Token": {} }},
  *   @OA\RequestBody(
  *      required=true,
- *      description="Customer information",
+ *      description="Address information",
  *      @OA\JsonContent(
  *         required={"QUOTATION_ID", "PST_CUST_ID", "A1_NO", "A1_PROVINCE", "A1_DISTRICT", "A1_SUBDISTRICT", "A1_POSTALCODE", "A1_OWNER_TYPE", "A2_NO", "A2_PROVINCE", "A2_DISTRICT", "A2_SUBDISTRICT", "A2_POSTALCODE", "A2_OWNER_TYPE", "A3_NO", "A3_PROVINCE", "A3_DISTRICT", "A3_SUBDISTRICT", "A3_POSTALCODE", "A3_OWNER_TYPE" },
  *         @OA\Property(property="QUOTATION_ID", type="string", format="string", example="592"),
@@ -701,10 +701,122 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * 
+ * @OA\Post(
+ * path="/API-Corelease/api/SKUCheckDownGua",
+ * summary="ตรวจสอบจำนวนเงินดาวน์ขั้นต่ำ , ผู้ค้ำประกัน",
+ * description="new custome",
+ * operationId="SKUCheckDownGua",
+ * tags={"API Check"},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Product information",
+ *      @OA\JsonContent(
+ *         required={"PRODUCT_SERIES", "FACULTY_ID", "UNIVERSITY_ID"},
+ *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="190199657816"),
+ *         @OA\Property(property="FACULTY_ID", type="string", format="string", example="807"),
+ *         @OA\Property(property="UNIVERSITY_ID", type="string", format="string", example="13"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * 
+ * 
+ * @OA\Post(
+ * path="/API-Corelease/api/SKU_ASSETS",
+ * summary="รายการอุปกรณ์เสริม",
+ * description="รายการรอุปกรณ์เสริมของสินค้า",
+ * operationId="sku_Accessories",
+ * tags={"API Check"},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Product information",
+ *      @OA\JsonContent(
+ *         required={"PRODUCT_SERIES"},
+ *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="190199807716"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="ฆฤSucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * 
+ * @OA\Post(
+ * path="/API-Corelease/api/SKU_Warrantee",
+ * summary="ประกันเสริม",
+ * description="ประกันเสริมของสินค้า",
+ * operationId="Warrantee",
+ * tags={"API Check"},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Product information",
+ *      @OA\JsonContent(
+ *         required={"PRODUCT_SERIES"},
+ *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * 
+ * @OA\Post(
+ * path="/API-Corelease/api/Check_Tenor",
+ * summary="จำนวนงวด",
+ * description="จำนวนงวดที่สามารถเลือกได้",
+ * operationId="Check_Tenor",
+ * tags={"API Check"},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Price information",
+ *      @OA\JsonContent(
+ *         required={"PRODUCT_SERIES"},
+ *         @OA\Property(property="PROD_SUM_PRICE", type="string", format="string", example="29900"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * 
  */
 
 class Controller extends BaseController
 {
     // php artisan l5-swagger:generate
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    // $query = str_replace(array('?'), array('\'%s\''), $MT->toSql());
+    // $query = vsprintf($query, $MT->getBindings());
+    // dump($query);
+
 }

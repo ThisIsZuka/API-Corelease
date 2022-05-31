@@ -882,27 +882,41 @@
             }
         },
         "/API-Corelease/api/master_university": {
-            "get": {
+            "post": {
                 "tags": [
                     "API University"
                 ],
                 "summary": "Master Data มหาวิทยาลัย",
                 "description": "มหาวิทยาลัย",
                 "operationId": "Get-master_university",
-                "parameters": [
-                    {
-                        "name": "PROVINCE_ID",
-                        "in": "query",
-                        "description": "รหัสจังหวัด เช่น 10",
-                        "required": false
-                    },
-                    {
-                        "name": "DISTRICT_ID",
-                        "in": "query",
-                        "description": "รหัสอำเภอ เช่น 1010",
-                        "required": false
+                "requestBody": {
+                    "description": "Customer information",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "PROVINCE_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "10"
+                                    },
+                                    "DISTRICT_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1007"
+                                    },
+                                    "U_Search": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "จุฬา"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -981,7 +995,7 @@
                     "API QUTATATION"
                 ],
                 "summary": "Insert new customer",
-                "description": "new custome",
+                "description": "new custome <br> ข้อมูลสินค้า",
                 "operationId": "new_customer",
                 "requestBody": {
                     "description": "Customer information",
@@ -998,8 +1012,8 @@
                                     "UNIVERSITY_ID",
                                     "FACULTY_ID",
                                     "PRODUCT_SERIES",
-                                    "PROD_PRICE",
-                                    "DOWN_PERCENT"
+                                    "PROD_SUM_PRICE",
+                                    "DOWN_SUM_AMT"
                                 ],
                                 "properties": {
                                     "BRANCH_TYPE": {
@@ -1042,15 +1056,15 @@
                                         "format": "string",
                                         "example": "194252038338"
                                     },
-                                    "PROD_PRICE": {
+                                    "PROD_SUM_PRICE": {
                                         "type": "string",
                                         "format": "string",
                                         "example": "35400"
                                     },
-                                    "DOWN_PERCENT": {
+                                    "DOWN_SUM_AMT": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "0.1"
+                                        "example": "3540"
                                     },
                                     "INSTALL_NUM": {
                                         "type": "string",
@@ -1067,7 +1081,7 @@
                                         "format": "string",
                                         "example": "Apple Pencil 2"
                                     },
-                                    "ACS_PRICE": {
+                                    "ACS_SUM": {
                                         "type": "string",
                                         "format": "string",
                                         "example": "4190"
@@ -1132,7 +1146,7 @@
                     "API QUTATATION"
                 ],
                 "summary": "Insert new customer",
-                "description": "new prospect",
+                "description": "new prospect <br> ข้อมูลลูกค้า",
                 "operationId": "new_prospect",
                 "requestBody": {
                     "description": "Prospect customer information",
@@ -1170,7 +1184,8 @@
                                     "REF_PHONE",
                                     "IDCARD_FILE",
                                     "STUDENTCARD_FILE",
-                                    "FACE_FILE"
+                                    "FACE_FILE",
+                                    "STUDENT_ID"
                                 ],
                                 "properties": {
                                     "PST_CUST_ID": {
@@ -1202,6 +1217,11 @@
                                         "type": "integer",
                                         "format": "int",
                                         "example": "4856465441255"
+                                    },
+                                    "STUDENT_ID": {
+                                        "type": "integer",
+                                        "format": "int",
+                                        "example": "1122334455"
                                     },
                                     "BIRTHDAY": {
                                         "type": "string",
@@ -1322,11 +1342,11 @@
                                     "REF_BIRTHDAY": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "49"
+                                        "example": "2544-10-18"
                                     },
                                     "REF_PHONE": {
                                         "type": "string",
-                                        "format": "date",
+                                        "format": "string",
                                         "example": "0876543211"
                                     },
                                     "IDCARD_FILE": {
@@ -1345,6 +1365,10 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "https://www.google.co.th/maps"
+                                    },
+                                    "EMAILGuarantor": {
+                                        "type": "string",
+                                        "format": "string"
                                     }
                                 },
                                 "type": "object"
@@ -1391,10 +1415,10 @@
                     "API QUTATATION"
                 ],
                 "summary": "Insert new customer",
-                "description": "new address prospect <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
+                "description": "new address prospect <br> ข้อมูลที่อยู่ลูกค้า <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
                 "operationId": "new_address_prospect",
                 "requestBody": {
-                    "description": "Customer information",
+                    "description": "Address information",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -1709,6 +1733,246 @@
                         "Api-Token": []
                     }
                 ]
+            }
+        },
+        "/API-Corelease/api/SKUCheckDownGua": {
+            "post": {
+                "tags": [
+                    "API Check"
+                ],
+                "summary": "ตรวจสอบจำนวนเงินดาวน์ขั้นต่ำ , ผู้ค้ำประกัน",
+                "description": "new custome",
+                "operationId": "SKUCheckDownGua",
+                "requestBody": {
+                    "description": "Product information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "PRODUCT_SERIES",
+                                    "FACULTY_ID",
+                                    "UNIVERSITY_ID"
+                                ],
+                                "properties": {
+                                    "PRODUCT_SERIES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "190199657816"
+                                    },
+                                    "FACULTY_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "807"
+                                    },
+                                    "UNIVERSITY_ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "13"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/SKU_ASSETS": {
+            "post": {
+                "tags": [
+                    "API Check"
+                ],
+                "summary": "รายการอุปกรณ์เสริม",
+                "description": "รายการรอุปกรณ์เสริมของสินค้า",
+                "operationId": "sku_Accessories",
+                "requestBody": {
+                    "description": "Product information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "PRODUCT_SERIES"
+                                ],
+                                "properties": {
+                                    "PRODUCT_SERIES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "190199807716"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ฆฤSucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/SKU_Warrantee": {
+            "post": {
+                "tags": [
+                    "API Check"
+                ],
+                "summary": "ประกันเสริม",
+                "description": "ประกันเสริมของสินค้า",
+                "operationId": "Warrantee",
+                "requestBody": {
+                    "description": "Product information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "PRODUCT_SERIES"
+                                ],
+                                "properties": {
+                                    "PRODUCT_SERIES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "194252038338"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/Check_Tenor": {
+            "post": {
+                "tags": [
+                    "API Check"
+                ],
+                "summary": "จำนวนงวด",
+                "description": "จำนวนงวดที่สามารถเลือกได้",
+                "operationId": "Check_Tenor",
+                "requestBody": {
+                    "description": "Price information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "PRODUCT_SERIES"
+                                ],
+                                "properties": {
+                                    "PROD_SUM_PRICE": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "29900"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },

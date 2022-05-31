@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Validation\ValidationException;
+use stdClass;
 
 class API_ADDRESS_PROSCPECT extends BaseController
 {
@@ -30,95 +31,181 @@ class API_ADDRESS_PROSCPECT extends BaseController
 
             $validate = [
                 "QUOTATION_ID" => [
-                    'message' => 'Request Parameter [QUOTATION_ID]',
+                    // 'message' => 'Request Parameter [QUOTATION_ID]',
+                    'message' => [
+                        'TH' => 'Request Parameter [QUOTATION_ID]',
+                        'EN' => 'Request Parameter [QUOTATION_ID]'
+                    ],
                     'numeric' => true,
                 ],
                 "PST_CUST_ID" => [
-                    'message' => 'Request Parameter [PST_CUST_ID]',
+                    // 'message' => 'Request Parameter [PST_CUST_ID]',
+                    'message' => [
+                        'TH' => 'Request Parameter [PST_CUST_ID]',
+                        'EN' => 'Request Parameter [PST_CUST_ID]'
+                    ],
                     'numeric' => true,
                 ],
                 "A1_NO" => [
-                    'message' => 'Request Parameter [A1_NO]',
+                    // 'message' => 'Request Parameter [A1_NO]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเลขที่อยู่',
+                        'EN' => 'Please identify address number'
+                    ],
                     'numeric' => false,
                 ],
                 "A1_PROVINCE" => [
-                    'message' => 'Request Parameter [A1_PROVINCE]',
+                    // 'message' => 'Request Parameter [A1_PROVINCE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลจังหวัด',
+                        'EN' => 'Please identify province'
+                    ],
                     'numeric' => true,
                 ],
                 "A1_DISTRICT" => [
-                    'message' => 'Request Parameter [A1_DISTRICT]',
+                    // 'message' => 'Request Parameter [A1_DISTRICT]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลอำเภอ',
+                        'EN' => 'Please identify district'
+                    ],
                     'numeric' => true,
                 ],
                 "A1_SUBDISTRICT" => [
-                    'message' => 'Request Parameter [A1_SUBDISTRICT]',
+                    // 'message' => 'Request Parameter [A1_SUBDISTRICT]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลตำบล',
+                        'EN' => 'Please identify subdistrict'
+                    ],
                     'numeric' => true,
                 ],
                 "A1_POSTALCODE" => [
-                    'message' => 'Request Parameter [A1_POSTALCODE]',
+                    // 'message' => 'Request Parameter [A1_POSTALCODE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลรหัสไปรษณี',
+                        'EN' => 'Please identify postcode'
+                    ],
                     'numeric' => true,
                 ],
                 "A1_OWNER_TYPE" => [
-                    'message' => 'Request Parameter [A1_OWNER_TYPE]',
+                    // 'message' => 'Request Parameter [A1_OWNER_TYPE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลสถานะการพักอาศัย',
+                        'EN' => 'Please identify owner type'
+                    ],
                     'numeric' => true,
                 ],
                 "A2_NO" => [
-                    'message' => 'Request Parameter [A2_NO]',
+                    // 'message' => 'Request Parameter [A2_NO]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเลขที่อยู่',
+                        'EN' => 'Please identify address number'
+                    ],
                     'numeric' => false,
                 ],
                 "A2_PROVINCE" => [
-                    'message' => 'Request Parameter [A2_PROVINCE]',
+                    // 'message' => 'Request Parameter [A2_PROVINCE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลจังหวัด',
+                        'EN' => 'Please identify provice'
+                    ],
                     'numeric' => true,
                 ],
                 "A2_DISTRICT" => [
-                    'message' => 'Request Parameter [A2_DISTRICT]',
+                    // 'message' => 'Request Parameter [A2_DISTRICT]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลอำเภอ',
+                        'EN' => 'Please identify district'
+                    ],
                     'numeric' => true,
                 ],
                 "A2_SUBDISTRICT" => [
-                    'message' => 'Request Parameter [A2_SUBDISTRICT]',
+                    // 'message' => 'Request Parameter [A2_SUBDISTRICT]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลตำบล',
+                        'EN' => 'Please identify subdistrict'
+                    ],
                     'numeric' => true,
                 ],
                 "A2_POSTALCODE" => [
-                    'message' => 'Request Parameter [A2_POSTALCODE]',
+                    // 'message' => 'Request Parameter [A2_POSTALCODE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลรหัสไปรษณี',
+                        'EN' => 'Please identify postcode'
+                    ],
                     'numeric' => true,
                 ],
                 "A2_OWNER_TYPE" => [
-                    'message' => 'Request Parameter [A2_OWNER_TYPE]',
+                    // 'message' => 'Request Parameter [A2_OWNER_TYPE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลสถานะการพักอาศัย',
+                        'EN' => 'Please identify owner type'
+                    ],
                     'numeric' => true,
                 ],
                 "A3_NO" => [
-                    'message' => 'Request Parameter [A3_NO]',
+                    // 'message' => 'Request Parameter [A3_NO]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุเลขที่อยู่',
+                        'EN' => 'Please identify address number'
+                    ],
                     'numeric' => false,
                 ],
                 "A3_PROVINCE" => [
-                    'message' => 'Request Parameter [A3_PROVINCE]',
+                    // 'message' => 'Request Parameter [A3_PROVINCE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลจังหวัด',
+                        'EN' => 'Please identify provice'
+                    ],
                     'numeric' => true,
                 ],
                 "A3_DISTRICT" => [
-                    'message' => 'Request Parameter [A3_DISTRICT]',
+                    // 'message' => 'Request Parameter [A3_DISTRICT]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลอำเภอ',
+                        'EN' => 'Please identify district'
+                    ],
                     'numeric' => true,
                 ],
                 "A3_SUBDISTRICT" => [
-                    'message' => 'Request Parameter [A3_SUBDISTRICT]',
+                    // 'message' => 'Request Parameter [A3_SUBDISTRICT]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลตำบล',
+                        'EN' => 'Please identify subdistrict'
+                    ],
                     'numeric' => true,
                 ],
                 "A3_POSTALCODE" => [
-                    'message' => 'Request Parameter [A3_POSTALCODE]',
+                    // 'message' => 'Request Parameter [A3_POSTALCODE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลรหัสไปรษณี',
+                        'EN' => 'Please identify postcode'
+                    ],
                     'numeric' => true,
                 ],
                 "A3_OWNER_TYPE" => [
-                    'message' => 'Request Parameter [A3_OWNER_TYPE]',
+                    // 'message' => 'Request Parameter [A3_OWNER_TYPE]',
+                    'message' => [
+                        'TH' => 'กรุณาระบุข้อมูลสถานะการพักอาศัย',
+                        'EN' => 'Please identify owner type'
+                    ],
                     'numeric' => true,
                 ],
             ];
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception($value['message']);
+                    throw new Exception(json_encode($value['message']));
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        // throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        $mes_error = new stdClass;
+                        foreach($value['message'] as $key => $value){
+                            $txt = ($key == "TH" ? $value."ให้ถูกต้อง" : $value);
+                            $mes_error->$key = $txt;
+                        }
+                        throw new Exception(json_encode($mes_error));
                     }
                 }
             }
@@ -133,7 +220,12 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ->get();
 
             if (count($GET_ADDRESS_PROSPECT_CUSTOMER) == 0) {
-                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\']');
+                // throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\']');
+                $mes_error = (object)[
+                    'TH' => 'ไม่พบข้อมูลของท่าน',
+                    'EN' => 'Not found your Information'
+                ];
+                throw new Exception(json_encode($mes_error));
             }
 
 
@@ -164,7 +256,12 @@ class API_ADDRESS_PROSCPECT extends BaseController
                     ->count();
 
                 if ($GetAddress == 0) {
-                    throw new Exception('Address is not match. Check Parameter [\'' . $key['PROVINCE'] . '\'], [\'' . $key['DISTRICT'] . '\'], [\'' . $key['SUBDISTRICT'] . '\'], [\'' . $key['POSTALCODE'] . '\']');
+                    // throw new Exception('Address is not match. Check Parameter [\'' . $key['PROVINCE'] . '\'], [\'' . $key['DISTRICT'] . '\'], [\'' . $key['SUBDISTRICT'] . '\'], [\'' . $key['POSTALCODE'] . '\']');
+                    $mes_error = (object)[
+                        'TH' => 'ข้อมูลที่อยู่ไม่ถูกต้อง',
+                        'EN' => 'Address invalid'
+                    ];
+                    throw new Exception(json_encode($mes_error));
                 }
             }
 
@@ -246,19 +343,26 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ));
 
         } catch (Exception $e) {
+            // dd($e->getMessage());
             // $getPrevious = $e->getPrevious();
             if ($e->getPrevious() != null) {
                 return response()->json(array(
                     'Code' => '0003',
                     'status' => 'Error',
-                    'message' => $e->getPrevious()->getMessage()
+                    // 'message' => $e->getPrevious()->getMessage()
+                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
+                    'message' => [
+                        'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                        'EN' => 'Data invalid. Please try again'
+                    ]
+
                 ));
             }
 
             return response()->json(array(
                 'Code' => '0013',
                 'status' => 'Error',
-                'message' => $e->getMessage()
+                'message' => json_decode($e->getMessage()),
             ));
         }
     }

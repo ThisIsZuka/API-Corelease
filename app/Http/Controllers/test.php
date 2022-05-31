@@ -12,9 +12,16 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
+use stdClass;
 
 class test extends BaseController
 {
+
+    public function __construct()
+    {
+        // dd('456');
+    }
+
     public function ppvv(Request $request)
     {
         $data =  $request->all();
@@ -148,5 +155,28 @@ class test extends BaseController
                 'message' => $e->getMessage(),
             ));
         }
+    }
+
+    public function simulater_working(Request $request){
+        try{
+
+            $data = $request->all();
+
+            if(!isset($data['test'])){
+                throw new Exception('456');
+            }
+
+            $obj = new stdClass();
+            $obj->obj_15 = '123';
+
+            return $obj;
+
+        }catch(Exception $e){
+            return response()->json(array(
+                'Code' => 'TT0010',
+                'test-01' => 'tt',
+            ));
+        }
+        
     }
 }
