@@ -13,6 +13,9 @@ use stdClass;
 class Check_Calculator extends BaseController
 {
 
+    protected $FINANCIAL_MAX_ITERATIONS;
+    protected $FINANCIAL_PRECISION;
+
     public function __construct()
     {
         define('FINANCIAL_MAX_ITERATIONS', 128);
@@ -20,7 +23,8 @@ class Check_Calculator extends BaseController
     }
 
 
-    public function getBcPresion($number) {
+    public function getBcPresion($number)
+    {
         $dotPosition = strpos($number, '.');
         if ($dotPosition === false) {
             return 0;
@@ -32,9 +36,9 @@ class Check_Calculator extends BaseController
     public function getBcRound($number, $precision = 0)
     {
         $precision = ($precision < 0)
-                   ? 0
-                   : (int) $precision;
-        if (strcmp(bcadd($number, '0', $precision), bcadd($number, '0', $precision+1)) == 0) {
+            ? 0
+            : (int) $precision;
+        if (strcmp(bcadd($number, '0', $precision), bcadd($number, '0', $precision + 1)) == 0) {
             return bcadd($number, '0', $precision);
         }
         if ($this->getBcPresion($number) - $precision > 1) {
@@ -42,8 +46,8 @@ class Check_Calculator extends BaseController
         }
         $t = '0.' . str_repeat('0', $precision) . '5';
         return $number < 0
-               ? bcsub($number, $t, $precision)
-               : bcadd($number, $t, $precision);
+            ? bcsub($number, $t, $precision)
+            : bcadd($number, $t, $precision);
     }
 
 
@@ -83,16 +87,5 @@ class Check_Calculator extends BaseController
             ++$i;
         }
         return $rate;
-    }
-
-    public function test_EF()
-    {
-        $nper = 12;
-        $pmt = 1676.64;
-        $pv = -12897.2;
-        $fv = 0;
-        $type = 0;
-        $guess = 0.1;
-        var_dump(($this->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess)*12)*100);
     }
 }

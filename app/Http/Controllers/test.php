@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use stdClass;
 
+use App\Http\Controllers\Check_Calculator;
+
 class test extends BaseController
 {
 
@@ -178,5 +180,23 @@ class test extends BaseController
             ));
         }
         
+    }
+
+    public function Cal_EFFECTIVE(Request $request)
+    {
+        // $nper = 12;
+        // $pmt = 1676.64;
+        $data = $request->all();
+        $nper = $data['INSTALL_NUM'];
+        $pmt = $data['INSTALL_AMT'];
+        $pv = -$data['HP_AMT']; 
+        $fv = 0;
+        $type = 0;
+        $guess = 0.1;
+        // var_dump(($this->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess)*12)*100);
+        // $EFFECTIVE = strval(round($this->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess) * 12, 8));
+        $Check_Calculator = new Check_Calculator;
+        $EFFECTIVE = strval(round($Check_Calculator->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess) * 12, 8));
+        return $EFFECTIVE;
     }
 }

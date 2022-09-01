@@ -36,75 +36,75 @@ class API_Quatation extends BaseController
 
             $validate = [
                 "BRANCH_TYPE" => [
-                    // 'message' => 'Request Parameter [BRANCH_TYPE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุประเภทสาขา',
-                        'EN' => 'Please identify branch type'
-                    ],
+                    'message' => 'Request Parameter [BRANCH_TYPE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุประเภทสาขา',
+                    //     'EN' => 'Please identify branch type'
+                    // ],
                     'numeric' => true,
                 ],
                 "BRANCH_ID" => [
-                    // 'message' => 'Request Parameter [BRANCH_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุสาขา',
-                        'EN' => 'Please identify branch name'
-                    ],
+                    'message' => 'Request Parameter [BRANCH_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุสาขา',
+                    //     'EN' => 'Please identify branch name'
+                    // ],
                     'numeric' => true,
                 ],
                 "TAX_ID" => [
-                    // 'message' => 'Request Parameter [TAX_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุเลขบัตรประชาชน',
-                        'EN' => 'Please identify tax ID'
-                    ],
+                    'message' => 'Request Parameter [TAX_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุเลขบัตรประชาชน',
+                    //     'EN' => 'Please identify tax ID'
+                    // ],
                     'numeric' => true,
                 ],
                 "CUSTOMER_NAME" => [
-                    // 'message' => 'Request Parameter [CUSTOMER_NAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุชื่อ',
-                        'EN' => 'Please identify customer name'
-                    ],
+                    'message' => 'Request Parameter [CUSTOMER_NAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุชื่อ',
+                    //     'EN' => 'Please identify customer name'
+                    // ],
                     'numeric' => false,
                 ],
                 "OCCUPATION_ID" => [
-                    // 'message' => 'Request Parameter [OCCUPATION_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุอาชีพ',
-                        'EN' => 'Please identify oocupation'
-                    ],
+                    'message' => 'Request Parameter [OCCUPATION_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุอาชีพ',
+                    //     'EN' => 'Please identify oocupation'
+                    // ],
                     'numeric' => true,
                 ],
                 "UNIVERSITY_ID" => [
-                    // 'message' => 'Request Parameter [UNIVERSITY_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุมหาวิทยาลัย',
-                        'EN' => 'Please identify university'
-                    ],
+                    'message' => 'Request Parameter [UNIVERSITY_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุมหาวิทยาลัย',
+                    //     'EN' => 'Please identify university'
+                    // ],
                     'numeric' => true,
                 ],
                 "FACULTY_ID" => [
-                    // 'message' => 'Request Parameter [FACULTY_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุคณะ',
-                        'EN' => 'Please identify faculty'
-                    ],
+                    'message' => 'Request Parameter [FACULTY_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุคณะ',
+                    //     'EN' => 'Please identify faculty'
+                    // ],
                     'numeric' => true,
                 ],
                 "PRODUCT_SERIES" => [
-                    // 'message' => 'Request Parameter [PRODUCT_SERIES]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุสินค้า',
-                        'EN' => 'Please identify product'
-                    ],
+                    'message' => 'Request Parameter [PRODUCT_SERIES]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุสินค้า',
+                    //     'EN' => 'Please identify product'
+                    // ],
                     'numeric' => false,
                 ],
                 "PROD_SUM_PRICE" => [
-                    // 'message' => 'Request Parameter [PROD_SUM_PRICE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุราคาสินค้า',
-                        'EN' => 'Request Parameter [PROD_SUM_PRICE]'
-                    ],
+                    'message' => 'Request Parameter [PROD_SUM_PRICE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุราคาสินค้า',
+                    //     'EN' => 'Request Parameter [PROD_SUM_PRICE]'
+                    // ],
                     'numeric' => true,
                 ],
                 // "DOWN_PERCENT" => [
@@ -113,19 +113,19 @@ class API_Quatation extends BaseController
                 //     'percent' => true,
                 // ],
                 "DOWN_SUM_AMT" => [
-                    // 'message' => 'Request Parameter [DOWN_SUM_AMT]',
-                    'message' => [
-                        'TH' => 'กรุณาระจำนวนเงินดาวน์',
-                        'EN' => 'Please identify down amount'
-                    ],
+                    'message' => 'Request Parameter [DOWN_SUM_AMT]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระจำนวนเงินดาวน์',
+                    //     'EN' => 'Please identify down amount'
+                    // ],
                     'numeric' => true,
                 ],
                 "INSTALL_NUM" => [
-                    // 'message' => 'Request Parameter [INSTALL_NUM]',
-                    'message' => [
-                        'TH' => 'กรุณาระจำนวนงวดผ่อนชำระ',
-                        'EN' => 'Please identify tenor'
-                    ],
+                    'message' => 'Request Parameter [INSTALL_NUM]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระจำนวนงวดผ่อนชำระ',
+                    //     'EN' => 'Please identify tenor'
+                    // ],
                     'numeric' => true,
                 ],
             ];
@@ -136,31 +136,31 @@ class API_Quatation extends BaseController
                 // var_dump($value);
                 // var_dump($data[$key]);
                 if (!isset($data[$key])) {
-                    // throw new Exception($value['message']);
-                    throw new Exception(json_encode($value['message']));
+                    throw new Exception($value['message']);
+                    // throw new Exception(json_encode($value['message']));
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        // throw new Exception('Request Type of $(int) [' . $key . ']');
-                        $mes_error = new stdClass;
-                        foreach ($value['message'] as $key => $value) {
-                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                            $mes_error->$key = $txt;
-                        }
-                        throw new Exception(json_encode($mes_error));
+                        throw new Exception('Request Type of $(int) [' . $key . ']');
+                        // $mes_error = new stdClass;
+                        // foreach ($value['message'] as $key => $value) {
+                        //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                        //     $mes_error->$key = $txt;
+                        // }
+                        // throw new Exception(json_encode($mes_error));
                     }
                 }
 
                 // dd(gettype($data['BRANCH_TYPE']));
 
                 if ($key == "TAX_ID" && strlen($data[$key]) != 13) {
-                    // throw new Exception("Invalid [TAX_ID]");
-                    $mes_error = (object)[
-                        'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
-                        'EN' => 'TAX ID must have 13 digits'
-                    ];
-                    throw new Exception(json_encode($mes_error));
+                    throw new Exception("Invalid [TAX_ID]");
+                    // $mes_error = (object)[
+                    //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                    //     'EN' => 'TAX ID must have 13 digits'
+                    // ];
+                    // throw new Exception(json_encode($mes_error));
                 }
 
                 if (isset($value['percent'])) {
@@ -173,12 +173,12 @@ class API_Quatation extends BaseController
             // dd($check_TAX);
             // dd(count($check_TAX));
             if (count($check_TAX) > 0) {
-                // throw new Exception("[TAX_ID] is already exists");
-                $mes_error = (object)[
-                    'TH' => 'ลูกค้ามีข้อมูลอยู่ในระบบแล้ว',
-                    'EN' => 'Customer already has data in Ufund'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("[TAX_ID] is already exists");
+                // $mes_error = (object)[
+                //     'TH' => 'ลูกค้ามีข้อมูลอยู่ในระบบแล้ว',
+                //     'EN' => 'Customer already has data in Ufund'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
             // Check University Match Faculty
@@ -189,12 +189,12 @@ class API_Quatation extends BaseController
                 ->get();
             // dd($faculty_check);
             if (count($faculty_check) == 0) {
-                // throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match");
-                $mes_error = (object)[
-                    'TH' => 'ข้อมูลมหาวิทยาลัยและคณะไม่ถูกต้อง',
-                    'EN' => 'University and faculty is incorrect'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match");
+                // $mes_error = (object)[
+                //     'TH' => 'ข้อมูลมหาวิทยาลัยและคณะไม่ถูกต้อง',
+                //     'EN' => 'University and faculty is incorrect'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
             // Check SKU Product
@@ -204,23 +204,23 @@ class API_Quatation extends BaseController
                 ->get();
 
             if (count($product) == 0) {
-                // throw new Exception("Not Found [PRODUCT_SERIES]");
-                $mes_error = (object)[
-                    'TH' => 'ไม่พบข้อมูลสินค้า',
-                    'EN' => 'Not found product.'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("Not Found [PRODUCT_SERIES]");
+                // $mes_error = (object)[
+                //     'TH' => 'ไม่พบข้อมูลสินค้า',
+                //     'EN' => 'Not found product.'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
 
             // Check ACS
             $validate_acs = [
                 "ACS_ID" => [
-                    // 'message' => 'Request Parameter [ACS_ID]',
-                    'message' => [
-                        'TH' => 'Request Parameter [ACS_ID]',
-                        'EN' => 'Request Parameter [ACS_ID]'
-                    ],
+                    'message' => 'Request Parameter [ACS_ID]',
+                    // 'message' => [
+                    //     'TH' => 'Request Parameter [ACS_ID]',
+                    //     'EN' => 'Request Parameter [ACS_ID]'
+                    // ],
                     'numeric' => false,
                 ],
                 // "ACS_DES" => [
@@ -228,11 +228,11 @@ class API_Quatation extends BaseController
                 //     'numeric' => false,
                 // ],
                 "ACS_SUM" => [
-                    // 'message' => 'Request Parameter [ACS_SUM]',
-                    'message' => [
-                        'TH' => 'Request Parameter [ACS_SUM]',
-                        'EN' => 'Request Parameter [ACS_SUM]'
-                    ],
+                    'message' => 'Request Parameter [ACS_SUM]',
+                    // 'message' => [
+                    //     'TH' => 'Request Parameter [ACS_SUM]',
+                    //     'EN' => 'Request Parameter [ACS_SUM]'
+                    // ],
                     'numeric' => true,
                 ],
             ];
@@ -241,14 +241,14 @@ class API_Quatation extends BaseController
             if (isset($data['ACS_ID']) || isset($data['ACS_DES']) || isset($data['ACS_SUM'])) {
                 foreach ($validate_acs as $key => $value) {
                     if (!isset($data[$key])) {
-                        // throw new Exception($value['message']);
-                        throw new Exception(json_encode($value['message']));
+                        throw new Exception($value['message']);
+                        // throw new Exception(json_encode($value['message']));
                     }
 
                     if ($value['numeric'] == true) {
                         if (!is_numeric($data[$key])) {
-                            // throw new Exception('Request Type of $(int) [' . $key . ']');
-                            throw new Exception(json_encode($value['message']));
+                            throw new Exception('Request Type of $(int) [' . $key . ']');
+                            // throw new Exception(json_encode($value['message']));
                         }
                     }
                 }
@@ -258,11 +258,11 @@ class API_Quatation extends BaseController
             // Check INSURE
             $validate_insure = [
                 "INSURE_ID" => [
-                    // 'message' => 'Request Parameter [INSURE_ID]',
-                    'message' => [
-                        'TH' => 'Request Parameter [INSURE_ID]',
-                        'EN' => 'Request Parameter [INSURE_ID]'
-                    ],
+                    'message' => 'Request Parameter [INSURE_ID]',
+                    // 'message' => [
+                    //     'TH' => 'Request Parameter [INSURE_ID]',
+                    //     'EN' => 'Request Parameter [INSURE_ID]'
+                    // ],
                     'numeric' => false,
                 ],
                 // "INSURE_DES" => [
@@ -270,11 +270,11 @@ class API_Quatation extends BaseController
                 //     'numeric' => false,
                 // ],
                 "INSURE_SUM" => [
-                    // 'message' => 'Request Parameter [INSURE_SUM]',
-                    'message' => [
-                        'TH' => 'Request Parameter [INSURE_SUM]',
-                        'EN' => 'Request Parameter [INSURE_SUM]'
-                    ],
+                    'message' => 'Request Parameter [INSURE_SUM]',
+                    // 'message' => [
+                    //     'TH' => 'Request Parameter [INSURE_SUM]',
+                    //     'EN' => 'Request Parameter [INSURE_SUM]'
+                    // ],
                     'numeric' => true,
                 ],
             ];
@@ -283,14 +283,14 @@ class API_Quatation extends BaseController
             if (isset($data['INSURE_ID']) || isset($data['INSURE_DES'])  || isset($data['INSURE_SUM'])) {
                 foreach ($validate_insure as $key => $value) {
                     if (!isset($data[$key]) || $data[$key] == null || $data[$key] == "") {
-                        // throw new Exception($value['message']);
-                        throw new Exception(json_encode($value['message']));
+                        throw new Exception($value['message']);
+                        // throw new Exception(json_encode($value['message']));
                     }
 
                     if ($value['numeric'] == true) {
                         if (!is_numeric($data[$key])) {
-                            // throw new Exception('Request Type of $(int) [' . $key . ']');
-                            throw new Exception(json_encode($value['message']));
+                            throw new Exception('Request Type of $(int) [' . $key . ']');
+                            // throw new Exception(json_encode($value['message']));
                         }
                     }
                 }
@@ -347,12 +347,12 @@ class API_Quatation extends BaseController
             $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
             // dd($check_Down);
             if ($DOWN_PERCENT < $check_Down[0]->DownMAX) {
-                // throw new Exception('Request [DOWN_SUM_AMT] >= ' . ($check_Down[0]->DownMAX) * 100 . "%");
-                $mes_error = (object)[
-                    'TH' => 'กรุณาดาวน์ขั้นต่ำ '. ($check_Down[0]->DownMAX) * 100 . '%',
-                    'EN' => 'Minimum down payment '. ($check_Down[0]->DownMAX) * 100 . '%'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception('Request [DOWN_SUM_AMT] >= ' . ($check_Down[0]->DownMAX) * 100 . "%");
+                // $mes_error = (object)[
+                //     'TH' => 'กรุณาดาวน์ขั้นต่ำ '. ($check_Down[0]->DownMAX) * 100 . '%',
+                //     'EN' => 'Minimum down payment '. ($check_Down[0]->DownMAX) * 100 . '%'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
             // dd($check_Down);
 
@@ -373,12 +373,12 @@ class API_Quatation extends BaseController
                 array_push($toner, $value->INSTALL);
             }
             if($check_toner == 0){
-                // throw new Exception('Request [INSTALL_NUM] is '. implode(', ', $toner));
-                $mes_error = (object)[
-                    'TH' => 'จำนวนงวดที่สามารถเลือกได้คือ '. implode(', ', $toner),
-                    'EN' => 'installments that can be selected is '. implode(', ', $toner)
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception('Request [INSTALL_NUM] is '. implode(', ', $toner));
+                // $mes_error = (object)[
+                //     'TH' => 'จำนวนงวดที่สามารถเลือกได้คือ '. implode(', ', $toner),
+                //     'EN' => 'installments that can be selected is '. implode(', ', $toner)
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
             // dd(array_search($data['INSTALL_NUM'], $toner));
             
@@ -549,18 +549,18 @@ class API_Quatation extends BaseController
                 return response()->json(array(
                     'Code' => '0003',
                     'status' => 'Error',
-                    // 'message' => $e->getPrevious()->getMessage()
-                    'message' => [
-                        'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                        'EN' => 'Data invalid. Please try again'
-                    ]
+                    'message' => $e->getPrevious()->getMessage()
+                    // 'message' => [
+                    //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                    //     'EN' => 'Data invalid. Please try again'
+                    // ]
                 ));
             }
 
             return response()->json(array(
                 'Code' => '0013',
                 'status' => 'Error',
-                'message' => json_decode($e->getMessage())
+                'message' => $e->getMessage()
             ));
         }
     }

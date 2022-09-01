@@ -82,68 +82,68 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
             $validate = [
                 "PST_CUST_ID" => [
-                    // 'message' => 'Request Parameter [PST_CUST_ID]',
-                    'message' => [
-                        'TH' => 'Request Parameter [PST_CUST_ID]',
-                        'EN' => 'Request Parameter [PST_CUST_ID]'
-                    ],
+                    'message' => 'Request Parameter [PST_CUST_ID]',
+                    // 'message' => [
+                    //     'TH' => 'Request Parameter [PST_CUST_ID]',
+                    //     'EN' => 'Request Parameter [PST_CUST_ID]'
+                    // ],
                     'numeric' => true,
                 ],
                 "QUOTATION_ID" => [
-                    // 'message' => 'Request Parameter [QUOTATION_ID]',
-                    'message' => [
-                        'TH' => 'Request Parameter [QUOTATION_ID]',
-                        'EN' => 'Request Parameter [QUOTATION_ID]'
-                    ],
+                    'message' => 'Request Parameter [QUOTATION_ID]',
+                    // 'message' => [
+                    //     'TH' => 'Request Parameter [QUOTATION_ID]',
+                    //     'EN' => 'Request Parameter [QUOTATION_ID]'
+                    // ],
                     'numeric' => true,
                 ],
                 "PREFIX" => [
-                    // 'message' => 'Request Parameter [PREFIX]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุคำนำหน้า',
-                        'EN' => 'Please identify prefix'
-                    ],
+                    'message' => 'Request Parameter [PREFIX]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุคำนำหน้า',
+                    //     'EN' => 'Please identify prefix'
+                    // ],
                     'numeric' => true,
                 ],
                 "FIRST_NAME" => [
-                    // 'message' => 'Request Parameter [FIRST_NAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุชื่อ',
-                        'EN' => 'Please identify first name'
-                    ],
+                    'message' => 'Request Parameter [FIRST_NAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุชื่อ',
+                    //     'EN' => 'Please identify first name'
+                    // ],
                     'numeric' => false,
                 ],
                 "LAST_NAME" => [
-                    // 'message' => 'Request Parameter [LAST_NAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุนามสกุล',
-                        'EN' => 'Please identify last name'
-                    ],
+                    'message' => 'Request Parameter [LAST_NAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุนามสกุล',
+                    //     'EN' => 'Please identify last name'
+                    // ],
                     'numeric' => false,
                 ],
                 "TAX_ID" => [
-                    // 'message' => 'Request Parameter [TAX_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุเลขบัตรประชาชน',
-                        'EN' => 'Please identify tax ID'
-                    ],
+                    'message' => 'Request Parameter [TAX_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุเลขบัตรประชาชน',
+                    //     'EN' => 'Please identify tax ID'
+                    // ],
                     'numeric' => true,
                     'tax_id' => true,
                 ],
                 "STUDENT_ID" => [
-                    // 'message' => 'Request Parameter [STUDENT_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุรหัสนักศึกษา',
-                        'EN' => 'Please identify student ID'
-                    ],
+                    'message' => 'Request Parameter [STUDENT_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุรหัสนักศึกษา',
+                    //     'EN' => 'Please identify student ID'
+                    // ],
                     'numeric' => false,
                 ],
                 "BIRTHDAY" => [
-                    // 'message' => 'Request Parameter [BIRTHDAY]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุวันเกิด',
-                        'EN' => 'Please identify birthday'
-                    ],
+                    'message' => 'Request Parameter [BIRTHDAY]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุวันเกิด',
+                    //     'EN' => 'Please identify birthday'
+                    // ],
                     'numeric' => false,
                     'typeDate' => true,
                 ],
@@ -152,59 +152,59 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 //     'numeric' => true,
                 // ],
                 "SEX" => [
-                    // 'message' => 'Request Parameter [SEX]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุเพศ',
-                        'EN' => 'Please identify gender'
-                    ],
+                    'message' => 'Request Parameter [SEX]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุเพศ',
+                    //     'EN' => 'Please identify gender'
+                    // ],
                     'numeric' => true,
                 ],
                 "MARITAL_STATUS" => [
-                    // 'message' => 'Request Parameter [MARITAL_STATUS]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุสถานะ',
-                        'EN' => 'Please identify marital status'
-                    ],
+                    'message' => 'Request Parameter [MARITAL_STATUS]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุสถานะ',
+                    //     'EN' => 'Please identify marital status'
+                    // ],
                     'numeric' => true,
                 ],
                 "PHONE" => [
-                    // 'message' => 'Request Parameter [PHONE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุเบอร์โทรศัทพ์',
-                        'EN' => 'Please identify phone number'
-                    ],
+                    'message' => 'Request Parameter [PHONE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุเบอร์โทรศัทพ์',
+                    //     'EN' => 'Please identify phone number'
+                    // ],
                     'numeric' => false,
                 ],
                 "EMAIL" => [
-                    // 'message' => 'Request Parameter [EMAIL]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุอีเมล',
-                        'EN' => 'Please identify E-mail'
-                    ],
+                    'message' => 'Request Parameter [EMAIL]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุอีเมล',
+                    //     'EN' => 'Please identify E-mail'
+                    // ],
                     'numeric' => false,
                 ],
                 "OCCUPATION_CODE" => [
-                    // 'message' => 'Request Parameter [OCCUPATION_CODE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุอาชีพ',
-                        'EN' => 'Please identify occupation'
-                    ],
+                    'message' => 'Request Parameter [OCCUPATION_CODE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุอาชีพ',
+                    //     'EN' => 'Please identify occupation'
+                    // ],
                     'numeric' => true,
                 ],
                 "MAIN_INCOME" => [
-                    // 'message' => 'Request Parameter [MAIN_INCOME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุรายได้',
-                        'EN' => 'Please identify main income'
-                    ],
+                    'message' => 'Request Parameter [MAIN_INCOME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุรายได้',
+                    //     'EN' => 'Please identify main income'
+                    // ],
                     'numeric' => true,
                 ],
                 "UNIVERSITY_PROVINCE" => [
-                    // 'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุจังหวัดที่ตั้งของมหาวิทยาลัย',
-                        'EN' => 'Please identify provice of university'
-                    ],
+                    'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุจังหวัดที่ตั้งของมหาวิทยาลัย',
+                    //     'EN' => 'Please identify provice of university'
+                    // ],
                     'numeric' => true,
                 ],
                 // "UNIVERSITY_DISTRICT" => [
@@ -212,62 +212,62 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 //     'numeric' => true,
                 // ],
                 "UNIVERSITY_NAME" => [
-                    // 'message' => 'Request Parameter [UNIVERSITY_NAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุมหาวิทยาลัย',
-                        'EN' => 'Please identify university'
-                    ],
+                    'message' => 'Request Parameter [UNIVERSITY_NAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุมหาวิทยาลัย',
+                    //     'EN' => 'Please identify university'
+                    // ],
                     'numeric' => true,
                 ],
                 "FACULTY_NAME" => [
-                    // 'message' => 'Request Parameter [FACULTY_NAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุคณะ',
-                        'EN' => 'Please identify faculty'
-                    ],
+                    'message' => 'Request Parameter [FACULTY_NAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุคณะ',
+                    //     'EN' => 'Please identify faculty'
+                    // ],
                     'numeric' => true,
                 ],
                 "LEVEL_TYPE" => [
-                    // 'message' => 'Request Parameter [LEVEL_TYPE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุระดับการศึกษา',
-                        'EN' => 'Please identify education level'
-                    ],
+                    'message' => 'Request Parameter [LEVEL_TYPE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุระดับการศึกษา',
+                    //     'EN' => 'Please identify education level'
+                    // ],
                     'numeric' => false,
                 ],
                 "U_LEVEL" => [
-                    // 'message' => 'Request Parameter [U_LEVEL]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุชั้นปี',
-                        'EN' => 'Please identify university level'
-                    ],
+                    'message' => 'Request Parameter [U_LEVEL]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุชั้นปี',
+                    //     'EN' => 'Please identify university level'
+                    // ],
                     'numeric' => true,
                 ],
                 // File image
                 "IDCARD_FILE" => [
-                    // 'message' => 'Request Parameter [IDCARD_FILE]',
-                    'message' => [
-                        'TH' => 'กรุณาเพิ่มรูปถายบัตรประชาชน',
-                        'EN' => 'Please attach of your ID card'
-                    ],
+                    'message' => 'Request Parameter [IDCARD_FILE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาเพิ่มรูปถายบัตรประชาชน',
+                    //     'EN' => 'Please attach of your ID card'
+                    // ],
                     'numeric' => false,
                     'file' => true,
                 ],
                 "STUDENTCARD_FILE" => [
-                    // 'message' => 'Request Parameter [STUDENTCARD_FILE]',
-                    'message' => [
-                        'TH' => 'กรุณาเพิ่มรูปถ่ายบัตรนักศึกษา',
-                        'EN' => 'Please attach of your student card'
-                    ],
+                    'message' => 'Request Parameter [STUDENTCARD_FILE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาเพิ่มรูปถ่ายบัตรนักศึกษา',
+                    //     'EN' => 'Please attach of your student card'
+                    // ],
                     'numeric' => false,
                     'file' => true,
                 ],
                 "FACE_FILE" => [
-                    // 'message' => 'Request Parameter [FACE_FILE]',
-                    'message' => [
-                        'TH' => 'กรุณาเพิ่มรูปถ่ายหน้าตรง',
-                        'EN' => 'Please attach of your photo'
-                    ],
+                    'message' => 'Request Parameter [FACE_FILE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาเพิ่มรูปถ่ายหน้าตรง',
+                    //     'EN' => 'Please attach of your photo'
+                    // ],
                     'numeric' => false,
                     'file' => true,
                 ],
@@ -281,30 +281,30 @@ class API_PROSPECT_CUSTOMER extends BaseController
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
                     // throw new Exception($value['message']);
-                    throw new Exception(json_encode($value['message']));
+                    throw new Exception($value['message']);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        // throw new Exception('Request Type of $(int) [' . $key . '] ');
-                        $mes_error = new stdClass;
-                        foreach ($value['message'] as $key => $value) {
-                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                            $mes_error->$key = $txt;
-                        }
-                        throw new Exception(json_encode($mes_error));
+                        throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        // $mes_error = new stdClass;
+                        // foreach ($value['message'] as $key => $value) {
+                        //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                        //     $mes_error->$key = $txt;
+                        // }
+                        // throw new Exception(json_encode($mes_error));
                     }
                 }
 
                 if (isset($value['tax_id'])) {
                     // var_dump(strlen($data[$key]));
                     if (strlen($data[$key]) != 13) {
-                        // throw new Exception("TAX ID must have 13 digits.");
-                        $mes_error = (object)[
-                            'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
-                            'EN' => 'TAX ID must have 13 digits'
-                        ];
-                        throw new Exception(json_encode($mes_error));
+                        throw new Exception("TAX ID must have 13 digits.");
+                        // $mes_error = (object)[
+                        //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                        //     'EN' => 'TAX ID must have 13 digits'
+                        // ];
+                        // throw new Exception(json_encode($mes_error));
                     }
                 }
 
@@ -313,13 +313,13 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     // $newformat = date('Y-m-d',$time);
                     // var_dump($newformat);
                     if (strtotime($data[$key]) == false) {
-                        // throw new Exception('Request Type of $(date) [' . $key . '] ');
-                        $mes_error = new stdClass;
-                        foreach ($value['message'] as $key => $value) {
-                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                            $mes_error->$key = $txt;
-                        }
-                        throw new Exception(json_encode($mes_error));
+                        throw new Exception('Request Type of $(date) [' . $key . '] ');
+                        // $mes_error = new stdClass;
+                        // foreach ($value['message'] as $key => $value) {
+                        //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                        //     $mes_error->$key = $txt;
+                        // }
+                        // throw new Exception(json_encode($mes_error));
                     }
                 }
 
@@ -327,21 +327,21 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 if (isset($value['file'])) {
                     // dd($this->is_image($data[$key]));
                     if (!is_file($data[$key])) {
-                        // throw new Exception('Request File [' . $key . '] ');
-                        $mes_error = new stdClass;
-                        foreach ($value['message'] as $key => $value) {
-                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                            $mes_error->$key = $txt;
-                        }
-                        throw new Exception(json_encode($mes_error));
+                        throw new Exception('Request File [' . $key . '] ');
+                        // $mes_error = new stdClass;
+                        // foreach ($value['message'] as $key => $value) {
+                        //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                        //     $mes_error->$key = $txt;
+                        // }
+                        // throw new Exception(json_encode($mes_error));
                     } else if ($this->is_image($data[$key]) == false) {
-                        // throw new Exception('Request Image File [' . $key . '] ');
-                        $mes_error = new stdClass;
-                        foreach ($value['message'] as $key => $value) {
-                            $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                            $mes_error->$key = $txt;
-                        }
-                        throw new Exception(json_encode($mes_error));
+                        throw new Exception('Request Image File [' . $key . '] ');
+                        // $mes_error = new stdClass;
+                        // foreach ($value['message'] as $key => $value) {
+                        //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                        //     $mes_error->$key = $txt;
+                        // }
+                        // throw new Exception(json_encode($mes_error));
                     }
                 }
             }
@@ -358,12 +358,12 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ->get();
 
             if (count($GET_PROSPECT_CUSTOMER) == 0) {
-                // throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\'] , [\'TAX_ID\']');
-                $mes_error = (object)[
-                    'TH' => 'ไม่พบข้อมูลของท่าน',
-                    'EN' => 'Not found your Information'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\'] , [\'TAX_ID\']');
+                // $mes_error = (object)[
+                //     'TH' => 'ไม่พบข้อมูลของท่าน',
+                //     'EN' => 'Not found your Information'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
 
@@ -386,56 +386,53 @@ class API_PROSPECT_CUSTOMER extends BaseController
             // Guarantor
             $validateGuarantor = [
                 "PST_GUAR_ID" => [
-                    'message' => [
-                        'TH' => 'Request Parameter [PST_GUAR_ID]',
-                        'EN' => 'Request Parameter [PST_GUAR_ID]'
-                    ],
+                    'message' => 'Request Parameter [PST_GUAR_ID]',
                     'numeric' => true,
                     'Guarantor' => true,
                     'NotGuarantor' => true,
                 ],
                 "REF_TAX_ID" => [
-                    // 'message' => 'Request Parameter [REF_TAX_ID]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุเลขบัตรประชาชนบุคคลอ้างอิง',
-                        'EN' => 'Please identify reference of id card'
-                    ],
+                    'message' => 'Request Parameter [REF_TAX_ID]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุเลขบัตรประชาชนบุคคลอ้างอิง',
+                    //     'EN' => 'Please identify reference of id card'
+                    // ],
                     'numeric' => true,
                     'tax_id' => true,
                 ],
                 "REF_TITLE" => [
-                    // 'message' => 'Request Parameter [REF_TITLE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุคำนำหน้า' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
-                        'EN' => 'Please identify ' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of prefix'
-                    ],
+                    'message' => 'Request Parameter [REF_TITLE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุคำนำหน้า' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                    //     'EN' => 'Please identify ' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of prefix'
+                    // ],
                     'numeric' => true,
                     'Guarantor' => true,
                 ],
                 "REF_FIRSTNAME" => [
-                    // 'message' => 'Request Parameter [REF_FIRSTNAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุชื่อ' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
-                        'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of first name'
-                    ],
+                    'message' => 'Request Parameter [REF_FIRSTNAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุชื่อ' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                    //     'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of first name'
+                    // ],
                     'numeric' => false,
                     'Guarantor' => true,
                 ],
                 "REF_LASTNAME" => [
-                    // 'message' => 'Request Parameter [REF_LASTNAME]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุนามสกุล' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
-                        'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of last name'
-                    ],
+                    'message' => 'Request Parameter [REF_LASTNAME]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุนามสกุล' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                    //     'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of last name'
+                    // ],
                     'numeric' => false,
                     'Guarantor' => true,
                 ],
                 "RELATION_REFERENCE" => [
-                    // 'message' => 'Request Parameter [RELATION_REFERENCE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุความสัมพันธ์กับบุลคลอ้างอิง',
-                        'EN' => 'Please identify relationship of reference'
-                    ],
+                    'message' => 'Request Parameter [RELATION_REFERENCE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุความสัมพันธ์กับบุลคลอ้างอิง',
+                    //     'EN' => 'Please identify relationship of reference'
+                    // ],
                     'numeric' => true,
                 ],
                 // "RELATION_REF_DES" => [
@@ -443,37 +440,37 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 //     'numeric' => false,
                 // ],
                 "REF_OCCUPATION" => [
-                    // 'message' => 'Request Parameter [REF_OCCUPATION]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุอาชีพบุลคลอ้างอิง',
-                        'EN' => 'Please identify reference of occupation'
-                    ],
+                    'message' => 'Request Parameter [REF_OCCUPATION]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุอาชีพบุลคลอ้างอิง',
+                    //     'EN' => 'Please identify reference of occupation'
+                    // ],
                     'numeric' => true,
                 ],
                 "REF_BIRTHDAY" => [
-                    // 'message' => 'Request Parameter [REF_BIRTHDAY]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุวันเกิดบุลคลอ้างอิง',
-                        'EN' => 'Please identify reference of birthday'
-                    ],
+                    'message' => 'Request Parameter [REF_BIRTHDAY]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุวันเกิดบุลคลอ้างอิง',
+                    //     'EN' => 'Please identify reference of birthday'
+                    // ],
                     'numeric' => false,
                     'typeDate' => true,
                 ],
                 "REF_PHONE" => [
-                    // 'message' => 'Request Parameter [REF_PHONE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุเบอร์โทรศัพท์' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
-                        'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of phone number'
-                    ],
+                    'message' => 'Request Parameter [REF_PHONE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุเบอร์โทรศัพท์' . ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'ผู้ค้ำประกัน' : 'บุคคลอ้างอิง'),
+                    //     'EN' => 'Please identify '. ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1 ? 'reference' : 'guarantor'). ' of phone number'
+                    // ],
                     'numeric' => false,
                     'Guarantor' => true,
                 ],
                 "EMAILGuarantor" => [
-                    // 'message' => 'Request Parameter [EMAILGuarantor]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุอีเมลผู้ค้ำประกัน',
-                        'EN' => 'Please identify reference of E-mail'
-                    ],
+                    'message' => 'Request Parameter [EMAILGuarantor]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุอีเมลผู้ค้ำประกัน',
+                    //     'EN' => 'Please identify reference of E-mail'
+                    // ],
                     'numeric' => false,
                     'Guarantor' => true,
                     'NotGuarantor' => true,
@@ -484,29 +481,29 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 foreach ($validateGuarantor as $key => $value) {
                     if (isset($value['Guarantor'])) {
                         if (!isset($data[$key])) {
-                            throw new Exception(json_encode($value['message']));
+                            throw new Exception($value['message']);
                         }
 
                         if (isset($value['tax_id'])) {
                             if (strlen($data[$key]) != 13) {
-                                // throw new Exception("TAX ID must have 13 digits.");
-                                $mes_error = (object)[
-                                    'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
-                                    'EN' => 'TAX ID must have 13 digits'
-                                ];
-                                throw new Exception(json_encode($mes_error));
+                                throw new Exception("TAX ID must have 13 digits.");
+                                // $mes_error = (object)[
+                                //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                                //     'EN' => 'TAX ID must have 13 digits'
+                                // ];
+                                // throw new Exception(json_encode($mes_error));
                             }
                         }
 
                         if ($value['numeric'] == true) {
                             if (!is_numeric($data[$key])) {
-                                // throw new Exception('Request Type of $(int) [' . $key . '] ');
-                                $mes_error = new stdClass;
-                                foreach ($value['message'] as $key => $value) {
-                                    $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                                    $mes_error->$key = $txt;
-                                }
-                                throw new Exception(json_encode($mes_error));
+                                throw new Exception('Request Type of $(int) [' . $key . '] ');
+                                // $mes_error = new stdClass;
+                                // foreach ($value['message'] as $key => $value) {
+                                //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                                //     $mes_error->$key = $txt;
+                                // }
+                                // throw new Exception(json_encode($mes_error));
                             }
                         }
                     }
@@ -520,24 +517,24 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
                         if (isset($value['tax_id'])) {
                             if (strlen($data[$key]) != 13) {
-                                // throw new Exception("TAX ID must have 13 digits.");
-                                $mes_error = (object)[
-                                    'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
-                                    'EN' => 'TAX ID must have 13 digits'
-                                ];
-                                throw new Exception(json_encode($mes_error));
+                                throw new Exception("TAX ID must have 13 digits.");
+                                // $mes_error = (object)[
+                                //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
+                                //     'EN' => 'TAX ID must have 13 digits'
+                                // ];
+                                // throw new Exception(json_encode($mes_error));
                             }
                         }
 
                         if ($value['numeric'] == true) {
                             if (!is_numeric($data[$key])) {
-                                // throw new Exception('Request Type of $(int) [' . $key . '] ');
-                                $mes_error = new stdClass;
-                                foreach ($value['message'] as $key => $value) {
-                                    $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                                    $mes_error->$key = $txt;
-                                }
-                                throw new Exception(json_encode($mes_error));
+                                throw new Exception('Request Type of $(int) [' . $key . '] ');
+                                // $mes_error = new stdClass;
+                                // foreach ($value['message'] as $key => $value) {
+                                //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                                //     $mes_error->$key = $txt;
+                                // }
+                                // throw new Exception(json_encode($mes_error));
                             }
                         }
 
@@ -719,18 +716,18 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 return response()->json(array(
                     'Code' => '0003',
                     'status' => 'Error',
-                    // 'message' => $e->getPrevious()->getMessage()
-                    'message' => [
-                        'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                        'EN' => 'Data invalid. Please try again'
-                    ]
+                    'message' => $e->getPrevious()->getMessage()
+                    // 'message' => [
+                    //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                    //     'EN' => 'Data invalid. Please try again'
+                    // ]
                 ));
             }
 
             return response()->json(array(
                 'Code' => '0013',
                 'status' => 'Error',
-                'message' => json_decode($e->getMessage())
+                'message' => $e->getMessage()
             ));
         }
     }

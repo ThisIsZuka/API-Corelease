@@ -26,24 +26,24 @@ class API_GET_Warrantee extends BaseController
 
             $validate = [
                 "PRODUCT_SERIES" => [
-                    // 'message' => 'Request Parameter [PRODUCT_SERIES]',
-                    'message' => [
-                        'TH' => 'ข้อมูลสินค้าไม่ถูกต้อง',
-                        'EN' => 'Product Invalid'
-                    ],
+                    'message' => 'Request Parameter [PRODUCT_SERIES]',
+                    // 'message' => [
+                    //     'TH' => 'ข้อมูลสินค้าไม่ถูกต้อง',
+                    //     'EN' => 'Product Invalid'
+                    // ],
                     'numeric' => true,
                 ],
             ];
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception(json_encode($value['message']));
+                    throw new Exception($value['message']);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        // throw new Exception('Request Type of $(int) [' . $key . ']');
-                        throw new Exception(json_encode($value['message']));
+                        throw new Exception('Request Type of $(int) [' . $key . ']');
+                        // throw new Exception(json_encode($value['message']));
                     }
                 }
             }
@@ -54,12 +54,12 @@ class API_GET_Warrantee extends BaseController
                 ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
                 ->get();
             if (count($product) == 0) {
-                // throw new Exception("Not Found [PRODUCT_SERIES]");
-                $mes_error = (object)[
-                    'TH' => 'ไม่พบข้อมูลสินค้า',
-                    'EN' => 'Not found product'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("Not Found [PRODUCT_SERIES]");
+                // $mes_error = (object)[
+                //     'TH' => 'ไม่พบข้อมูลสินค้า',
+                //     'EN' => 'Not found product'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
             // dd($product);
@@ -76,12 +76,12 @@ class API_GET_Warrantee extends BaseController
 
                 return $return_data;
             } catch (Exception $e) {
-                // throw new Exception("Data Error. Please Check variable");
-                $mes_error = (object)[
-                    'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                    'EN' => 'Data invalid. please try again'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("Data Error. Please Check variable");
+                // $mes_error = (object)[
+                //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                //     'EN' => 'Data invalid. please try again'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
         } catch (Exception $e) {
@@ -89,7 +89,7 @@ class API_GET_Warrantee extends BaseController
             return response()->json(array(
                 'Code' => '0003',
                 'status' => 'Error',
-                'message' =>json_decode($e->getMessage())
+                'message' => $e->getMessage()
             ));
         }
     }

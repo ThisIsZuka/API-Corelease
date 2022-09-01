@@ -10,8 +10,9 @@ use App\Http\Controllers\API_ADDRESS_PROSCPECT;
 use App\Http\Controllers\API_CheckDown_Guarantor;
 use App\Http\Controllers\API_GET_ASSEST;
 use App\Http\Controllers\API_GET_Warrantee;
-
 use App\Http\Controllers\test;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -116,10 +117,7 @@ Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
 Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
 
 
-
-
-// Route::any('ppvv', [test::class, 'simulater_working']);
-
+Route::post('/Cal_EFFECTIVE', [test::class, 'Cal_EFFECTIVE']);
 
 // Route::get('clear-cache', function() {
 //     Artisan::call('cache:clear');

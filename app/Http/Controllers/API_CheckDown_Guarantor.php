@@ -26,40 +26,40 @@ class API_CheckDown_Guarantor extends BaseController
 
             $validate = [
                 "PRODUCT_SERIES" => [
-                    // 'message' => 'Request Parameter [PRODUCT_SERIES]',
-                    'message' => [
-                        'TH' => 'ข้อมูลสินค้าไม่ถูกต้อง',
-                        'EN' => 'Product invalid'
-                    ],
+                    'message' => 'Request Parameter [PRODUCT_SERIES]',
+                    // 'message' => [
+                    //     'TH' => 'ข้อมูลสินค้าไม่ถูกต้อง',
+                    //     'EN' => 'Product invalid'
+                    // ],
                     'numeric' => true,
                 ],
                 "UNIVERSITY_ID" => [
-                    // 'message' => 'Request Parameter [UNIVERSITY_ID]',
-                    'message' => [
-                        'TH' => 'ข้อมูลมหาลัยไม่ถูกต้อง',
-                        'EN' => 'University invalid'
-                    ],
+                    'message' => 'Request Parameter [UNIVERSITY_ID]',
+                    // 'message' => [
+                    //     'TH' => 'ข้อมูลมหาลัยไม่ถูกต้อง',
+                    //     'EN' => 'University invalid'
+                    // ],
                     'numeric' => true,
                 ],
                 "FACULTY_ID" => [
-                    // 'message' => 'Request Parameter [FACULTY_ID]',
-                    'message' => [
-                        'TH' => 'ข้อมูลคณะไม่ถูกต้อง',
-                        'EN' => 'Faculty invalid'
-                    ],
+                    'message' => 'Request Parameter [FACULTY_ID]',
+                    // 'message' => [
+                    //     'TH' => 'ข้อมูลคณะไม่ถูกต้อง',
+                    //     'EN' => 'Faculty invalid'
+                    // ],
                     'numeric' => true,
                 ],
             ];
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception(json_encode($value['message']));
+                    throw new Exception($value['message']);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        // throw new Exception('Request Type of $(int) [' . $key . ']');
-                        throw new Exception(json_encode($value['message']));
+                        throw new Exception('Request Type of $(int) [' . $key . ']');
+                        // throw new Exception(json_encode($value['message']));
                     }
                 }
             }
@@ -70,12 +70,12 @@ class API_CheckDown_Guarantor extends BaseController
                 ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
                 ->get();
             if (count($product) == 0) {
-                // throw new Exception("Not Found [PRODUCT_SERIES]");
-                $mes_error = (object)[
-                    'TH' => 'ไม่พบข้อมูลสินค้า',
-                    'EN' => 'Not found product'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("Not Found [PRODUCT_SERIES]");
+                // $mes_error = (object)[
+                //     'TH' => 'ไม่พบข้อมูลสินค้า',
+                //     'EN' => 'Not found product'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
             // Check University Match Faculty
@@ -86,12 +86,12 @@ class API_CheckDown_Guarantor extends BaseController
                 ->get();
             // dd($faculty_check);
             if (count($faculty_check) == 0) {
-                // throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match");
-                $mes_error = (object)[
-                    'TH' => 'ข้อมูลมหาวิทยาลัยและคณะไม่ถูกต้อง',
-                    'EN' => 'University and faculty is invalid'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match");
+                // $mes_error = (object)[
+                //     'TH' => 'ข้อมูลมหาวิทยาลัยและคณะไม่ถูกต้อง',
+                //     'EN' => 'University and faculty is invalid'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
 
             try {
@@ -108,18 +108,18 @@ class API_CheckDown_Guarantor extends BaseController
 
                 return $return_data;
             } catch (Exception $e) {
-                // throw new Exception("Data Error. Please Check variable");
-                $mes_error = (object)[
-                    'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                    'EN' => 'Data invalid. please try again'
-                ];
-                throw new Exception(json_encode($mes_error));
+                throw new Exception("Data Error. Please Check variable");
+                // $mes_error = (object)[
+                //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                //     'EN' => 'Data invalid. please try again'
+                // ];
+                // throw new Exception(json_encode($mes_error));
             }
         } catch (Exception $e) {
             return response()->json(array(
                 'Code' => '0013',
                 'status' => 'Error',
-                'message' => json_decode($e->getMessage()) 
+                'message' => $e->getMessage() 
             ));
         }
     }
@@ -135,24 +135,24 @@ class API_CheckDown_Guarantor extends BaseController
 
             $validate = [
                 "PROD_SUM_PRICE" => [
-                    // 'message' => 'Request Parameter [PROD_SUM_PRICE]',
-                    'message' => [
-                        'TH' => 'กรุณาระบุข้อมูลราคาสินค้าให้ถูกต้อง',
-                        'EN' => 'Data invalid'
-                    ],
+                    'message' => 'Request Parameter [PROD_SUM_PRICE]',
+                    // 'message' => [
+                    //     'TH' => 'กรุณาระบุข้อมูลราคาสินค้าให้ถูกต้อง',
+                    //     'EN' => 'Data invalid'
+                    // ],
                     'numeric' => true,
                 ]
             ];
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception(json_encode($value['message']));
+                    throw new Exception($value['message']);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        // throw new Exception('Request Type of $(int) [' . $key . ']');
-                        throw new Exception(json_encode($value['message']));
+                        throw new Exception('Request Type of $(int) [' . $key . ']');
+                        // throw new Exception($value['message']);
                     }
                 }
             }
@@ -177,7 +177,7 @@ class API_CheckDown_Guarantor extends BaseController
             return response()->json(array(
                 'Code' => '0013',
                 'status' => 'Error',
-                'message' => json_decode($e->getMessage())
+                'message' => $e->getMessage()
             ));
         }
     }
