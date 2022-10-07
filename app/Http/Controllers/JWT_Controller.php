@@ -38,7 +38,7 @@ class JWT_Controller extends BaseController
                 'iss' => 'ufundportal.com',
                 'user' => $data['username']
             ];
-            // $secret = '!C0M$7uF0NdT0K@n*';
+
             $secret = ENV('JWT_SECRET');
             // dd($secret);
 

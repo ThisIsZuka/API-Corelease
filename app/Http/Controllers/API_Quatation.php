@@ -34,7 +34,7 @@ class API_Quatation extends BaseController
             $data = $request->all();
             // dd($data);
 
-            $validate = [
+            $validate_Quatation = [
                 "BRANCH_TYPE" => [
                     'message' => 'Request Parameter [BRANCH_TYPE]',
                     // 'message' => [
@@ -131,7 +131,7 @@ class API_Quatation extends BaseController
             ];
 
             // dd($validate);
-            foreach ($validate as $key => $value) {
+            foreach ($validate_Quatation as $key => $value) {
                 // dd($value['type']);
                 // var_dump($value);
                 // var_dump($data[$key]);

@@ -23,8 +23,6 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-
-            $return_data->Code = '9999';
             $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
@@ -361,9 +359,7 @@ class API_MT_Controller extends BaseController
 
             $MT = DB::table('dbo.MT_CATEGORY')
                 ->select('*')
-                ->where('CATEGORY_NAME', 'iPhone')
-                ->orWhere('CATEGORY_NAME', 'iPad')
-                ->orWhere('CATEGORY_NAME', 'MacBook')
+                ->where('ACTIVE_STATUS', 'T')
                 ->get();
 
             $return_data->Code = '9999';
@@ -401,7 +397,7 @@ class API_MT_Controller extends BaseController
 
             $MT = DB::table('dbo.MT_BRAND')
                 ->select('*')
-                ->where('BRAND_NAME', 'Apple')
+                ->where('ACTIVE_STATUS', '1')
                 ->get();
 
             $return_data->Code = '9999';
@@ -570,8 +566,6 @@ class API_MT_Controller extends BaseController
             $return_data->Code = '9999';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
-
-
 
             return $return_data;
         } catch (Exception $e) {
