@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "997dd3ddae1b9f983387cfa13f2f25dc",
+    "content-hash": "13ec3af3ab128352c9ee2b804e7c11c2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2850,6 +2850,59 @@
                 "source": "https://github.com/RobDWaller/ReallySimpleJWT/tree/3.x"
             },
             "time": "2021-04-06T16:13:14+00:00"
+        },
+        {
+            "name": "rodion-arr/laravel-mysql-stored-procedures",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rodion-arr/laravel-mysql-stored-procedures.git",
+                "reference": "4b30852d0dff28f152ba186b642825e13dba8431"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rodion-arr/laravel-mysql-stored-procedures/zipball/4b30852d0dff28f152ba186b642825e13dba8431",
+                "reference": "4b30852d0dff28f152ba186b642825e13dba8431",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "illuminate/support": "~5.0|~6.0|~7.0|~8.0",
+                "php": "^7.3.0|^8.0.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.2|~4.0|~5.0|~6.0",
+                "phpunit/phpunit": "^9.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RodionARR\\": "src/RodionARR"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rodion Abdurakhimov",
+                    "email": "rodion.arr.web@gmail.com"
+                }
+            ],
+            "description": "A service for calling MySQL stored procedures with multiple data sets",
+            "keywords": [
+                "laravel",
+                "multiple dataset",
+                "mysql",
+                "php",
+                "stored procedure"
+            ],
+            "support": {
+                "issues": "https://github.com/rodion-arr/laravel-mysql-stored-procedures/issues",
+                "source": "https://github.com/rodion-arr/laravel-mysql-stored-procedures/tree/v2.0.0"
+            },
+            "time": "2021-04-30T22:28:04+00:00"
         },
         {
             "name": "swagger-api/swagger-ui",

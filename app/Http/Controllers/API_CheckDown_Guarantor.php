@@ -11,6 +11,9 @@ use DateTimeZone;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
+use RodionARR\PDOService;
+use Illuminate\Support\Facades\App;
+
 use Illuminate\Validation\ValidationException;
 use stdClass;
 
@@ -69,6 +72,7 @@ class API_CheckDown_Guarantor extends BaseController
                 ->select('ASSET_ID', 'ASSETS_CATEGORY', 'ASSETS_TYPE', 'BRAND', 'SERIES', 'SUB_SERIES', 'COLOR', 'PRICE', 'SERIALNUMBER', 'MODELNUMBER', 'DESCRIPTION')
                 ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
                 ->get();
+            dd($product);
             if (count($product) == 0) {
                 throw new Exception("Not Found [PRODUCT_SERIES]");
                 // $mes_error = (object)[
@@ -95,11 +99,16 @@ class API_CheckDown_Guarantor extends BaseController
             }
 
             try {
+
                 // $check_Down = DB::select("exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
-                $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
+                $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0'
+                , @ProductTotal_INPUT = '30000', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
+
                 // dd($check_Down);
+                // $procRslts = DB::connection('mysql_procedure')
+                // $check_Down[] = DB::select("CALL SP_Check_DownPercentAndGuarantor(?,?,?,?,?,?,?,?,?,?)", array($product[0]->ASSETS_CATEGORY, $product[0]->SERIES, $data['FACULTY_ID'], $data['UNIVERSITY_ID'], '0', '0', '0', '30000', '0', '0'));
                 $responseData = new stdClass;
-                $responseData->DownMin = ($check_Down[0]->DownMAX);
+                $responseData->DownMin = ($check_Down[0]->Down);
                 $responseData->RequestGuarantor = $check_Down[0]->Guarantor;
 
                 $return_data->Code = '9999';
@@ -108,7 +117,7 @@ class API_CheckDown_Guarantor extends BaseController
 
                 return $return_data;
             } catch (Exception $e) {
-                throw new Exception("Data Error. Please Check variable");
+                throw new Exception($e->getMessage());
                 // $mes_error = (object)[
                 //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
                 //     'EN' => 'Data invalid. please try again'
@@ -119,7 +128,7 @@ class API_CheckDown_Guarantor extends BaseController
             return response()->json(array(
                 'Code' => '0013',
                 'status' => 'Error',
-                'message' => $e->getMessage() 
+                'message' => $e->getMessage()
             ));
         }
     }
@@ -171,7 +180,6 @@ class API_CheckDown_Guarantor extends BaseController
             $return_data->data = $Get_tenor;
 
             return $return_data;
-
         } catch (Exception $e) {
 
             return response()->json(array(

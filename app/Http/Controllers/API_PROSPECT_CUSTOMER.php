@@ -666,11 +666,11 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     ->where('PST_GUAR_ID', $data['PST_GUAR_ID'])
                     ->where('QUOTATION_ID', $data['QUOTATION_ID'])
                     ->update([
-                        'PREFIX' =>  $data['REF_TITLE'],
-                        'FIRST_NAME' => $data['REF_FIRSTNAME'],
-                        'LAST_NAME' => $data['REF_LASTNAME'],
-                        'MOBILE' => $data['REF_PHONE'],
-                        'EMAIL' => $data['EMAILGuarantor'],
+                        'REF_TITLE' =>  $data['REF_TITLE'],
+                        'REF_FIRSTNAME' => $data['REF_FIRSTNAME'],
+                        'REF_LASTNAME' => $data['REF_LASTNAME'],
+                        'REF_PHONE' => $data['REF_PHONE'],
+                        // 'EMAIL' => $data['EMAILGuarantor'],
                         'RESULT_GUARANTOR' => 'WAIT',
                     ]);
             } else {
