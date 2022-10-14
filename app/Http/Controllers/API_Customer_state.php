@@ -379,7 +379,12 @@ class API_Customer_state extends BaseController
             }
         } catch (Exception $e) {
             // return response()->json(array('message' => $e->getMessage()));
-            return response()->json(array('message' => 'ERROR'));
+            // return response()->json(array('message' => 'ERROR'));
+            return response()->json(array(
+                'Code' => '1000',
+                'status' => 'Invalid Data' ,
+                'message' => $e->getMessage()
+            ));
         }
     }
 }

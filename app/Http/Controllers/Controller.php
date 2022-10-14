@@ -183,7 +183,7 @@ use Illuminate\Routing\Controller as BaseController;
  *     )
  * ),
  * 
- * @OA\Get(
+ * @OA\Post(
  * path="/API-Corelease/api/master_setup_company/{BRANCH_TYPE_ID}",
  * summary="Master Data สาขา",
  * description="สาขา",
@@ -194,6 +194,13 @@ use Illuminate\Routing\Controller as BaseController;
  *     in="path",
  *     description="รหัสประเภทสาขา",
  *     required=false,
+ * ),
+ * @OA\RequestBody(
+ *    required=false,
+ *    description="Customer information",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Search", type="string", format="string", example="ขอนแก่น"),
+ *    ),
  * ),
  * @OA\Response(
  *    response=422,
@@ -535,7 +542,6 @@ use Illuminate\Routing\Controller as BaseController;
  *         @OA\Property(property="UNIVERSITY_ID", type="string", format="string", example="13"),
  *         @OA\Property(property="FACULTY_ID", type="string", format="string", example="807"),
  *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
- *         @OA\Property(property="PROD_SUM_PRICE", type="string", format="string", example="35400"),
  *         @OA\Property(property="DOWN_SUM_AMT", type="string", format="string", example="3540"),
  *         @OA\Property(property="INSTALL_NUM", type="string", format="string", example="24"),
  *         @OA\Property(property="ACS_ID", type="string", format="string", example="484"),
@@ -780,6 +786,34 @@ use Illuminate\Routing\Controller as BaseController;
  *        )
  *     )
  * ),
+ * 
+ * 
+ *
+ * @OA\Post(
+ * path="/API-Corelease/api/SKU_ASSETS_INSURANCE",
+ * summary="รายการประกันและอุปกรณ์เสริมของสินค้า",
+ * description="รายการประกันและอุปกรณ์เสริมของสินค้า",
+ * operationId="ASSETS_INSURANCE",
+ * tags={"API Check"},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Product information",
+ *      @OA\JsonContent(
+ *         required={"PRODUCT_SERIES"},
+ *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ *  
  * 
  * 
  * @OA\Post(

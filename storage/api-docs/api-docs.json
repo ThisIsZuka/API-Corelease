@@ -358,7 +358,7 @@
             }
         },
         "/API-Corelease/api/master_setup_company/{BRANCH_TYPE_ID}": {
-            "get": {
+            "post": {
                 "tags": [
                     "API Branch"
                 ],
@@ -373,6 +373,24 @@
                         "required": false
                     }
                 ],
+                "requestBody": {
+                    "description": "Customer information",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Search": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "ขอนแก่น"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -1055,11 +1073,6 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "194252038338"
-                                    },
-                                    "PROD_SUM_PRICE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "35400"
                                     },
                                     "DOWN_SUM_AMT": {
                                         "type": "string",
@@ -1869,6 +1882,63 @@
                 "summary": "ประกันเสริม",
                 "description": "ประกันเสริมของสินค้า",
                 "operationId": "Warrantee",
+                "requestBody": {
+                    "description": "Product information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "PRODUCT_SERIES"
+                                ],
+                                "properties": {
+                                    "PRODUCT_SERIES": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "194252038338"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "9999"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/API-Corelease/api/SKU_ASSETS_INSURANCE": {
+            "post": {
+                "tags": [
+                    "API Check"
+                ],
+                "summary": "รายการประกันและอุปกรณ์เสริมของสินค้า",
+                "description": "รายการประกันและอุปกรณ์เสริมของสินค้า",
+                "operationId": "ASSETS_INSURANCE",
                 "requestBody": {
                     "description": "Product information",
                     "required": true,

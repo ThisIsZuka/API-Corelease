@@ -6,8 +6,8 @@ use App\Http\Controllers\API_MT_Controller;
 use App\Http\Controllers\JWT_Controller;
 
 
-use App\Http\Controllers\API_STATE_QUATATION;
-// use App\Http\Controllers\API_Quatation;
+// use App\Http\Controllers\API_STATE_QUATATION;
+use App\Http\Controllers\API_Quatation;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\API_ADDRESS_PROSCPECT;
 
@@ -15,6 +15,7 @@ use App\Http\Controllers\API_ADDRESS_PROSCPECT;
 use App\Http\Controllers\API_CheckDown_Guarantor;
 use App\Http\Controllers\API_GET_ASSEST;
 use App\Http\Controllers\API_GET_Warrantee;
+use App\Http\Controllers\API_GET_Asset_Insurance;
 use App\Http\Controllers\API_Customer_state;
 use App\Http\Controllers\test;
 
@@ -41,13 +42,13 @@ Route::post('/Get_Token', [JWT_Controller::class, 'Get_Token']);
 
 Route::group(['middleware' => ['JWT_Token']], function () {
 
-    Route::post('new_customer', [API_STATE_QUATATION::class, 'New_Quatation']);
+    // Route::post('new_customer', [API_STATE_QUATATION::class, 'New_Quatation']);
 
-    // Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
+    Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
 
-    // Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
+    Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
 
-    // Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
+    Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
 });
 
 Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guarantor']);
@@ -55,6 +56,8 @@ Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guar
 Route::post('SKU_ASSETS', [API_GET_ASSEST::class, 'API_GET_ASSEST']);
 
 Route::post('SKU_Warrantee', [API_GET_Warrantee::class, 'API_GET_Warrantee']);
+
+Route::post('SKU_ASSETS_INSURANCE', [API_GET_Asset_Insurance::class, 'API_GET_Asset_Insurance']);
 
 
 Route::post('Check_Tenor', [API_CheckDown_Guarantor::class, 'Check_Tenor']);
@@ -88,9 +91,6 @@ Route::get('/master_level', [API_MT_Controller::class, 'MT_LEVEL']);
 
 Route::get('/master_rerationship_ref', [API_MT_Controller::class, 'MT_RELATIONSHIP_REF']);
 
-Route::get('/master_branch_type', [API_MT_Controller::class, 'MT_BRANCH_TYPE']);
-
-Route::get('/master_setup_company/{BRANCH_TYPE_ID}', [API_MT_Controller::class, 'SETUP_COMPANY_BRANCH']);
 
 Route::get('/master_category', [API_MT_Controller::class, 'MT_CATEGORY']);
 
@@ -115,6 +115,12 @@ Route::get('/master_province', [API_MT_Controller::class, 'MT_PROVINCE']);
 Route::get('/master_district/{PROVINCE_ID}', [API_MT_Controller::class, 'MT_DISTRICT']);
 
 Route::get('/master_sub_district/{DISTRICT_ID}', [API_MT_Controller::class, 'MT_SUB_DISTRICT']);
+
+
+
+Route::get('/master_branch_type', [API_MT_Controller::class, 'MT_BRANCH_TYPE']);
+
+Route::post('/master_setup_company/{BRANCH_TYPE_ID}', [API_MT_Controller::class, 'SETUP_COMPANY_BRANCH']);
 
 
 // Route::get('/master_university/{PROVINCE_ID?}', [API_MT_Controller::class, 'MT_UNIVERSITY']);
