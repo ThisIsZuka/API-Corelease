@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API_MT_Controller;
@@ -17,6 +18,7 @@ use App\Http\Controllers\API_GET_ASSEST;
 use App\Http\Controllers\API_GET_Warrantee;
 use App\Http\Controllers\API_GET_Asset_Insurance;
 use App\Http\Controllers\API_Customer_state;
+use App\Http\Controllers\API_NCB_FORMATTER;
 use App\Http\Controllers\test;
 
 
@@ -142,9 +144,12 @@ Route::post('/Cal_EFFECTIVE', [test::class, 'Cal_EFFECTIVE']);
 Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
 
 Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
+
 Route::get('/NCBFormated/{type}', function ($type) {
-    $formatter = new App\Http\Controllers\API_NCB_FORMATTER;
-    $formatter->get($type);
+    $formatter = new API_NCB_FORMATTER();
+    $download_file = $formatter->get($type);
+
+    return response()->json($download_file);
 });
 
 // Route::get('clear-cache', function() {
