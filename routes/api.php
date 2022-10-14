@@ -133,6 +133,14 @@ Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
 
 Route::post('/Cal_EFFECTIVE', [test::class, 'Cal_EFFECTIVE']);
 
+Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
+
+Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
+Route::get('/NCBFormated/{type}', function ($type) {
+    $formatter = new App\Http\Controllers\API_NCB_FORMATTER;
+    $formatter->get($type);
+});
+
 // Route::get('clear-cache', function() {
 //     Artisan::call('cache:clear');
 //     return "Cache is cleared";

@@ -15,14 +15,13 @@ use App\Http\Controllers\Check_Calculator;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('NCBMonthly');
+});
 
 Route::get('test_post_api', function () {
     return view('test_api');
 });
-
 
 Route::post('test_new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
 
