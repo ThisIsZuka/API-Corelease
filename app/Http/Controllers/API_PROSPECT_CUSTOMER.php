@@ -281,12 +281,12 @@ class API_PROSPECT_CUSTOMER extends BaseController
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
                     // throw new Exception($value['message']);
-                    throw new Exception($value['message']);
+                    throw new Exception($value['message'] , 1000);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        throw new Exception('Request Type of $(int) [' . $key . '] ' , 1000);
                         // $mes_error = new stdClass;
                         // foreach ($value['message'] as $key => $value) {
                         //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
@@ -299,7 +299,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 if (isset($value['tax_id'])) {
                     // var_dump(strlen($data[$key]));
                     if (strlen($data[$key]) != 13) {
-                        throw new Exception("TAX ID must have 13 digits.");
+                        throw new Exception("TAX ID must have 13 digits." , 1000);
                         // $mes_error = (object)[
                         //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
                         //     'EN' => 'TAX ID must have 13 digits'
@@ -313,7 +313,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     // $newformat = date('Y-m-d',$time);
                     // var_dump($newformat);
                     if (strtotime($data[$key]) == false) {
-                        throw new Exception('Request Type of $(date) [' . $key . '] ');
+                        throw new Exception('Request Type of $(date) [' . $key . '] ' , 1000);
                         // $mes_error = new stdClass;
                         // foreach ($value['message'] as $key => $value) {
                         //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
@@ -327,7 +327,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 if (isset($value['file'])) {
                     // dd($this->is_image($data[$key]));
                     if (!is_file($data[$key])) {
-                        throw new Exception('Request File [' . $key . '] ');
+                        throw new Exception('Request File [' . $key . '] ' , 1000);
                         // $mes_error = new stdClass;
                         // foreach ($value['message'] as $key => $value) {
                         //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
@@ -335,7 +335,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                         // }
                         // throw new Exception(json_encode($mes_error));
                     } else if ($this->is_image($data[$key]) == false) {
-                        throw new Exception('Request Image File [' . $key . '] ');
+                        throw new Exception('Request Image File [' . $key . '] ' , 1000);
                         // $mes_error = new stdClass;
                         // foreach ($value['message'] as $key => $value) {
                         //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
@@ -358,7 +358,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ->get();
 
             if (count($GET_PROSPECT_CUSTOMER) == 0) {
-                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\'] , [\'TAX_ID\']');
+                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\'] , [\'TAX_ID\']' , 2000);
                 // $mes_error = (object)[
                 //     'TH' => 'ไม่พบข้อมูลของท่าน',
                 //     'EN' => 'Not found your Information'
@@ -481,12 +481,12 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 foreach ($validateGuarantor as $key => $value) {
                     if (isset($value['Guarantor'])) {
                         if (!isset($data[$key])) {
-                            throw new Exception($value['message']);
+                            throw new Exception($value['message'] , 1000);
                         }
 
                         if (isset($value['tax_id'])) {
                             if (strlen($data[$key]) != 13) {
-                                throw new Exception("TAX ID must have 13 digits.");
+                                throw new Exception("TAX ID must have 13 digits." , 1000);
                                 // $mes_error = (object)[
                                 //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
                                 //     'EN' => 'TAX ID must have 13 digits'
@@ -497,7 +497,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
                         if ($value['numeric'] == true) {
                             if (!is_numeric($data[$key])) {
-                                throw new Exception('Request Type of $(int) [' . $key . '] ');
+                                throw new Exception('Request Type of $(int) [' . $key . '] ' , 1000);
                                 // $mes_error = new stdClass;
                                 // foreach ($value['message'] as $key => $value) {
                                 //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
@@ -512,12 +512,12 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 foreach ($validateGuarantor as $key => $value) {
                     if (!isset($value['NotGuarantor'])) {
                         if (!isset($data[$key])) {
-                            throw new Exception($value['message']);
+                            throw new Exception($value['message'] , 1000);
                         }
 
                         if (isset($value['tax_id'])) {
                             if (strlen($data[$key]) != 13) {
-                                throw new Exception("TAX ID must have 13 digits.");
+                                throw new Exception("TAX ID must have 13 digits." , 1000);
                                 // $mes_error = (object)[
                                 //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
                                 //     'EN' => 'TAX ID must have 13 digits'
@@ -528,7 +528,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
                         if ($value['numeric'] == true) {
                             if (!is_numeric($data[$key])) {
-                                throw new Exception('Request Type of $(int) [' . $key . '] ');
+                                throw new Exception('Request Type of $(int) [' . $key . '] ' , 1000);
                                 // $mes_error = new stdClass;
                                 // foreach ($value['message'] as $key => $value) {
                                 //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
@@ -543,13 +543,13 @@ class API_PROSPECT_CUSTOMER extends BaseController
                             // $newformat = date('Y-m-d',$time);
                             // var_dump($newformat);
                             if (strtotime($data[$key]) == false) {
-                                // throw new Exception('Request Type of $(date) [' . $key . '] ');
-                                $mes_error = new stdClass;
-                                foreach ($value['message'] as $key => $value) {
-                                    $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                                    $mes_error->$key = $txt;
-                                }
-                                throw new Exception(json_encode($mes_error));
+                                throw new Exception('Request Type of $(date) [' . $key . '] ' , 1000);
+                                // $mes_error = new stdClass;
+                                // foreach ($value['message'] as $key => $value) {
+                                //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
+                                //     $mes_error->$key = $txt;
+                                // }
+                                // throw new Exception(json_encode($mes_error));
                             }
                         }
 
@@ -701,7 +701,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
 
             return response()->json(array(
-                'Code' => '9999',
+                'Code' => '0000',
                 'status' => 'Success',
                 'data' => [
                     'TAX_ID' => $data['TAX_ID'],
@@ -709,24 +709,33 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'PST_CUST_ID' => $data['PST_CUST_ID']
                 ]
             ));
-        } catch (Exception $e) {;
-            // dd($e->getMessage());
+        } catch (Exception $e) {
+
+            $MsgError = [
+                "1000" => [
+                    'status' => 'Invalid Data',
+                ],
+                "2000" => [
+                    'status' => 'Invalid Condition',
+                ],
+                "9000" => [
+                    'status' => 'System Error',
+                ],
+            ];
+
+            // dd($e);
             // $getPrevious = $e->getPrevious();
             if ($e->getPrevious() != null) {
                 return response()->json(array(
-                    'Code' => '0003',
-                    'status' => 'Error',
-                    'message' => $e->getPrevious()->getMessage()
-                    // 'message' => [
-                    //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                    //     'EN' => 'Data invalid. Please try again'
-                    // ]
+                    'Code' => '9000',
+                    'status' =>  'System Error',
+                    'message' => $e->getPrevious()->getMessage(),
                 ));
             }
 
             return response()->json(array(
-                'Code' => '0013',
-                'status' => 'Error',
+                'Code' => (string)$e->getCode() ?: '1000',
+                'status' =>  $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
                 'message' => $e->getMessage()
             ));
         }
