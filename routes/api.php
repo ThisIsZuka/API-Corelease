@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API_MT_Controller;
 use App\Http\Controllers\JWT_Controller;
+use Illuminate\Support\Facades\DB;
 
 
 // use App\Http\Controllers\API_STATE_QUATATION;
@@ -146,10 +147,10 @@ Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
 Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 
 Route::get('/NCBFormated/{type}', function ($type) {
-    $formatter = new API_NCB_FORMATTER();
-    $download_file = $formatter->get($type);
+    $formatter = new App\Http\Controllers\API_NCB_FORMATTER_v13;
+    $result = $formatter->generate()->txtfile;
 
-    return response()->json($download_file);
+    return response()->json($result);
 });
 
 // Route::get('clear-cache', function() {
