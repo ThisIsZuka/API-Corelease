@@ -49,7 +49,8 @@ class NCB_FORMATTER {
 
     function getFormatter() {
         $this->txtfile = $this->header_text_file();
-        $this->txtfile .= NCB_FORMATTER::TRAILER;
+        $this->txtfile .= $this->body_text_file();
+        $this->txtfile .= "\r\n" . NCB_FORMATTER::TRAILER;
 
         return $this;
     }
@@ -82,25 +83,27 @@ class NCB_FORMATTER {
         if ($this->section == 'header') {
             $str = isset($this->member_data[$fieldname]) ? $this->member_data[$fieldname]:$value;
             $txtlength = strlen($str);
+            $requestCountStringLength = isset($this->tudf_header_section[$fieldname]["countStringLenght"]) ? $this->tudf_header_section[$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_header_section[$fieldname]["fixedLength"]) ? $this->tudf_header_section[$fieldname]["fixedLength"]:0;
             $zerofill = isset($this->tudf_header_section[$fieldname]["zerofill"]) ? $this->tudf_header_section[$fieldname]["zerofill"]:false;
             $freespace = isset($this->tudf_header_section[$fieldname]["freespace"]) ? $this->tudf_header_section[$fieldname]["freespace"]:false;
+            $uppercase = false;
             $this->position = isset($this->tudf_header_section[$fieldname]["position"]) ? $this->tudf_header_section[$fieldname]["position"]:'prefix';
         } else {
-
+            $str = isset($this->raw[$fieldname]) ? $this->raw[$fieldname]:$value;
+            $txtlength = strlen($str);
+            $requestCountStringLength = isset($this->tudf_body_section[$fieldname]["countStringLenght"]) ? $this->tudf_body_section[$fieldname]["countStringLenght"]:false;
+            $fixedLength = isset($this->tudf_body_section[$fieldname]["fixedLength"]) ? $this->tudf_body_section[$fieldname]["fixedLength"]:0;
+            $zerofill = isset($this->tudf_body_section[$fieldname]["zerofill"]) ? $this->tudf_body_section[$fieldname]["zerofill"]:false;
+            $freespace = isset($this->tudf_body_section[$fieldname]["freespace"]) ? $this->tudf_body_section[$fieldname]["freespace"]:false;
+            $this->position = isset($this->tudf_body_section[$fieldname]["position"]) ? $this->tudf_body_section[$fieldname]["position"]:'prefix';
+            $uppercase = true;
         }
 
-        if ($fixedLength > 0) {
-            if ($zerofill) {
-                $txt = $this->zerofill(strtoupper($str), $fixedLength - $txtlength);
-            } else if ($freespace) {
-                $txt = $this->freespace(strtoupper($str), $fixedLength - $txtlength);
-            } else {
-                $txt = strtoupper($str);
-            }
-        } else {
-            $txt = strtoupper($str);
-        }
+        $txt = $requestCountStringLength ? $txtlength:'';
+        $txt = $fixedLength > 0&&$zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):$txt;
+        $txt = $fixedLength > 0&&$freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):$txt;
+        $txt = $uppercase ? strtoupper($str):$str;
         
         return $txt;
     }
@@ -117,9 +120,9 @@ class NCB_FORMATTER {
 
     private function freespace($txt, $length) {
         if ($this->position == 'postfix') {
-            $str = $txt . $this->repeat('&nbsp;', $length);
+            $str = $txt . $this->repeat(' ', $length);
         } else {
-            $str = $this->repeat('&nbsp;', $length) . $txt;
+            $str = $this->repeat(' ', $length) . $txt;
         }
 
         return $str;
@@ -140,6 +143,8 @@ class NCB_FORMATTER {
     }
 
     function body_text_file() {
+
+
         return $this;
     }
 
