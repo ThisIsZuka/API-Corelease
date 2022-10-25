@@ -49,7 +49,7 @@ class NCB_FORMATTER {
 
     function getFormatter() {
         $this->txtfile = "";
-        $this->txtfile = $this->header_text_file();
+        $this->txtfile = $this->header_text_file() . "\r\n";
         $this->txtfile .= $this->body_text_file();
         $this->txtfile .= NCB_FORMATTER::TRAILER;
 
@@ -82,15 +82,16 @@ class NCB_FORMATTER {
         $body = "";
 
         for ($x = 0;$x < count($this->raw);$x++) {
+            $data = $this->raw[$x];
             for ($y = 0;$y < count(array_keys($this->tudf_body_section));$y++) {
                 $segmentName = array_keys($this->tudf_body_section)[$y];
                 for ($z = 0;$z < count($this->tudf_body_section[$segmentName]);$z++) {
                     $fieldname = array_keys($this->tudf_body_section[$segmentName])[$z];
-                    $value = isset($this->raw[$x]->$fieldname) ? $this->raw[$x]->$fieldname:'';
+                    $value = isset($data->$fieldname) ? $data->$fieldname:'';
                     $body .= $this->chk_requirement($fieldname, $value, $segmentName);
-                }    
+                }
             }
-            $body .= "/r/n";
+            $body .= "\r\n";
         }
 
         return $body;
@@ -108,6 +109,7 @@ class NCB_FORMATTER {
             $fixedLength = isset($this->tudf_header_section[$fieldname]["fixedLength"]) ? $this->tudf_header_section[$fieldname]["fixedLength"]:0;
             $zerofill = isset($this->tudf_header_section[$fieldname]["zerofill"]) ? $this->tudf_header_section[$fieldname]["zerofill"]:false;
             $freespace = isset($this->tudf_header_section[$fieldname]["freespace"]) ? $this->tudf_header_section[$fieldname]["freespace"]:false;
+            $maxLength = 0;
             // $uppercase = false;
             $this->position = isset($this->tudf_header_section[$fieldname]["position"]) ? $this->tudf_header_section[$fieldname]["position"]:'prefix';
         } else {
@@ -116,7 +118,6 @@ class NCB_FORMATTER {
             $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
             $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
             $str = $str == ''||$str == null ? $default:$str;
-            
             if (count($options) > 0) {
                 $str = $options[$str];
             }
@@ -130,7 +131,7 @@ class NCB_FORMATTER {
             $uppercase = true;
         }
 
-        // var_dump($fieldname, $str);
+        
         if ($fixedLength > 0) {
             $txt .= $zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= $freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):'';
@@ -138,8 +139,8 @@ class NCB_FORMATTER {
         } else {
             $txt .= strtoupper($str);
         }
-        
-        return $fieldtag . $txtlength . $txt;
+        $pre = $requestCountStringLength ? $txtlength:'';
+        return  $fieldtag . $pre . $txt;
     }
 
     private function prefix() {

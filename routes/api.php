@@ -15,6 +15,7 @@ use App\Http\Controllers\API_ADDRESS_PROSCPECT;
 
 
 use App\Http\Controllers\API_CheckDown_Guarantor;
+use App\Http\Controllers\API_Connect_to_D365;
 use App\Http\Controllers\API_GET_ASSEST;
 use App\Http\Controllers\API_GET_Warrantee;
 use App\Http\Controllers\API_GET_Asset_Insurance;
@@ -52,6 +53,8 @@ Route::group(['middleware' => ['JWT_Token']], function () {
     Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
 
     Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
+
+    
 });
 
 Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guarantor']);
@@ -152,6 +155,8 @@ Route::get('/NCBFormated/{type}', function ($type) {
 
     return response()->json($result);
 });
+
+Route::post('D365GetToken', [API_Connect_to_D365::class, 'Connect']);
 
 // Route::get('clear-cache', function() {
 //     Artisan::call('cache:clear');

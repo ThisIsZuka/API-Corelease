@@ -55,7 +55,7 @@ class file {
     }
 
     private function make_file($filename, $content) {
-        $file = $this->dir . '/' . $filename . $this->type;
+        $file = $this->dir . '/' . $filename . '.' . $this->type;
 
         try {
             $thisfile = fopen($file, 'w');
