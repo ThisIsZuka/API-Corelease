@@ -48,9 +48,10 @@ class NCB_FORMATTER {
     }
 
     function getFormatter() {
+        $this->txtfile = "";
         $this->txtfile = $this->header_text_file();
         $this->txtfile .= $this->body_text_file();
-        $this->txtfile .= "\r\n" . NCB_FORMATTER::TRAILER;
+        $this->txtfile .= NCB_FORMATTER::TRAILER;
 
         return $this;
     }
@@ -75,37 +76,70 @@ class NCB_FORMATTER {
 
         return $head;
     }
+    
+    function body_text_file() {
+        $this->section = "body";
+        $body = "";
 
-    private function chk_requirement($fieldname, $value = '') {
+        for ($x = 0;$x < count($this->raw);$x++) {
+            for ($y = 0;$y < count(array_keys($this->tudf_body_section));$y++) {
+                $segmentName = array_keys($this->tudf_body_section)[$y];
+                for ($z = 0;$z < count($this->tudf_body_section[$segmentName]);$z++) {
+                    $fieldname = array_keys($this->tudf_body_section[$segmentName])[$z];
+                    $value = isset($this->raw[$x]->$fieldname) ? $this->raw[$x]->$fieldname:'';
+                    $body .= $this->chk_requirement($fieldname, $value, $segmentName);
+                }    
+            }
+            $body .= "/r/n";
+        }
+
+        return $body;
+    }
+
+    private function chk_requirement($fieldname, $value = '', $secmentname = '') {
         $txt = "";
         $zerofill = false;
         $freespace = false;
         if ($this->section == 'header') {
+            $fieldtag = "";
             $str = isset($this->member_data[$fieldname]) ? $this->member_data[$fieldname]:$value;
             $txtlength = strlen($str);
             $requestCountStringLength = isset($this->tudf_header_section[$fieldname]["countStringLenght"]) ? $this->tudf_header_section[$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_header_section[$fieldname]["fixedLength"]) ? $this->tudf_header_section[$fieldname]["fixedLength"]:0;
             $zerofill = isset($this->tudf_header_section[$fieldname]["zerofill"]) ? $this->tudf_header_section[$fieldname]["zerofill"]:false;
             $freespace = isset($this->tudf_header_section[$fieldname]["freespace"]) ? $this->tudf_header_section[$fieldname]["freespace"]:false;
-            $uppercase = false;
+            // $uppercase = false;
             $this->position = isset($this->tudf_header_section[$fieldname]["position"]) ? $this->tudf_header_section[$fieldname]["position"]:'prefix';
         } else {
-            $str = isset($this->raw[$fieldname]) ? $this->raw[$fieldname]:$value;
+            $fieldtag = isset($this->tudf_body_section[$secmentname][$fieldname]["FieldTag"])? $this->tudf_body_section[$secmentname][$fieldname]["FieldTag"]:'';
+            $str = isset($this->raw[$fieldname]) ? trim($this->raw[$fieldname]):trim($value);
+            $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
+            $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
+            $str = $str == ''||$str == null ? $default:$str;
+            
+            if (count($options) > 0) {
+                $str = $options[$str];
+            }
             $txtlength = strlen($str);
-            $requestCountStringLength = isset($this->tudf_body_section[$fieldname]["countStringLenght"]) ? $this->tudf_body_section[$fieldname]["countStringLenght"]:false;
-            $fixedLength = isset($this->tudf_body_section[$fieldname]["fixedLength"]) ? $this->tudf_body_section[$fieldname]["fixedLength"]:0;
-            $zerofill = isset($this->tudf_body_section[$fieldname]["zerofill"]) ? $this->tudf_body_section[$fieldname]["zerofill"]:false;
-            $freespace = isset($this->tudf_body_section[$fieldname]["freespace"]) ? $this->tudf_body_section[$fieldname]["freespace"]:false;
-            $this->position = isset($this->tudf_body_section[$fieldname]["position"]) ? $this->tudf_body_section[$fieldname]["position"]:'prefix';
+            $requestCountStringLength = isset($this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]) ? $this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]:false;
+            $fixedLength = isset($this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]:0;
+            $maxLength = isset($this->tudf_body_section[$secmentname][$fieldname]["maxLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["maxLength"]:0;
+            $zerofill = isset($this->tudf_body_section[$secmentname][$fieldname]["zerofill"]) ? $this->tudf_body_section[$secmentname][$fieldname]["zerofill"]:false;
+            $freespace = isset($this->tudf_body_section[$secmentname][$fieldname]["freespace"]) ? $this->tudf_body_section[$secmentname][$fieldname]["freespace"]:false;
+            $this->position = isset($this->tudf_body_section[$secmentname][$fieldname]["position"]) ? $this->tudf_body_section[$secmentname][$fieldname]["position"]:'prefix';
             $uppercase = true;
         }
 
-        $txt = $requestCountStringLength ? $txtlength:'';
-        $txt = $fixedLength > 0&&$zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):$txt;
-        $txt = $fixedLength > 0&&$freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):$txt;
-        $txt = $uppercase ? strtoupper($str):$str;
+        // var_dump($fieldname, $str);
+        if ($fixedLength > 0) {
+            $txt .= $zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):'';
+            $txt .= $freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):'';
+            $txt .= !$zerofill && !$freespace ? strtoupper($str):'';
+        } else {
+            $txt .= strtoupper($str);
+        }
         
-        return $txt;
+        return $fieldtag . $txtlength . $txt;
     }
 
     private function prefix() {
@@ -140,12 +174,6 @@ class NCB_FORMATTER {
 
     private function repeat($string, $number) {
         return str_repeat($string, $number);
-    }
-
-    function body_text_file() {
-
-
-        return $this;
     }
 
     // function generate_by_type() {

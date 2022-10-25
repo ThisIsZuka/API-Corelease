@@ -148,7 +148,7 @@ Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 
 Route::get('/NCBFormated/{type}', function ($type) {
     $formatter = new App\Http\Controllers\API_NCB_FORMATTER_v13;
-    $result = $formatter->generate()->txtfile;
+    $result = $formatter->generate();
 
     return response()->json($result);
 });

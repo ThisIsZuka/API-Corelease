@@ -28,13 +28,41 @@ class file {
         }
     }
 
+    public function setType($type) {
+        try {
+            $this->type = $type;
+            return $this;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function setContent($content) {
+        try {
+            $this->content = $content;
+            return $this;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getFile($filename) {
+        try {
+            return $this->make_file($filename, $this->content);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     private function make_file($filename, $content) {
-        $file = $this->dir . '/' . $filename;
+        $file = $this->dir . '/' . $filename . $this->type;
 
         try {
             $thisfile = fopen($file, 'w');
             fwrite($thisfile, $content);
             fclose($thisfile);
+
+            return $file;
         } catch (\Throwable $th) {
             throw $th;
         }
