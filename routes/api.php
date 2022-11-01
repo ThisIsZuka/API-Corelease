@@ -6,7 +6,7 @@ use App\Http\Controllers\API_MT_Controller;
 use App\Http\Controllers\JWT_Controller;
 
 
-// use App\Http\Controllers\API_STATE_QUATATION;
+use App\Http\Controllers\API_STATE_QUOTATION;
 use App\Http\Controllers\API_Quatation;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\API_ADDRESS_PROSCPECT;
@@ -16,7 +16,8 @@ use App\Http\Controllers\API_CheckDown_Guarantor;
 use App\Http\Controllers\API_GET_ASSEST;
 use App\Http\Controllers\API_GET_Warrantee;
 use App\Http\Controllers\API_GET_Asset_Insurance;
-use App\Http\Controllers\API_Customer_state;
+use App\Http\Controllers\API_STATE_CustomerStatus;
+use App\Http\Controllers\API_GET_Product;
 use App\Http\Controllers\test;
 
 
@@ -40,16 +41,23 @@ header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Author
 
 Route::post('/Get_Token', [JWT_Controller::class, 'Get_Token']);
 
+// Route::group(['middleware' => ['JWT_Token', 'throttle:api']], function () {
 Route::group(['middleware' => ['JWT_Token']], function () {
 
-    // Route::post('new_customer', [API_STATE_QUATATION::class, 'New_Quatation']);
+    // Route::post('new_customer', [API_STATE_QUOTATION::class, 'New_Quatation']);
 
     Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
 
     Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
 
     Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
+
+
+    // State Quatation
+    Route::post('new_Quotation', [API_STATE_QUOTATION::class, 'State_Quotation']);
 });
+
+Route::get('SKU_GetProduct', [API_GET_Product::class, 'SKU_GetProduct']);
 
 Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guarantor']);
 
@@ -66,7 +74,7 @@ Route::post('Check_Tenor', [API_CheckDown_Guarantor::class, 'Check_Tenor']);
 
 // State Customer
 
-Route::post('/CustomerStatus', [API_Customer_state::class, 'Get_CustomerStatus']);
+Route::post('/CustomerStatus', [API_STATE_CustomerStatus::class, 'Get_CustomerStatus']);
 
 
 ///////////////////////////////////////////////////////////////////////////

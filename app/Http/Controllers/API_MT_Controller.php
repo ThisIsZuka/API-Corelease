@@ -907,12 +907,12 @@ class API_MT_Controller extends BaseController
                     ->paginate(100);
 
                 // dd($MT);
-                // dd($MT);
 
                 $return_data->Code = '0000';
                 $return_data->status = 'Sucsess';
                 $return_data->page = $MT->currentPage();
                 $return_data->data = $MT->items();
+                // $return_data->data = $MT;
             }
 
             return $return_data;
