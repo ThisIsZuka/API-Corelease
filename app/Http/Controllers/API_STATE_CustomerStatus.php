@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use stdClass;
 
-class API_Customer_state extends BaseController
+class API_STATE_CustomerStatus extends BaseController
 {
+
+    protected function Regular_Exp($data)
+    {
+        return preg_replace('/\W+/', '', $data);
+    }
 
     public function Get_CustomerStatus(Request $request)
     {
@@ -140,7 +145,7 @@ class API_Customer_state extends BaseController
                         $object_Guarantor->count = 1;
                     }
                 }
-                $return_data->Guarantor = $object_Guarantor;
+                // $return_data->Guarantor = $object_Guarantor;
                 // dd($return_data->Guarantor);
 
 
@@ -166,15 +171,39 @@ class API_Customer_state extends BaseController
 
 
                 // Get Product
+                // $product_KYC = DB::table('dbo.PRODUCT')
+                //     ->select('MT_CATEGORY.CATEGORY_NAME', 'MT_BRAND.BRAND_NAME', 'MT_SERIES.SERIES_NAME')
+                //     ->leftJoin('MT_CATEGORY', 'PRODUCT_CATEGORY', '=', 'MT_CATEGORY.CATEGORY_ID')
+                //     ->leftJoin('MT_BRAND', 'PRODUCT_BAND', '=', 'MT_BRAND.BRAND_ID')
+                //     ->leftJoin('MT_SERIES', 'PRODUCT_SERIES', '=', 'MT_SERIES.SERIES_ID')
+                //     ->leftJoin('ASSETS_INFORMATION' ,function ($join) {
+                //         $join->on('rooms.id', '=', 'bookings.room_type_id')
+                //         ->on()
+                //     })
+                //     ->where('QUOTATION_ID', $data['Qid'])
+                //     ->orderBy('APP_ID', 'DESC')
+                //     ->toSql();
                 $product_KYC = DB::table('dbo.PRODUCT')
-                    ->select('CATEGORY_NAME', 'MT_BRAND.BRAND_NAME', 'SERIES_NAME')
+                    ->select('MT_CATEGORY.CATEGORY_NAME', 'MT_BRAND.BRAND_NAME', 'SERIES_NAME')
+                    ->selectRaw('ASSETS_INFORMATION.MODELNUMBER as SKU')
                     ->leftJoin('MT_CATEGORY', 'PRODUCT_CATEGORY', '=', 'MT_CATEGORY.CATEGORY_ID')
                     ->leftJoin('MT_BRAND', 'PRODUCT_BAND', '=', 'MT_BRAND.BRAND_ID')
                     ->leftJoin('MT_SERIES', 'PRODUCT_SERIES', '=', 'MT_SERIES.SERIES_ID')
-                    ->where('QUOTATION_ID', $data['Qid'])
-                    ->orderBy('APP_ID', 'DESC')
+                    ->leftJoin('ASSETS_INFORMATION', function ($join) {
+                        $join->on('PRODUCT.PRODUCT_CATEGORY', '=', 'ASSETS_INFORMATION.ASSETS_CATEGORY')
+                            ->on('PRODUCT.PRODUCT_TYPE', '=', 'ASSETS_INFORMATION.ASSETS_TYPE')
+                            ->on('PRODUCT.PRODUCT_BAND', '=', 'ASSETS_INFORMATION.BRAND')
+                            ->on('PRODUCT.PRODUCT_SERIES', '=', 'ASSETS_INFORMATION.SERIES')
+                            ->on('PRODUCT.PRODUCT_SUB_SERIES', '=', 'ASSETS_INFORMATION.SUB_SERIES')
+                            ->on('PRODUCT.PRODUCT_COLOR', '=', 'ASSETS_INFORMATION.COLOR');
+                    })
+                    ->where('QUOTATION_ID', '=', '863')
+                    ->orderBy('APP_ID', 'desc')
                     ->get();
-
+                // $product_KYC[0]->SKU = preg_replace('/\W+/', '', $product_KYC[0]->SKU);
+                $product_KYC[0]->SKU = $this->Regular_Exp($product_KYC[0]->SKU);
+                
+                // dd($product_KYC);
                 $product_Regis = DB::table('dbo.QUOTATION')
                     ->select('CATEGORY_NAME', 'MT_BRAND.BRAND_NAME', 'SERIES_NAME')
                     ->leftJoin('MT_CATEGORY', 'PRODUCT_CATEGORY', '=', 'MT_CATEGORY.CATEGORY_ID')
@@ -245,9 +274,9 @@ class API_Customer_state extends BaseController
 
                 $num_product_KYC = count($product_KYC);
                 if ($num_product_KYC != 0) {
-                    $return_data->product = $product_KYC;
+                    $return_data->product = $product_KYC[0];
                 } else {
-                    $return_data->product = $product_Regis;
+                    $return_data->product = $product_Regis[0];
                 }
 
                 // Get CONTRACT
@@ -258,7 +287,7 @@ class API_Customer_state extends BaseController
                         ->get();
                     $check_CONTRACT = count($CONTRACT);
                     if ($check_CONTRACT != 0) {
-                        $return_data->CONTRACT = $CONTRACT;
+                        $return_data->CONTRACT = $CONTRACT[0];
                     }
                 }
 
@@ -332,7 +361,7 @@ class API_Customer_state extends BaseController
                     ->orderBy('APP_ID', 'DESC')
                     ->get();
 
-                $return_data->product = $product_KYC;
+                $return_data->product = $product_KYC[0];
 
                 // Step 1
                 if ($check == 0) {
@@ -382,7 +411,7 @@ class API_Customer_state extends BaseController
             // return response()->json(array('message' => 'ERROR'));
             return response()->json(array(
                 'Code' => '1000',
-                'status' => 'Invalid Data' ,
+                'status' => 'Invalid Data',
                 'message' => $e->getMessage()
             ));
         }

@@ -39,7 +39,7 @@ class JWT_Token
                     'Code' => '00X1',
                     'status' => 'Error',
                     'message' => 'Request header [api-token]',
-                ));
+                ), 401);
             }
             //  throw new Exception('Request header [api-token]');
 
@@ -73,7 +73,7 @@ class JWT_Token
                     'Code' => '00X3',
                     'status' => 'Error',
                     'message' => 'Token Expired',
-                ));
+                ), 401);
             }
 
 
@@ -85,7 +85,7 @@ class JWT_Token
                 'status' => 'Error',
                 // 'message' => $e->getMessage(),
                 'message' => 'Token Invalid',
-            ));
+            ), 401);
         }
     }
 }

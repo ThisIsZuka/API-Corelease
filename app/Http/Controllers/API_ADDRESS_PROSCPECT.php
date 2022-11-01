@@ -243,6 +243,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ],
             ];
 
+            
             foreach ($checkAddress as $key) {
                 // echo $key['PROVINCE'];
                 $GetAddress = DB::table('dbo.MT_POST_CODE')
