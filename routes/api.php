@@ -21,6 +21,7 @@ use App\Http\Controllers\API_GET_Warrantee;
 use App\Http\Controllers\API_GET_Asset_Insurance;
 use App\Http\Controllers\API_Customer_state;
 use App\Http\Controllers\API_NCB_FORMATTER;
+use App\Http\Controllers\D365Connect\D365Connect;
 use App\Http\Controllers\test;
 
 
@@ -54,7 +55,58 @@ Route::group(['middleware' => ['JWT_Token']], function () {
 
     Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
 
+    Route::get('/NCBFormated/{type}', function ($type) {
+        $formatter = new App\Http\Controllers\API_NCB_FORMATTER_v13;
+        $result = $formatter->generate();
     
+        return response()->json($result);
+    });
+    
+    Route::post('D365GetToken', [API_Connect_to_D365::class, 'getToken']);
+
+    Route::prefix('CallsD365')->group(function () {
+        Route::post('updateNewCategory/{period}', function (Request $request, $period) {
+            $D365Connector = new App\Http\Controllers\API_Connect_to_D365;
+            $D365Connector->setToken($request->input('D365Token'));
+            
+            if ($period == 'daily') {
+                $D365Connector->updateNewCategory_daily();
+            }
+    
+            return response()->json([
+                'status' => 'Completed',
+                'msg' => 'Import new financial dimension to D365 Completed! please, check import log.',
+                // 'Data' => $D365Connector->data,
+                'Token' => $D365Connector->getToken()
+            ]);
+        });
+        Route::post('insertNewSerial/{period}', function ($period) {
+            $D365Connector = new App\Http\Controllers\API_Connect_to_D365;
+            
+            if ($period == 'daily') {
+                $D365Connector->updateNewSerial_daily();
+            }
+    
+            return response()->json([
+                'status' => 'Completed',
+                'msg' => 'Import new serial to D365 Completed! please, check import log.',
+                'data' => $D365Connector->data
+            ]);
+        });
+        Route::put('updateProductName/{period}', function ($period) {
+            $D365Connector = new App\Http\Controllers\API_Connect_to_D365;
+            
+            if ($period == 'daily') {
+                $D365Connector->updateProductName_daily();
+            }
+    
+            return response()->json([
+                'status' => 'Completed',
+                'msg' => 'rename Product to D365 Completed! please, check import log.',
+                'data' => $D365Connector->data
+            ]);
+        });
+    });
 });
 
 Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guarantor']);
@@ -148,15 +200,6 @@ Route::post('/Cal_EFFECTIVE', [test::class, 'Cal_EFFECTIVE']);
 Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
 
 Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
-
-Route::get('/NCBFormated/{type}', function ($type) {
-    $formatter = new App\Http\Controllers\API_NCB_FORMATTER_v13;
-    $result = $formatter->generate();
-
-    return response()->json($result);
-});
-
-Route::post('D365GetToken', [API_Connect_to_D365::class, 'Connect']);
 
 // Route::get('clear-cache', function() {
 //     Artisan::call('cache:clear');
