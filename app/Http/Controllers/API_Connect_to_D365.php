@@ -35,6 +35,19 @@ class API_Connect_to_D365 extends Controller {
         return $this->D365->connect();
     }
 
+    public function addNewVendor() {
+        
+        return $this;
+    }
+
+    public function addNewItem() {
+
+    }
+
+    public function addNewPurchaseOrder() {
+
+    }
+
     public function updateNewCategory_daily() {
         try {
             // run stored-proc
