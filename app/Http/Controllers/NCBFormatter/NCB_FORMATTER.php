@@ -40,7 +40,7 @@ class NCB_FORMATTER {
 
     function getData() {
         try {
-            $this->raw = DB::select(DB::raw('EXEC dbo.SP_REPORT_NCB_VERSION_DEMO'));
+            $this->raw = DB::select(DB::raw('EXEC dbo.SP_NCB_GETINSTALLDETAIL_DEMO'));
             return $this;
         } catch (\Throwable $th) {
             throw $th;
@@ -88,7 +88,7 @@ class NCB_FORMATTER {
                 for ($z = 0;$z < count($this->tudf_body_section[$segmentName]);$z++) {
                     $fieldname = array_keys($this->tudf_body_section[$segmentName])[$z];
                     $value = isset($data->$fieldname) ? $data->$fieldname:'';
-                    $body .= $this->chk_requirement($fieldname, $value, $segmentName);
+                    $body .= $this->chk_requirement($fieldname, $value, $segmentName, $x);
                 }
             }
             $body .= "\r\n";
@@ -97,7 +97,7 @@ class NCB_FORMATTER {
         return $body;
     }
 
-    private function chk_requirement($fieldname, $value = '', $secmentname = '') {
+    private function chk_requirement($fieldname, $value = '', $secmentname = '', $row = '') {
         $txt = "";
         $zerofill = false;
         $freespace = false;
@@ -114,7 +114,8 @@ class NCB_FORMATTER {
             $this->position = isset($this->tudf_header_section[$fieldname]["position"]) ? $this->tudf_header_section[$fieldname]["position"]:'prefix';
         } else {
             $fieldtag = isset($this->tudf_body_section[$secmentname][$fieldname]["FieldTag"])? $this->tudf_body_section[$secmentname][$fieldname]["FieldTag"]:'';
-            $str = isset($this->raw[$fieldname]) ? trim($this->raw[$fieldname]):trim($value);
+            $raw = (array) $this->raw[$row];
+            $str = isset($raw[$fieldname]) ? trim($raw[$fieldname]):trim($value);
             $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
             $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
             $str = $str == ''||$str == null ? $default:$str;
@@ -133,13 +134,18 @@ class NCB_FORMATTER {
 
         
         if ($fixedLength > 0) {
+            $str = substr($str, 0, $fixedLength);
+            $txtlength = strlen($str);
             $txt .= $zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= $freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= !$zerofill && !$freespace ? strtoupper($str):'';
+        } else if ($maxLength > 0) {
+            $str = substr($str, 0, $maxLength);
+            $txt .= substr($str, 0, $maxLength);
         } else {
             $txt .= strtoupper($str);
         }
-        $pre = $requestCountStringLength ? $txtlength:'';
+        $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - strlen($txtlength)) < 0?0:(2 - strlen($txtlength))):'';
         return  $fieldtag . $pre . $txt;
     }
 

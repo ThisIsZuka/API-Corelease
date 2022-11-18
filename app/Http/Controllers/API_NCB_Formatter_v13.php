@@ -68,7 +68,7 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                     "countStringLenght" => true,
                     "default" => "N01"
                 ],
-                "Family Name1" => [
+                "Family Name" => [
                     "FieldTag" => "01",
                     "countStringLenght" => true,
                     "maxLength" => 50
@@ -127,34 +127,24 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                     "maxLength" => 3,
                     "default" => "A01"
                 ],
-                "Address1" => [
+                "Address line 1" => [
                     "countStringLenght" => true,
                     "FieldTag" => "01",
                     "maxLength" => '45',
                 ],
-                "Address2" => [
-                    "countStringLenght" => true,
-                    "FieldTag" => "02",
-                    "maxLength" => '45',
-                ],
-                "Address2" => [
-                    "countStringLenght" => true,
-                    "FieldTag" => "03",
-                    "maxLength" => '45',
-                ],
-                "Subdistinct" => [
+                "Sub distinct" => [
                     "countStringLenght" => true,
                     "FieldTag" => "04",
                     "maxLength" => '40',
                 ],
                 "Distinct" => [
                     "countStringLenght" => true,
-                    "FieldTag" => "04",
+                    "FieldTag" => "05",
                     "maxLength" => '40',
                 ],
                 "Province" => [
                     "countStringLenght" => true,
-                    "FieldTag" => "04",
+                    "FieldTag" => "06",
                     "maxLength" => '40',
                 ],
                 "Country" => [
@@ -166,7 +156,7 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                 ],
                 "Postal Code" => [
                     "countStringLenght" => true,
-                    "FieldTag" => "04",
+                    "FieldTag" => "08",
                     "maxLength" => '10'
                 ]
             ],
@@ -177,12 +167,12 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                     'fixedLength' => 4,
                     "default" => 'T001'
                 ],
-                "membercode" => [
+                "Member Code" => [
                     "FieldTag" => '01',
                     "countStringLenght" => true,
                     'fixedLength' => 10
                 ],
-                "membername" => [
+                "Member Name" => [
                     "FieldTag" => '02',
                     "countStringLenght" => true,
                     'maxLength' => 16
@@ -197,7 +187,8 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                     "countStringLenght" => true,
                     'fixedLength' => 2,
                     'options' => [
-                        'Personal Loan' => 1
+                        'Personal Loan' => 1,
+                        'Other Hire Purchase' => 21
                     ]
                 ],
                 "Ownership Indicator" => [
@@ -205,9 +196,10 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                     "countStringLenght" => true,
                     'fixedLength' => 1,
                     'options' => [
-                        "Single Ownership" => 1,
-                        "supplementary card" => 2,
-                        "joint loan" => 4
+                        "Individual" => 1,
+                        "Supplementary Card" => 2,
+                        "Joint" => 4,
+                        "Guarantor" => 5
                     ]
                 ],
                 "Currency Code" => [
@@ -287,20 +279,17 @@ class API_NCB_FORMATTER_v13 extends NCB_FORMATTER {
                     "countStringLenght" => true,
                     "maxLength" => 9
                 ],
-                "Installment Amount of Payment" => [
-                    "FieldTag" => "22",
-                    "countStringLenght" => true,
-                    "fixedLength" => 4
-                ],
                 "Account Status" => [
                     "FieldTag" => "23",
                     "countStringLenght" => true,
-                    "fixedLength" => 2
+                    "fixedLength" => 2,
+                    "default" => '10'
                 ],
                 "Date of Last Debt Restructring" => [
                     "FieldTag" => "36",
                     "countStringLenght" => true,
-                    "fixedLength" => 8
+                    "fixedLength" => 8,
+                    "default" => "19000101"
                 ],
                 "Unit Make" => [
                     "FieldTag" => "40",
