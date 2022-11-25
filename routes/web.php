@@ -5,6 +5,8 @@ use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\Check_Calculator;
 
 use App\Http\Controllers\Image_resize_Controller;
+use App\Http\Controllers\test;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +40,6 @@ Route::get('loop_resize', [Image_resize_Controller::class, 'Job_Resize']);
 Route::get('new_resize', [Image_resize_Controller::class, 'GetImage_base64']);
 
 Route::get('rate_limit', [Image_resize_Controller::class, 'rate_limit_test']);
+
+
+Route::get('ncb_test', [test::class, 'test_ncb']);
