@@ -164,7 +164,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ],
                 "LEVEL_TYPE" => [
                     'message' => 'Request Parameter [LEVEL_TYPE]',
-                    'numeric' => false,
+                    'numeric' => true,
                 ],
                 "U_LEVEL" => [
                     'message' => 'Request Parameter [U_LEVEL]',

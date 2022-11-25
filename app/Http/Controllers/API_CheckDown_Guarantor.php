@@ -135,8 +135,8 @@ class API_CheckDown_Guarantor extends BaseController
                 // dd($check_Down);
                 $responseData = new stdClass;
                 $responseData->DownMin = ($check_Down[0]->DownMAX);
-                $responseData->ProductPrice = ($check_Down[0]->{'@ProductTotal_INPUT'});
                 $responseData->DownMinPrice = ($check_Down[0]->{'@DownAMT_OUTPUT'});
+                $responseData->ProductTotal = ($check_Down[0]->{'@ProductTotal_INPUT'});
                 $responseData->RequestGuarantor = $check_Down[0]->Guarantor;
 
                 $return_data->Code = '0000';

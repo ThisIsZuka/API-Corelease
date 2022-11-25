@@ -294,13 +294,13 @@ class API_STATE_CustomerStatus extends BaseController
 
                 // Step 1
                 if ($check == 0) {
-                    $return_data->step = 'StepWaitKYC';
+                    $return_data->step = 'WaitKYC';
                     // return $return_data;
                 }
                 // Step 2
                 else if ($Stepapprove[0]->CHECKER_RESULT == NULL) {
                     $return_data->APP_ID = $Stepapprove[0]->APP_ID;
-                    $return_data->step = 'StepWaitApprove';
+                    $return_data->step = 'WaitApprove';
                 } else {
 
                     $return_data->APP_ID = $Stepapprove[0]->APP_ID;
@@ -316,9 +316,9 @@ class API_STATE_CustomerStatus extends BaseController
                         $checkDeliver = count($StepDeliver);
 
                         if ($checkDeliver == 0) {
-                            $return_data->step = 'StepApprove';
+                            $return_data->step = 'Approve';
                         } else {
-                            $return_data->step = 'StepDeliver';
+                            $return_data->step = 'Deliver';
                         }
                     } else if ($Stepapprove[0]->CHECKER_RESULT == 'Rework') {
 
@@ -335,9 +335,9 @@ class API_STATE_CustomerStatus extends BaseController
                         // dd($etc);
 
                         $return_data->etc = $etc;
-                        $return_data->step = 'StepRework';
+                        $return_data->step = 'Rework';
                     } else if ($Stepapprove[0]->CHECKER_RESULT == 'Reject') {
-                        $return_data->step = 'StepReject';
+                        $return_data->step = 'Reject';
                     }
                 }
 
@@ -365,13 +365,13 @@ class API_STATE_CustomerStatus extends BaseController
 
                 // Step 1
                 if ($check == 0) {
-                    $return_data->step = 'StepWaitKYC';
+                    $return_data->step = 'WaitKYC';
                     // return $return_data;
                 }
                 // Step 2
                 else if ($Stepapprove[0]->CHECKER_RESULT == NULL) {
                     $return_data->APP_ID = $Stepapprove[0]->APP_ID;
-                    $return_data->step = 'StepWaitApprove';
+                    $return_data->step = 'WaitApprove';
                 } else {
 
                     $return_data->APP_ID = $Stepapprove[0]->APP_ID;
@@ -387,9 +387,9 @@ class API_STATE_CustomerStatus extends BaseController
                         $checkDeliver = count($StepDeliver);
 
                         if ($checkDeliver == 0) {
-                            $return_data->step = 'StepApprove';
+                            $return_data->step = 'Approve';
                         } else {
-                            $return_data->step = 'StepDeliver';
+                            $return_data->step = 'Deliver';
                         }
                     } else if ($Stepapprove[0]->CHECKER_RESULT == 'Rework') {
                         $etc = DB::table('dbo.APPROVAL_HISTORY')
@@ -399,9 +399,9 @@ class API_STATE_CustomerStatus extends BaseController
                             ->get();
 
                         $return_data->etc = $etc;
-                        $return_data->step = 'StepRework';
+                        $return_data->step = 'Rework';
                     } else if ($Stepapprove[0]->CHECKER_RESULT == 'Reject') {
-                        $return_data->step = 'StepReject';
+                        $return_data->step = 'Reject';
                     }
                 }
                 return $return_data;

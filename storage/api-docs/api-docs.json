@@ -1753,8 +1753,8 @@
                 "tags": [
                     "API QUOTATION"
                 ],
-                "summary": "Insert new customer",
-                "description": "Regsiter Quotation <br> ข้อมูลลูกค้า",
+                "summary": "Register Quotation",
+                "description": "Regsiter Quotation",
                 "operationId": "new_Quotation",
                 "requestBody": {
                     "description": "customer information",
@@ -1771,6 +1771,7 @@
                                     "FACULTY_ID",
                                     "PRODUCT_SERIES",
                                     "DOWN_SUM_AMT",
+                                    "INSTALL_NUM",
                                     "PREFIX",
                                     "FIRST_NAME",
                                     "LAST_NAME",
@@ -1782,8 +1783,6 @@
                                     "OCCUPATION_ID",
                                     "MAIN_INCOME",
                                     "UNIVERSITY_PROVINCE",
-                                    "UNIVERSITY_NAME",
-                                    "FACULTY_NAME",
                                     "LEVEL_TYPE",
                                     "U_LEVEL",
                                     "LOAN_KYS",
@@ -1847,7 +1846,7 @@
                                     "DOWN_SUM_AMT": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "3540"
+                                        "example": "5415"
                                     },
                                     "INSTALL_NUM": {
                                         "type": "string",
@@ -1949,7 +1948,7 @@
                                     "LEVEL_TYPE": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "ปริญญาตรี"
+                                        "example": "1"
                                     },
                                     "U_LEVEL": {
                                         "type": "integer",
@@ -2035,44 +2034,37 @@
                                     "A1_MOI": {
                                         "description": "หมู่ที่",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_VILLAGE": {
                                         "description": "หมู่บ้าน/โครงการ",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_BUILDING": {
                                         "description": "อาคาร",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_FLOOR": {
                                         "description": "ชั่น",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_ROOM_NO": {
                                         "description": "เลขที่ห้อง",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_SOI": {
                                         "description": "ซอย",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_ROAD": {
                                         "description": "ถนน",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_PROVINCE": {
                                         "description": "จังหวัด",
@@ -2107,14 +2099,12 @@
                                     "A1_LIVEING_TIME": {
                                         "description": "ระยะเวลาที่อาศัยอยู่",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A1_PHONE": {
                                         "description": "เบอร์โทรศัทพ์",
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_NO": {
                                         "type": "string",
@@ -2123,38 +2113,31 @@
                                     },
                                     "A2_MOI": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_VILLAGE": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_BUILDING": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_FLOOR": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_ROOM_NO": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_SOI": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_ROAD": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_PROVINCE": {
                                         "type": "string",
@@ -2183,13 +2166,11 @@
                                     },
                                     "A2_LIVEING_TIME": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A2_PHONE": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_NO": {
                                         "type": "string",
@@ -2198,38 +2179,31 @@
                                     },
                                     "A3_MOI": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_VILLAGE": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_BUILDING": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_FLOOR": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_ROOM_NO": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_SOI": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_ROAD": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_PROVINCE": {
                                         "type": "string",
@@ -2258,13 +2232,11 @@
                                     },
                                     "A3_LIVEING_TIME": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     },
                                     "A3_PHONE": {
                                         "type": "string",
-                                        "format": "string",
-                                        "example": null
+                                        "format": "string"
                                     }
                                 },
                                 "type": "object"
