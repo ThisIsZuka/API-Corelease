@@ -82,6 +82,26 @@ class API_CheckDown_Guarantor extends BaseController
                 // throw new Exception(json_encode($mes_error));
             }
 
+
+
+            $DB_ASC = DB::table('ASSETS_INFORMATION_REF')
+                ->select('*')
+                ->leftJoin('ASSETS_INFORMATION', 'ASSETS_INFORMATION_REF.ASSET_ID_REF', '=', 'ASSETS_INFORMATION.ASSET_ID')
+                ->where('ASSETS_INFORMATION_REF.ID', '=', isset($data['ACS_ID']) ? $data['ACS_ID'] : null)
+                ->get();
+
+            $DB_INSURE = DB::table('dbo.MT_INSURE')
+                ->select('*')
+                ->where('INSURE_ID', '=',isset($data['INSURE_ID']) ? $data['INSURE_ID'] : null)
+                ->get();
+            
+
+            $GET_ACS_SUM = isset($DB_ASC[0]->PRICE) ? $DB_ASC[0]->PRICE : 0;
+            $GET_INSURE_SUM = isset($DB_INSURE[0]->INSURE_PRICE) ? $DB_INSURE[0]->INSURE_PRICE : 0;
+
+            $ProductTotal_INPUT = $product[0]->PRICE + $GET_ACS_SUM + $GET_INSURE_SUM;
+            // dd($ProductTotal_INPUT);
+
             // Check University Match Faculty
             $faculty_check = DB::table('dbo.MT_FACULTY')
                 ->select('*')
@@ -107,7 +127,7 @@ class API_CheckDown_Guarantor extends BaseController
 
                 // $check_Down = DB::select("exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
                 $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0'
-                , @ProductTotal_INPUT = '".$product[0]->PRICE."', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
+                , @ProductTotal_INPUT = '" . $ProductTotal_INPUT . "', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
 
                 // dd($check_Down);
                 // $procRslts = DB::connection('mysql_procedure')
@@ -115,8 +135,8 @@ class API_CheckDown_Guarantor extends BaseController
                 // dd($check_Down);
                 $responseData = new stdClass;
                 $responseData->DownMin = ($check_Down[0]->DownMAX);
-                $responseData->ProductPrice = ($check_Down[0]->{'@ProductTotal_INPUT'});
-                $responseData->DownPrice = ($check_Down[0]->{'@DownAMT_OUTPUT'});
+                $responseData->DownMinPrice = ($check_Down[0]->{'@DownAMT_OUTPUT'});
+                $responseData->ProductTotal = ($check_Down[0]->{'@ProductTotal_INPUT'});
                 $responseData->RequestGuarantor = $check_Down[0]->Guarantor;
 
                 $return_data->Code = '0000';
@@ -148,7 +168,7 @@ class API_CheckDown_Guarantor extends BaseController
 
             return response()->json(array(
                 'Code' => (string)$e->getCode() ?: '9000',
-                'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'System Error' ,
+                'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'System Error',
                 'message' => $e->getMessage()
             ));
         }
@@ -176,12 +196,12 @@ class API_CheckDown_Guarantor extends BaseController
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception($value['message'] ,1000);
+                    throw new Exception($value['message'], 1000);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . ']' ,1000);
+                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
                         // throw new Exception($value['message']);
                     }
                 }
@@ -217,7 +237,7 @@ class API_CheckDown_Guarantor extends BaseController
 
             return response()->json(array(
                 'Code' => (string)$e->getCode() ?: '9000',
-                'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'System Error' ,
+                'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'System Error',
                 'message' => $e->getMessage()
             ));
         }

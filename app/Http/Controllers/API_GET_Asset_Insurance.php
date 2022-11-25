@@ -47,6 +47,7 @@ class API_GET_Asset_Insurance extends BaseController
             $product = DB::table('dbo.ASSETS_INFORMATION')
                 ->select('ASSET_ID', 'ASSETS_CATEGORY', 'ASSETS_TYPE', 'BRAND', 'SERIES', 'SUB_SERIES', 'COLOR', 'PRICE', 'SERIALNUMBER', 'MODELNUMBER', 'DESCRIPTION')
                 ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
+                ->where('STATUS_ID', '6')
                 ->get();
             if (count($product) == 0) {
                 throw new Exception("Not Found [PRODUCT_SERIES]", 2000);

@@ -8,7 +8,7 @@ use App\Http\Controllers\JWT_Controller;
 use Illuminate\Support\Facades\DB;
 
 
-// use App\Http\Controllers\API_STATE_QUATATION;
+use App\Http\Controllers\API_STATE_QUOTATION;
 use App\Http\Controllers\API_Quatation;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\API_ADDRESS_PROSCPECT;
@@ -19,9 +19,8 @@ use App\Http\Controllers\API_Connect_to_D365;
 use App\Http\Controllers\API_GET_ASSEST;
 use App\Http\Controllers\API_GET_Warrantee;
 use App\Http\Controllers\API_GET_Asset_Insurance;
-use App\Http\Controllers\API_Customer_state;
-use App\Http\Controllers\API_NCB_FORMATTER;
-use App\Http\Controllers\D365Connect\D365Connect;
+use App\Http\Controllers\API_STATE_CustomerStatus;
+use App\Http\Controllers\API_GET_Product;
 use App\Http\Controllers\test;
 
 
@@ -45,9 +44,10 @@ header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Author
 
 Route::post('/Get_Token', [JWT_Controller::class, 'Get_Token']);
 
+// Route::group(['middleware' => ['JWT_Token', 'throttle:api']], function () {
 Route::group(['middleware' => ['JWT_Token']], function () {
 
-    // Route::post('new_customer', [API_STATE_QUATATION::class, 'New_Quatation']);
+    // Route::post('new_customer', [API_STATE_QUOTATION::class, 'New_Quatation']);
 
     Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
 
@@ -55,59 +55,12 @@ Route::group(['middleware' => ['JWT_Token']], function () {
 
     Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
 
-    Route::get('/NCBFormated/{type}', function ($type) {
-        $formatter = new App\Http\Controllers\API_NCB_FORMATTER_v13;
-        $result = $formatter->generate();
-    
-        return response()->json($result);
-    });
-    
-    Route::post('D365GetToken', [API_Connect_to_D365::class, 'getToken']);
 
-    Route::prefix('CallsD365')->group(function () {
-        Route::post('updateNewCategory/{period}', function (Request $request, $period) {
-            $D365Connector = new App\Http\Controllers\API_Connect_to_D365;
-            $D365Connector->setToken($request->input('D365Token'));
-            
-            if ($period == 'daily') {
-                $D365Connector->updateNewCategory_daily();
-            }
-    
-            return response()->json([
-                'status' => 'Completed',
-                'msg' => 'Import new financial dimension to D365 Completed! please, check import log.',
-                // 'Data' => $D365Connector->data,
-                'Token' => $D365Connector->getToken()
-            ]);
-        });
-        Route::post('insertNewSerial/{period}', function ($period) {
-            $D365Connector = new App\Http\Controllers\API_Connect_to_D365;
-            
-            if ($period == 'daily') {
-                $D365Connector->updateNewSerial_daily();
-            }
-    
-            return response()->json([
-                'status' => 'Completed',
-                'msg' => 'Import new serial to D365 Completed! please, check import log.',
-                'data' => $D365Connector->data
-            ]);
-        });
-        Route::put('updateProductName/{period}', function ($period) {
-            $D365Connector = new App\Http\Controllers\API_Connect_to_D365;
-            
-            if ($period == 'daily') {
-                $D365Connector->updateProductName_daily();
-            }
-    
-            return response()->json([
-                'status' => 'Completed',
-                'msg' => 'rename Product to D365 Completed! please, check import log.',
-                'data' => $D365Connector->data
-            ]);
-        });
-    });
+    // State Quatation
+    Route::post('new_Quotation', [API_STATE_QUOTATION::class, 'State_Quotation']);
 });
+
+Route::get('SKU_GetProduct', [API_GET_Product::class, 'SKU_GetProduct']);
 
 Route::post('SKUCheckDownGua', [API_CheckDown_Guarantor::class, 'Check_Down_Guarantor']);
 
@@ -124,7 +77,7 @@ Route::post('Check_Tenor', [API_CheckDown_Guarantor::class, 'Check_Tenor']);
 
 // State Customer
 
-Route::post('/CustomerStatus', [API_Customer_state::class, 'Get_CustomerStatus']);
+Route::post('/CustomerStatus', [API_STATE_CustomerStatus::class, 'Get_CustomerStatus']);
 
 
 ///////////////////////////////////////////////////////////////////////////

@@ -15,6 +15,8 @@ use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use stdClass;
 
 use App\Http\Controllers\Check_Calculator;
+use App\Http\Controllers\NCB_ZipFile;
+use App\Http\Controllers\Random_Str;
 
 class test extends BaseController
 {
@@ -198,5 +200,15 @@ class test extends BaseController
         $Check_Calculator = new Check_Calculator;
         $EFFECTIVE = strval(round($Check_Calculator->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess) * 12, 8));
         return $EFFECTIVE;
+    }
+
+
+    public function test_ncb()
+    {
+        $Random_Str = new Random_Str;
+        $pass = $Random_Str->Random_8_str();
+
+        $NCB_ZipFile = new NCB_ZipFile;
+        $NCB_ZipFile->Zipfile('ncb-20221118.txt',$pass);
     }
 }
