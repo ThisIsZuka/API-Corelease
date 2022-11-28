@@ -92,6 +92,21 @@ return [
             'strict' => false,
             'engine' => null,
         ],
+
+        'misdiy' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('MIS_DB_HOST', 'localhost'),
+            'port' => env('MIS_DB_PORT', '1433'),
+            'database' => env('MIS_DB_DATABASE', 'forge'),
+            'username' => env('MIS_DB_USERNAME', 'forge'),
+            'password' => env('MIS_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ]
         // 'sqlsrv_pro' => [
         //     'driver' => 'sqlsrv',
         //     'url' => env('DATABASE_URL'),

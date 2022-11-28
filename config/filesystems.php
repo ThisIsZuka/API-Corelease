@@ -53,6 +53,15 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'ftp_ncb' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_NCB_HOST'),
+            'username' => env('FTP_NCB_USERNAME'),
+            'password' => env('FTP_NCB_PASSWORD'),
+            'port' => env('FTP_NCB_PORT'),
+            // 'root' => '/'
+         ],
+
     ],
 
     /*

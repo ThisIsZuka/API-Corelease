@@ -37,12 +37,12 @@ class API_GET_ASSEST extends BaseController
 
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
-                    throw new Exception($value['message']);
+                    throw new Exception($value['message'], 1000);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . ']');
+                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
                         // throw new Exception(json_encode($value['message']));
                     }
                 }
@@ -54,7 +54,7 @@ class API_GET_ASSEST extends BaseController
                 ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
                 ->get();
             if (count($product) == 0) {
-                throw new Exception("Not Found [PRODUCT_SERIES]");
+                throw new Exception("Not Found [PRODUCT_SERIES]", 2000);
                 // $mes_error = (object)[
                 //     'TH' => 'ไม่พบข้อมูลสินค้า',
                 //     'EN' => 'Not found product'
@@ -69,13 +69,13 @@ class API_GET_ASSEST extends BaseController
                 $ASSETS_INFO = DB::select("SET NOCOUNT ON ; exec SP_GET_ASSETS_INFORMATION_REF_DETAIL @SERIES_CODE_INPUT = '" . $product[0]->SERIES . "'  ");
                 $responseData = new stdClass;
 
-                $return_data->Code = '9999';
+                $return_data->Code = '0000';
                 $return_data->status = 'Sucsess';
                 $return_data->data = $ASSETS_INFO;
 
                 return $return_data;
             } catch (Exception $e) {
-                throw new Exception("Data Error. Please Check variable");
+                throw new Exception("Data Error. Please Check variable", 2000);
                 // $mes_error = (object)[
                 //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
                 //     'EN' => 'Data invalid. please try again'
@@ -84,9 +84,29 @@ class API_GET_ASSEST extends BaseController
             }
 
         } catch (Exception $e) {
+            $MsgError = [
+                "1000" => [
+                    'status' => 'Invalid Data',
+                ],
+                "2000" => [
+                    'status' => 'Invalid Condition',
+                ],
+                "9000" => [
+                    'status' => 'System Error',
+                ],
+            ];
+
+            if ($e->getPrevious() != null) {
+                return response()->json(array(
+                    'Code' => '9000',
+                    'status' =>  'System Error',
+                    'message' => $e->getPrevious()->getMessage(),
+                ));
+            }
+
             return response()->json(array(
-                'Code' => '0013',
-                'status' => 'Error',
+                'Code' => (string)$e->getCode() ?: '1000',
+                'status' =>  $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
                 'message' => $e->getMessage()
             ));
         }

@@ -195,12 +195,12 @@ class API_ADDRESS_PROSCPECT extends BaseController
             foreach ($validate as $key => $value) {
                 if (!isset($data[$key])) {
                     // throw new Exception(json_encode($value['message']));
-                    throw new Exception($value['message']);
+                    throw new Exception($value['message'], 1000);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . '] ');
+                        throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
                         // $mes_error = new stdClass;
                         // foreach($value['message'] as $key => $value){
                         //     $txt = ($key == "TH" ? $value."ให้ถูกต้อง" : $value);
@@ -221,7 +221,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ->get();
 
             if (count($GET_ADDRESS_PROSPECT_CUSTOMER) == 0) {
-                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\']');
+                throw new Exception('Not found Data. Check Parameter [\'PST_CUST_ID\'] , [\'QUOTATION_ID\']', 2000);
                 // $mes_error = (object)[
                 //     'TH' => 'ไม่พบข้อมูลของท่าน',
                 //     'EN' => 'Not found your Information'
@@ -243,6 +243,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ],
             ];
 
+            
             foreach ($checkAddress as $key) {
                 // echo $key['PROVINCE'];
                 $GetAddress = DB::table('dbo.MT_POST_CODE')
@@ -257,7 +258,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
                     ->count();
 
                 if ($GetAddress == 0) {
-                    throw new Exception('Address is not match. Check Parameter [\'' . $key['PROVINCE'] . '\'], [\'' . $key['DISTRICT'] . '\'], [\'' . $key['SUBDISTRICT'] . '\'], [\'' . $key['POSTALCODE'] . '\']');
+                    throw new Exception('Address is not match. Check Parameter [\'' . $key['PROVINCE'] . '\'], [\'' . $key['DISTRICT'] . '\'], [\'' . $key['SUBDISTRICT'] . '\'], [\'' . $key['POSTALCODE'] . '\']', 2000);
                     // $mes_error = (object)[
                     //     'TH' => 'ข้อมูลที่อยู่ไม่ถูกต้อง',
                     //     'EN' => 'Address invalid'
@@ -335,7 +336,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
 
 
                 return response()->json(array(
-                    'Code' => '9999',
+                    'Code' => '0000',
                     'status' => 'Success',
                     'data' => [
                         'QUOTATION_ID' => $data['QUOTATION_ID'],
@@ -346,11 +347,24 @@ class API_ADDRESS_PROSCPECT extends BaseController
         } catch (Exception $e) {
             // dd($e->getMessage());
             // $getPrevious = $e->getPrevious();
+
+            $MsgError = [
+                "1000" => [
+                    'status' => 'Invalid Data',
+                ],
+                "2000" => [
+                    'status' => 'Invalid Condition',
+                ],
+                "9000" => [
+                    'status' => 'System Error',
+                ],
+            ];
+
             if ($e->getPrevious() != null) {
                 return response()->json(array(
-                    'Code' => '0003',
-                    'status' => 'Error',
-                    'message' => $e->getPrevious()->getMessage()
+                    'Code' => '9000',
+                    'status' =>  'System Error',
+                    'message' => $e->getPrevious()->getMessage(),
                     // 'message' => 'Data invalid. Please check data'
                     // 'message' => [
                     //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
@@ -361,10 +375,10 @@ class API_ADDRESS_PROSCPECT extends BaseController
             }
 
             return response()->json(array(
-                'Code' => '0013',
-                'status' => 'Error',
-                'message' => $e->getMessage(),
-                // 'message' => 'System error. Please try again'
+                'Code' => (string)$e->getCode() ?: '1000',
+                'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
+                'message' => $e->getMessage()
+                // 'message' => 'System Error. Please try again'
             ));
         }
     }

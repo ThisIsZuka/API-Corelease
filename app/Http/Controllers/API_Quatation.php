@@ -19,16 +19,6 @@ class API_Quatation extends BaseController
     public function New_Quatation(Request $request)
     {
 
-        // $form_request = new Request([
-        //     'name'   => 'unit test',
-        //     'number' => 123,
-        // ]);
-        // $get_data = $request->all();
-        // $form_request = new Request($request->all());
-
-        // $API_PROSPECT_CUSTOMER = new API_PROSPECT_CUSTOMER;
-        // $Repon = $API_PROSPECT_CUSTOMER->NEW_PROSPECT_CUSTOMER($form_request);
-
         try {
 
             $data = $request->all();
@@ -37,148 +27,75 @@ class API_Quatation extends BaseController
             $validate_Quatation = [
                 "BRANCH_TYPE" => [
                     'message' => 'Request Parameter [BRANCH_TYPE]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุประเภทสาขา',
-                    //     'EN' => 'Please identify branch type'
-                    // ],
                     'numeric' => true,
                 ],
                 "BRANCH_ID" => [
                     'message' => 'Request Parameter [BRANCH_ID]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุสาขา',
-                    //     'EN' => 'Please identify branch name'
-                    // ],
                     'numeric' => true,
                 ],
                 "TAX_ID" => [
                     'message' => 'Request Parameter [TAX_ID]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุเลขบัตรประชาชน',
-                    //     'EN' => 'Please identify tax ID'
-                    // ],
                     'numeric' => true,
                 ],
-                "CUSTOMER_NAME" => [
-                    'message' => 'Request Parameter [CUSTOMER_NAME]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุชื่อ',
-                    //     'EN' => 'Please identify customer name'
-                    // ],
+                "FIRST_NAME" => [
+                    'message' => 'Request Parameter [FIRST_NAME]',
+                    'numeric' => false,
+                ],
+                "LAST_NAME" => [
+                    'message' => 'Request Parameter [LAST_NAME]',
                     'numeric' => false,
                 ],
                 "OCCUPATION_ID" => [
                     'message' => 'Request Parameter [OCCUPATION_ID]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุอาชีพ',
-                    //     'EN' => 'Please identify oocupation'
-                    // ],
                     'numeric' => true,
                 ],
                 "UNIVERSITY_ID" => [
                     'message' => 'Request Parameter [UNIVERSITY_ID]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุมหาวิทยาลัย',
-                    //     'EN' => 'Please identify university'
-                    // ],
                     'numeric' => true,
                 ],
                 "FACULTY_ID" => [
                     'message' => 'Request Parameter [FACULTY_ID]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุคณะ',
-                    //     'EN' => 'Please identify faculty'
-                    // ],
                     'numeric' => true,
                 ],
                 "PRODUCT_SERIES" => [
                     'message' => 'Request Parameter [PRODUCT_SERIES]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุสินค้า',
-                    //     'EN' => 'Please identify product'
-                    // ],
                     'numeric' => false,
                 ],
-                "PROD_SUM_PRICE" => [
-                    'message' => 'Request Parameter [PROD_SUM_PRICE]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระบุราคาสินค้า',
-                    //     'EN' => 'Request Parameter [PROD_SUM_PRICE]'
-                    // ],
-                    'numeric' => true,
-                ],
-                // "DOWN_PERCENT" => [
-                //     'message' => 'Request Parameter [DOWN_PERCENT]',
-                //     'numeric' => true,
-                //     'percent' => true,
-                // ],
                 "DOWN_SUM_AMT" => [
                     'message' => 'Request Parameter [DOWN_SUM_AMT]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระจำนวนเงินดาวน์',
-                    //     'EN' => 'Please identify down amount'
-                    // ],
                     'numeric' => true,
                 ],
                 "INSTALL_NUM" => [
                     'message' => 'Request Parameter [INSTALL_NUM]',
-                    // 'message' => [
-                    //     'TH' => 'กรุณาระจำนวนงวดผ่อนชำระ',
-                    //     'EN' => 'Please identify tenor'
-                    // ],
                     'numeric' => true,
                 ],
             ];
 
-            // dd($validate);
+
             foreach ($validate_Quatation as $key => $value) {
-                // dd($value['type']);
-                // var_dump($value);
-                // var_dump($data[$key]);
+
                 if (!isset($data[$key])) {
-                    throw new Exception($value['message']);
-                    // throw new Exception(json_encode($value['message']));
+                    throw new Exception($value['message'], 1000);
                 }
 
                 if ($value['numeric'] == true) {
                     if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . ']');
-                        // $mes_error = new stdClass;
-                        // foreach ($value['message'] as $key => $value) {
-                        //     $txt = ($key == "TH" ? $value . "ให้ถูกต้อง" : $value);
-                        //     $mes_error->$key = $txt;
-                        // }
-                        // throw new Exception(json_encode($mes_error));
+                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
                     }
                 }
 
-                // dd(gettype($data['BRANCH_TYPE']));
 
                 if ($key == "TAX_ID" && strlen($data[$key]) != 13) {
-                    throw new Exception("Invalid [TAX_ID]");
-                    // $mes_error = (object)[
-                    //     'TH' => 'หมายเลขบัตรประชาชนต้องมี 13 หลัก',
-                    //     'EN' => 'TAX ID must have 13 digits'
-                    // ];
-                    // throw new Exception(json_encode($mes_error));
-                }
-
-                if (isset($value['percent'])) {
-                    if ($data[$key] > 1) throw new Exception('Request Parameter [' . $key . '] is 0 - 1');
+                    throw new Exception("Invalid [TAX_ID]", 1000);
                 }
             }
 
 
+
             $check_TAX = DB::select("exec SP_CheckDupAppContractByTAXID  @tax_id = '" . $data['TAX_ID'] . "' ");
-            // dd($check_TAX);
-            // dd(count($check_TAX));
+
             if (count($check_TAX) > 0) {
-                throw new Exception("[TAX_ID] is already exists");
-                // $mes_error = (object)[
-                //     'TH' => 'ลูกค้ามีข้อมูลอยู่ในระบบแล้ว',
-                //     'EN' => 'Customer already has data in Ufund'
-                // ];
-                // throw new Exception(json_encode($mes_error));
+                throw new Exception("[TAX_ID] is already exists", 2000);
             }
 
             // Check University Match Faculty
@@ -187,114 +104,105 @@ class API_Quatation extends BaseController
                 ->where('MT_FACULTY_ID', $data['FACULTY_ID'])
                 ->where('MT_UNIVERSITY_ID', $data['UNIVERSITY_ID'])
                 ->get();
-            // dd($faculty_check);
+
             if (count($faculty_check) == 0) {
-                throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match");
-                // $mes_error = (object)[
-                //     'TH' => 'ข้อมูลมหาวิทยาลัยและคณะไม่ถูกต้อง',
-                //     'EN' => 'University and faculty is incorrect'
-                // ];
-                // throw new Exception(json_encode($mes_error));
+                throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match", 2000);
             }
+
+
 
             // Check SKU Product
             $product = DB::table('dbo.ASSETS_INFORMATION')
                 ->select('ASSET_ID', 'ASSETS_CATEGORY', 'ASSETS_TYPE', 'BRAND', 'SERIES', 'SUB_SERIES', 'COLOR', 'PRICE', 'SERIALNUMBER', 'MODELNUMBER', 'DESCRIPTION', 'BRAND')
-                ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
+                // ->whereRaw("TRIM(ASSETS_INFORMATION.MODELNUMBER) = '".$data['PRODUCT_SERIES']."'")
+                ->where('MODELNUMBER', 'like', '%' . $data['PRODUCT_SERIES'] . '%')
                 ->get();
+            // dd($product);
 
             if (count($product) == 0) {
-                throw new Exception("Not Found [PRODUCT_SERIES]");
-                // $mes_error = (object)[
-                //     'TH' => 'ไม่พบข้อมูลสินค้า',
-                //     'EN' => 'Not found product.'
-                // ];
-                // throw new Exception(json_encode($mes_error));
+                throw new Exception("Not Found [PRODUCT_SERIES]", 2000);
             }
+
 
 
             // Check ACS
             $validate_acs = [
                 "ACS_ID" => [
                     'message' => 'Request Parameter [ACS_ID]',
-                    // 'message' => [
-                    //     'TH' => 'Request Parameter [ACS_ID]',
-                    //     'EN' => 'Request Parameter [ACS_ID]'
-                    // ],
                     'numeric' => false,
                 ],
                 // "ACS_DES" => [
                 //     'message' => 'Request Parameter [ACS_DES]',
                 //     'numeric' => false,
                 // ],
-                "ACS_SUM" => [
-                    'message' => 'Request Parameter [ACS_SUM]',
-                    // 'message' => [
-                    //     'TH' => 'Request Parameter [ACS_SUM]',
-                    //     'EN' => 'Request Parameter [ACS_SUM]'
-                    // ],
-                    'numeric' => true,
-                ],
+                // "ACS_SUM" => [
+                //     'message' => 'Request Parameter [ACS_SUM]',
+                //     'numeric' => true,
+                // ],
             ];
 
 
-            if (isset($data['ACS_ID']) || isset($data['ACS_DES']) || isset($data['ACS_SUM'])) {
+            if (isset($data['ACS_ID']) && $data['ACS_ID'] != '') {
                 foreach ($validate_acs as $key => $value) {
                     if (!isset($data[$key])) {
-                        throw new Exception($value['message']);
-                        // throw new Exception(json_encode($value['message']));
+                        throw new Exception($value['message'], 1000);
                     }
 
                     if ($value['numeric'] == true) {
                         if (!is_numeric($data[$key])) {
-                            throw new Exception('Request Type of $(int) [' . $key . ']');
-                            // throw new Exception(json_encode($value['message']));
+                            throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
                         }
                     }
                 }
             }
+
+            $DB_ASC = DB::table('ASSETS_INFORMATION_REF')
+                ->select('*')
+                ->leftJoin('ASSETS_INFORMATION', 'ASSETS_INFORMATION_REF.ASSET_ID_REF', '=', 'ASSETS_INFORMATION.ASSET_ID')
+                ->where('ASSETS_INFORMATION_REF.ID', '=', $data['ACS_ID'])
+                ->get();
+            // dd($DB_ASC);
 
 
             // Check INSURE
             $validate_insure = [
                 "INSURE_ID" => [
                     'message' => 'Request Parameter [INSURE_ID]',
-                    // 'message' => [
-                    //     'TH' => 'Request Parameter [INSURE_ID]',
-                    //     'EN' => 'Request Parameter [INSURE_ID]'
-                    // ],
                     'numeric' => false,
                 ],
                 // "INSURE_DES" => [
                 //     'message' => 'Request Parameter [INSURE_DES]',
                 //     'numeric' => false,
                 // ],
-                "INSURE_SUM" => [
-                    'message' => 'Request Parameter [INSURE_SUM]',
-                    // 'message' => [
-                    //     'TH' => 'Request Parameter [INSURE_SUM]',
-                    //     'EN' => 'Request Parameter [INSURE_SUM]'
-                    // ],
-                    'numeric' => true,
-                ],
+                // "INSURE_SUM" => [
+                //     'message' => 'Request Parameter [INSURE_SUM]',
+                //     'numeric' => true,
+                // ],
             ];
 
 
-            if (isset($data['INSURE_ID']) || isset($data['INSURE_DES'])  || isset($data['INSURE_SUM'])) {
+
+            if (isset($data['INSURE_ID']) && $data['INSURE_ID'] != '') {
                 foreach ($validate_insure as $key => $value) {
                     if (!isset($data[$key]) || $data[$key] == null || $data[$key] == "") {
-                        throw new Exception($value['message']);
-                        // throw new Exception(json_encode($value['message']));
+                        throw new Exception($value['message'], 1000);
                     }
 
                     if ($value['numeric'] == true) {
                         if (!is_numeric($data[$key])) {
-                            throw new Exception('Request Type of $(int) [' . $key . ']');
-                            // throw new Exception(json_encode($value['message']));
+                            throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
                         }
                     }
                 }
             }
+
+            $DB_INSURE = DB::table('dbo.MT_INSURE')
+                ->select('*')
+                ->where('INSURE_ID', '=', $data['INSURE_ID'])
+                ->get();
+
+            // dd($DB_INSURE);
+
 
 
             // Get BRANCH_AD
@@ -308,11 +216,18 @@ class API_Quatation extends BaseController
 
 
             //Calcu Prod Price
-            $GET_ACS_SUM = isset($data['ACS_SUM']) ? $data['ACS_SUM'] : 0;
-            $GET_INSURE_SUM = isset($data['INSURE_SUM']) ? $data['INSURE_SUM'] : 0;
+            $GET_ACS_SUM = isset($DB_ASC[0]->PRICE) ? $DB_ASC[0]->PRICE : 0;
+            $GET_INSURE_SUM = isset($DB_INSURE[0]->INSURE_PRICE) ? $DB_INSURE[0]->INSURE_PRICE : 0;
 
+            $PRD_PRICE = DB::table('dbo.ASSETS_INFORMATION')
+                ->select('PRICE', 'MODELNUMBER', 'DESCRIPTION')
+                // ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
+                ->where('MODELNUMBER', 'like', '%' . $data['PRODUCT_SERIES'] . '%')
+                ->get();
+            
 
-            $PROD_SUM_PRICE = (int)$data['PROD_SUM_PRICE'];
+            // $PROD_SUM_PRICE = (int)$data['PROD_SUM_PRICE'];
+            $PROD_SUM_PRICE = (int)$PRD_PRICE[0]->PRICE;
             $PROD_PRICE_Float = $PROD_SUM_PRICE  * (100 / 107);
             $PROD_PRICE = round((float)$PROD_PRICE_Float, 2);
             // $PROD_VAT = $PROD_SUM_PRICE  * (7 / 107);
@@ -325,7 +240,8 @@ class API_Quatation extends BaseController
 
 
             // $all_vat = number_format((((int)$data['PROD_SUM_PRICE'] + (int)$GET_ACS_SUM + (int)$GET_INSURE_SUM) * 7) / 107, 2, '.', '');
-            $PROD_TOTAL_AMT = (int)$data['PROD_SUM_PRICE'] + (int)$GET_ACS_SUM + (int)$GET_INSURE_SUM;
+            // $PROD_TOTAL_AMT = (int)$data['PROD_SUM_PRICE'] + (int)$GET_ACS_SUM + (int)$GET_INSURE_SUM;
+            $PROD_TOTAL_AMT = (int)$PRD_PRICE[0]->PRICE + (int)$GET_ACS_SUM + (int)$GET_INSURE_SUM;
             $PROD_TOTAL_Float = $PROD_TOTAL_AMT  * (100 / 107);
             $PROD_TOTAL = round((float)$PROD_TOTAL_Float, 2);
             $PROD_TOTAL_VAT = $PROD_TOTAL_AMT - $PROD_TOTAL;
@@ -340,49 +256,20 @@ class API_Quatation extends BaseController
 
             // Cal Down percent
             $DOWN_PERCENT = ($data['DOWN_SUM_AMT'] / $PROD_TOTAL_AMT);
-            // dd($DOWN_PERCENT);
-
+            // dd($PROD_TOTAL_AMT);
 
             // Check Down Guarantor
-            $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
+            // $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
+            $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0'
+                , @ProductTotal_INPUT = '" . $product[0]->PRICE . "', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
+
             // dd($check_Down);
-            if ($DOWN_PERCENT < $check_Down[0]->DownMAX) {
-                throw new Exception('Request [DOWN_SUM_AMT] >= ' . ($check_Down[0]->DownMAX) * 100 . "%");
-                // $mes_error = (object)[
-                //     'TH' => 'กรุณาดาวน์ขั้นต่ำ '. ($check_Down[0]->DownMAX) * 100 . '%',
-                //     'EN' => 'Minimum down payment '. ($check_Down[0]->DownMAX) * 100 . '%'
-                // ];
-                // throw new Exception(json_encode($mes_error));
+            if ($data['DOWN_SUM_AMT'] < $check_Down[0]->{'@DownAMT_OUTPUT'}) {
+                throw new Exception('Request [DOWN_SUM_AMT] >= ' . ($check_Down[0]->{'@DownAMT_OUTPUT'}), 2000);
             }
+
             // dd($check_Down);
 
-
-            // Check tenor
-            $Get_tenor = DB::table('dbo.MT_INSTALLMENT2')
-                ->select('*')
-                ->where('MAX', '>=', $PROD_TOTAL_AMT)
-                ->get();
-            // dd($Get_tenor);
-            $toner = array();
-            $check_toner = 0;
-            foreach ($Get_tenor as $value) {
-                if($data['INSTALL_NUM'] == $value->INSTALL){
-                    $check_toner = 1;
-                }
-                // var_dump($value->INSTALL);
-                array_push($toner, $value->INSTALL);
-            }
-            if($check_toner == 0){
-                throw new Exception('Request [INSTALL_NUM] is '. implode(', ', $toner));
-                // $mes_error = (object)[
-                //     'TH' => 'จำนวนงวดที่สามารถเลือกได้คือ '. implode(', ', $toner),
-                //     'EN' => 'installments that can be selected is '. implode(', ', $toner)
-                // ];
-                // throw new Exception(json_encode($mes_error));
-            }
-            // dd(array_search($data['INSTALL_NUM'], $toner));
-            
-           
 
             // หา INTEREST_FLAT
             $BRAND = $product[0]->BRAND;
@@ -422,9 +309,6 @@ class API_Quatation extends BaseController
 
             $date_now = Carbon::now(new DateTimeZone('Asia/Bangkok'))->format('Y-m-d H:i:s');
             $date_end = Carbon::now(new DateTimeZone('Asia/Bangkok'))->addDays(15);
-            // var_dump($date_now);
-            // dd($date_end);
-            // dd($datenow->format('Y-'));
 
 
             // INTEREST_EFFECTIVE
@@ -437,9 +321,10 @@ class API_Quatation extends BaseController
             $type = 0;
             $guess = 0.1;
             $EFFECTIVE = strval(round($Check_Calculator->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess) * 12, 8));
+
             // dd($EFFECTIVE);
             // var_dump(($this->RATE_Excel($nper, $pmt, $pv, $fv, $type, $guess) * 12) * 100);
-            // dd('ะพีำ');
+
             $ID_QT = DB::table('dbo.QUOTATION')->insertGetId([
                 'QT_DATE' => $date_now,
                 'DATE_END' => $date_end,
@@ -449,7 +334,7 @@ class API_Quatation extends BaseController
                 'BRANCH_ID' => $data['BRANCH_ID'],
                 'BRANCH_AD' => $BRANCH_AD,
                 'TAX_ID' => $data['TAX_ID'],
-                'CUSTOMER_NAME' => $data['CUSTOMER_NAME'],
+                'CUSTOMER_NAME' => $data['FIRST_NAME'] . ' ' . $data['LAST_NAME'],
                 'OCCUPATION_ID' => $data['OCCUPATION_ID'],
                 'UNIVERSITY_ID' => $data['UNIVERSITY_ID'],
                 'CAMPUS_ID' => $faculty_check[0]->MT_CAMPUS_ID,
@@ -464,7 +349,8 @@ class API_Quatation extends BaseController
                 'REMARK' => null,
                 'PROD_PRICE' => $PROD_PRICE,
                 'PROD_VAT' => $PROD_VAT,
-                'PROD_SUM_PRICE' => $data['PROD_SUM_PRICE'],
+                // 'PROD_SUM_PRICE' => $data['PROD_SUM_PRICE'],
+                'PROD_SUM_PRICE' => $PRD_PRICE[0]->PRICE,
                 'DOWN_PERCENT' => $DOWN_PERCENT,
                 'DOWN_AMT' =>  $DOWN_AMT,
                 'DOWN_VAT' => $DOWN_VAT,
@@ -488,13 +374,13 @@ class API_Quatation extends BaseController
                 'PAY_DOWN_TYPE' => null,
                 'DESCRIPTION' => null,
                 'ACS_ID' => isset($data['ACS_ID']) ? $data['ACS_ID'] : null,
-                'ACS_DES' => isset($data['ACS_DES']) ? $data['ACS_DES'] : null,
+                'ACS_DES' => isset($DB_ASC[0]->DESCRIPTION) ? $DB_ASC[0]->DESCRIPTION : null,
                 'ACS_PRICE' => $ACS_PRICE,
                 'ACS_VAT' => $ACS_VAT,
-                'ACS_SUM' => isset($data['ACS_SUM']) ? $data['ACS_SUM'] : 0,
+                'ACS_SUM' => isset($DB_ASC[0]->PRICE) ? $DB_ASC[0]->PRICE : 0,
                 'INSURE_ID' => isset($data['INSURE_ID']) ? $data['INSURE_ID'] : null,
-                'INSURE_DES' => isset($data['INSURE_DES']) ? $data['INSURE_DES'] : null,
-                'INSURE_SUM' => isset($data['INSURE_SUM']) ? $data['INSURE_SUM'] : null,
+                'INSURE_DES' => isset($DB_INSURE[0]->INSURE_PRODUCT_NAME) ? $DB_INSURE[0]->INSURE_PRODUCT_NAME : null,
+                'INSURE_SUM' => isset($DB_INSURE[0]->INSURE_PRICE) ? $DB_INSURE[0]->INSURE_PRICE : null,
                 'PROD_TOTAL' => $PROD_TOTAL,
                 'PROD_TOTAL_VAT' => $PROD_TOTAL_VAT,
                 'PROD_TOTAL_AMT' => $PROD_TOTAL_AMT,
@@ -502,7 +388,7 @@ class API_Quatation extends BaseController
                 'CREATE_DATE' => $date_now,
                 'UPDATE_DATE' => null,
                 'NAME_MAKE' => 'API',
-
+                'Default_DownPercent' => number_format((float)$check_Down[0]->{'@DownAMT_PERCENT_OUTPUT'}, 2, '.', ''),
             ]);
 
             // dd($ID_QT+100000);
@@ -524,42 +410,42 @@ class API_Quatation extends BaseController
             ]);
 
 
-            if($check_Down[0]->Guarantor == 1){
+            if ($check_Down[0]->Guarantor == 1) {
                 $PST_GUAR_ID = DB::table('dbo.PROSPECT_GUARANTOR')->insertGetId([
                     'QUOTATION_ID' => $ID_QT,
+                    'CREATE_DATE' => $date_now,
                 ]);
             }
-
+            
             return response()->json(array(
-                'Code' => '9999',
+                'Code' => '0000',
                 'status' => 'Success',
                 'data' => [
                     'TAX_ID' => $data['TAX_ID'],
-                    'QUATATION_ID' => $ID_QT,
+                    'QUOTATION_ID' => $ID_QT,
                     'PST_CUST_ID' => $PST_CUST_ID,
                     'ADD_CUST_ID' => $ADD_CUST_ID,
-                    'RequestGUARANTOR' => $check_Down[0]->Guarantor == 1 ? 1 : 0,
+                    'RequestGUARANTOR' => $check_Down[0]->Guarantor == '1' ? '1' : '0',
                     'PST_GUAR_ID' => isset($PST_GUAR_ID) ? $PST_GUAR_ID : null,
                 ]
             ));
-        } catch (Exception $e) {;
-            // dd($e->getPrevious()->getMessage());
-            // $getPrevious = $e->getPrevious();
-            if ($e->getPrevious() != null) {
-                return response()->json(array(
-                    'Code' => '0003',
-                    'status' => 'Error',
-                    'message' => $e->getPrevious()->getMessage()
-                    // 'message' => [
-                    //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                    //     'EN' => 'Data invalid. Please try again'
-                    // ]
-                ));
-            }
+        } catch (Exception $e) {
+            // dd($e->getMessage());
+            $MsgError = [
+                "1000" => [
+                    'status' => 'Invalid Data',
+                ],
+                "2000" => [
+                    'status' => 'Invalid Condition',
+                ],
+                "9000" => [
+                    'status' => 'System Error',
+                ],
+            ];
 
             return response()->json(array(
-                'Code' => '0013',
-                'status' => 'Error',
+                'Code' => (string)$e->getCode() ?: '9000',
+                'status' =>  isset($MsgError[(string)$e->getCode()]['status']) ? $MsgError[(string)$e->getCode()]['status'] : 'System Error',
                 'message' => $e->getMessage()
             ));
         }
