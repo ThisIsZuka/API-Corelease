@@ -23,6 +23,7 @@ use App\Http\Controllers\API_STATE_CustomerStatus;
 use App\Http\Controllers\API_GET_Product;
 use App\Http\Controllers\test;
 
+use App\Http\Controllers\API_SCB_Bill_H2H;
 
 
 /*
@@ -158,3 +159,7 @@ Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 //     Artisan::call('cache:clear');
 //     return "Cache is cleared";
 // });
+
+
+// Bill Payment
+Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
