@@ -40,7 +40,6 @@ class NCB_ZipFile extends BaseController
 
             $NCB_ftp_mail = new NCB_ftp_mail;
             $NCB_ftp_mail->SendFile($zipFileName);
-
             $NCB_ftp_mail->SendMail($req_password);
 
             echo 'ok';
@@ -51,7 +50,8 @@ class NCB_ZipFile extends BaseController
 
     function Get_file_name($files)
     {
-        $arr_file_name = explode("\\", public_path($files));
+        $arr_file_name = preg_split("/\\\\/", public_path($files), -1, PREG_SPLIT_NO_EMPTY);
+        // dd($arr_file_name);
         $file_name = end($arr_file_name);
 
         return $file_name;
