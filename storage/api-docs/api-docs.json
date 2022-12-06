@@ -6,7 +6,7 @@
         "version": "1.2.0"
     },
     "paths": {
-        "/API-Corelease/api/Get_Token": {
+        "/api/Get_Token": {
             "post": {
                 "tags": [
                     "Authentication"
@@ -69,7 +69,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_prefix": {
+        "/api/master_prefix": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -105,7 +105,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_nationality": {
+        "/api/master_nationality": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -141,7 +141,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_marital_status": {
+        "/api/master_marital_status": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -177,7 +177,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_occupation": {
+        "/api/master_occupation": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -213,7 +213,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_level_type": {
+        "/api/master_level_type": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -249,7 +249,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_level": {
+        "/api/master_level": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -285,7 +285,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_rerationship_ref": {
+        "/api/master_rerationship_ref": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -321,7 +321,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_branch_type": {
+        "/api/master_branch_type": {
             "get": {
                 "tags": [
                     "API Branch"
@@ -357,7 +357,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_setup_company/{BRANCH_TYPE_ID}": {
+        "/api/master_setup_company/{BRANCH_TYPE_ID}": {
             "post": {
                 "tags": [
                     "API Branch"
@@ -419,7 +419,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_category": {
+        "/api/master_category": {
             "get": {
                 "tags": [
                     "API Production"
@@ -455,7 +455,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_brand": {
+        "/api/master_brand": {
             "get": {
                 "tags": [
                     "API Production"
@@ -491,7 +491,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_series/{BRAND_ID}": {
+        "/api/master_series/{BRAND_ID}": {
             "get": {
                 "tags": [
                     "API Production"
@@ -535,7 +535,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_sub_series/{SERIES_ID}": {
+        "/api/master_sub_series/{SERIES_ID}": {
             "get": {
                 "tags": [
                     "API Production"
@@ -579,7 +579,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_color/{SERIES_ID}": {
+        "/api/master_color/{SERIES_ID}": {
             "get": {
                 "tags": [
                     "API Production"
@@ -623,7 +623,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_assets_information": {
+        "/api/master_assets_information": {
             "get": {
                 "tags": [
                     "API Production"
@@ -659,7 +659,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_insure/{SERIES_ID}": {
+        "/api/master_insure/{SERIES_ID}": {
             "get": {
                 "tags": [
                     "API Production"
@@ -703,7 +703,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_installment": {
+        "/api/master_installment": {
             "get": {
                 "tags": [
                     "API INSTALLMENT"
@@ -739,7 +739,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_residence": {
+        "/api/master_residence": {
             "get": {
                 "tags": [
                     "API Address"
@@ -775,7 +775,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_province": {
+        "/api/master_province": {
             "get": {
                 "tags": [
                     "API Address"
@@ -811,7 +811,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_district/{PROVINCE_ID}": {
+        "/api/master_district/{PROVINCE_ID}": {
             "get": {
                 "tags": [
                     "API Address"
@@ -855,7 +855,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_sub_district/{DISTRICT_ID}": {
+        "/api/master_sub_district/{DISTRICT_ID}": {
             "get": {
                 "tags": [
                     "API Address"
@@ -899,7 +899,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_university": {
+        "/api/master_university": {
             "post": {
                 "tags": [
                     "API University"
@@ -963,7 +963,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_faculty": {
+        "/api/master_faculty": {
             "get": {
                 "tags": [
                     "API University"
@@ -1007,7 +1007,7 @@
                 }
             }
         },
-        "/API-Corelease/api/new_customer": {
+        "/api/new_customer": {
             "post": {
                 "tags": [
                     "API QUOTATION"
@@ -1153,7 +1153,7 @@
                 ]
             }
         },
-        "/API-Corelease/api/new_prospect_cus": {
+        "/api/new_prospect_cus": {
             "post": {
                 "tags": [
                     "API QUOTATION"
@@ -1422,7 +1422,7 @@
                 ]
             }
         },
-        "/API-Corelease/api/new_address_prospect": {
+        "/api/new_address_prospect": {
             "post": {
                 "tags": [
                     "API QUOTATION"
@@ -1748,7 +1748,7 @@
                 ]
             }
         },
-        "/API-Corelease/api/new_Quotation": {
+        "/api/new_Quotation": {
             "post": {
                 "tags": [
                     "API QUOTATION"
@@ -2277,7 +2277,7 @@
                 ]
             }
         },
-        "/API-Corelease/api/SKU_GetProduct": {
+        "/api/SKU_GetProduct": {
             "get": {
                 "tags": [
                     "API Check"
@@ -2313,7 +2313,7 @@
                 }
             }
         },
-        "/API-Corelease/api/SKUCheckDownGua": {
+        "/api/SKUCheckDownGua": {
             "post": {
                 "tags": [
                     "API Check"
@@ -2392,7 +2392,7 @@
                 }
             }
         },
-        "/API-Corelease/api/SKU_ASSETS_INSURANCE": {
+        "/api/SKU_ASSETS_INSURANCE": {
             "post": {
                 "tags": [
                     "API Check"
@@ -2449,7 +2449,7 @@
                 }
             }
         },
-        "/API-Corelease/api/Check_Tenor": {
+        "/api/Check_Tenor": {
             "post": {
                 "tags": [
                     "API Check"

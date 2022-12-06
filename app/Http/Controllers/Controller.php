@@ -19,7 +19,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/Get_Token",
+ * path="/api/Get_Token",
  * summary="Login",
  * description="Get_Token",
  * operationId="Get_Token",
@@ -48,7 +48,7 @@ use Illuminate\Routing\Controller as BaseController;
  *
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_prefix",
+ * path="/api/master_prefix",
  * summary="Master Data คำนำหน้าชื่อ",
  * description="คำนำหน้าชื่อ",
  * operationId="Master_prefix",
@@ -65,7 +65,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_nationality",
+ * path="/api/master_nationality",
  * summary="Master Data สัญชาติ",
  * description="สัญชาติ",
  * operationId="master_nationality",
@@ -82,7 +82,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_marital_status",
+ * path="/api/master_marital_status",
  * summary="Master Data สถานะสมรส",
  * description="สถานะสมรส",
  * operationId="master_marital_status",
@@ -99,7 +99,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_occupation",
+ * path="/api/master_occupation",
  * summary="Master Data อาชีพ",
  * description="อาชีพ",
  * operationId="master_occupation",
@@ -116,7 +116,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_level_type",
+ * path="/api/master_level_type",
  * summary="Master Data ระดับการศึกษา",
  * description="ระดับการศึกษา",
  * operationId="master_level_type",
@@ -133,7 +133,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_level",
+ * path="/api/master_level",
  * summary="Master Data ชั้นปี",
  * description="ชั้นปี",
  * operationId="master_level",
@@ -150,7 +150,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_rerationship_ref",
+ * path="/api/master_rerationship_ref",
  * summary="Master Data ความสัมพันธ์",
  * description="ความสัมพันธ์",
  * operationId="master_rerationship_ref",
@@ -167,7 +167,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_branch_type",
+ * path="/api/master_branch_type",
  * summary="Master Data ประเภทสาขา",
  * description="ประเภทสาขา",
  * operationId="master_branch_type",
@@ -184,7 +184,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Post(
- * path="/API-Corelease/api/master_setup_company/{BRANCH_TYPE_ID}",
+ * path="/api/master_setup_company/{BRANCH_TYPE_ID}",
  * summary="Master Data สาขา",
  * description="สาขา",
  * operationId="master_setup_company",
@@ -214,7 +214,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_category",
+ * path="/api/master_category",
  * summary="Master Data หมวดสินค้า",
  * description="หมวดสินค้า",
  * operationId="master_category",
@@ -231,7 +231,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_brand",
+ * path="/api/master_brand",
  * summary="Master Data ยี่ห้อสินค้า",
  * description="ยี่ห้อสินค้า",
  * operationId="master_brand",
@@ -248,7 +248,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_series/{BRAND_ID}",
+ * path="/api/master_series/{BRAND_ID}",
  * summary="Master Data รุ่นสินค้า",
  * description="รุ่นสินค้า",
  * operationId="master_series",
@@ -271,7 +271,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_sub_series/{SERIES_ID}",
+ * path="/api/master_sub_series/{SERIES_ID}",
  * summary="Master Data ความจุ",
  * description="ความจุ",
  * operationId="master_sub_series",
@@ -294,7 +294,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_color/{SERIES_ID}",
+ * path="/api/master_color/{SERIES_ID}",
  * summary="Master Data สี",
  * description="สี",
  * operationId="master_color",
@@ -317,7 +317,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_assets_information",
+ * path="/api/master_assets_information",
  * summary="Master Data อุปกรณ์เสริม",
  * description="อุปกรณ์เสริม",
  * operationId="master_assets_information",
@@ -334,7 +334,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_insure/{SERIES_ID}",
+ * path="/api/master_insure/{SERIES_ID}",
  * summary="Master Data บริการคุ้มครองเสริม",
  * description="บริการคุ้มครองเสริม",
  * operationId="master_insure",
@@ -357,7 +357,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_installment",
+ * path="/api/master_installment",
  * summary="Master Data จำนวนงวด",
  * description="จำนวนงวด",
  * operationId="master_installment",
@@ -375,7 +375,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  *
  * @OA\Get(
- * path="/API-Corelease/api/master_residence",
+ * path="/api/master_residence",
  * summary="Master Data สถานะการอาศัย",
  * description="สถานะการอาศัย (OWNER_TYPE)",
  * operationId="master_residence",
@@ -393,7 +393,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_province",
+ * path="/api/master_province",
  * summary="Master Data จังหวัด",
  * description="จังหวัด",
  * operationId="master_province",
@@ -411,7 +411,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_district/{PROVINCE_ID}",
+ * path="/api/master_district/{PROVINCE_ID}",
  * summary="Master Data อำเภอ",
  * description="อำเภอ",
  * operationId="master_district",
@@ -434,7 +434,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_sub_district/{DISTRICT_ID}",
+ * path="/api/master_sub_district/{DISTRICT_ID}",
  * summary="Master Data ตำบล",
  * description="ตำบล",
  * operationId="master_sub_district",
@@ -459,7 +459,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/master_university",
+ * path="/api/master_university",
  * summary="Master Data มหาวิทยาลัย",
  * description="มหาวิทยาลัย",
  * operationId="Get-master_university",
@@ -486,7 +486,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Get(
- * path="/API-Corelease/api/master_faculty",
+ * path="/api/master_faculty",
  * summary="Master Data คณะ",
  * description="คณะ",
  * operationId="Get-master_faculty",
@@ -523,7 +523,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/new_customer",
+ * path="/api/new_customer",
  * summary="Insert new customer",
  * description="new custome <br> ข้อมูลสินค้า",
  * operationId="new_customer",
@@ -565,7 +565,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/new_prospect_cus",
+ * path="/api/new_prospect_cus",
  * summary="Insert new customer",
  * description="new prospect <br> ข้อมูลลูกค้า",
  * operationId="new_prospect",
@@ -635,7 +635,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/new_address_prospect",
+ * path="/api/new_address_prospect",
  * summary="Insert new customer",
  * description="new address prospect <br> ข้อมูลที่อยู่ลูกค้า <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
  * operationId="new_address_prospect",
@@ -712,7 +712,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/new_Quotation",
+ * path="/api/new_Quotation",
  * summary="Register Quotation",
  * description="Regsiter Quotation",
  * operationId="new_Quotation",
@@ -844,7 +844,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Get(
- * path="/API-Corelease/api/SKU_GetProduct",
+ * path="/api/SKU_GetProduct",
  * summary="สินค้า",
  * description="รายการสินค้าที่เปิด",
  * operationId="SKU_GetProduct",
@@ -862,7 +862,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/SKUCheckDownGua",
+ * path="/api/SKUCheckDownGua",
  * summary="ตรวจสอบจำนวนเงินดาวน์ขั้นต่ำ , ผู้ค้ำประกัน",
  * description="new custome",
  * operationId="SKUCheckDownGua",
@@ -895,7 +895,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  *
  * @OA\Post(
- * path="/API-Corelease/api/SKU_ASSETS_INSURANCE",
+ * path="/api/SKU_ASSETS_INSURANCE",
  * summary="รายการประกันและอุปกรณ์เสริมของสินค้า",
  * description="รายการประกันและอุปกรณ์เสริมของสินค้า",
  * operationId="ASSETS_INSURANCE",
@@ -922,7 +922,7 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/Check_Tenor",
+ * path="/api/Check_Tenor",
  * summary="จำนวนงวด",
  * description="จำนวนงวดที่สามารถเลือกได้",
  * operationId="Check_Tenor",
@@ -967,7 +967,7 @@ class Controller extends BaseController
 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/SKU_ASSETS",
+ * path="/api/SKU_ASSETS",
  * summary="รายการอุปกรณ์เสริม",
  * description="รายการรอุปกรณ์เสริมของสินค้า",
  * operationId="sku_Accessories",
@@ -993,7 +993,7 @@ class Controller extends BaseController
  * 
  * 
  * @OA\Post(
- * path="/API-Corelease/api/SKU_Warrantee",
+ * path="/api/SKU_Warrantee",
  * summary="ประกันเสริม",
  * description="ประกันเสริมของสินค้า",
  * operationId="Warrantee",
