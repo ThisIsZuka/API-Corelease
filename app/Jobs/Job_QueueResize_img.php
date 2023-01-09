@@ -42,6 +42,11 @@ class Job_QueueResize_img implements ShouldQueue
     public function handle()
     {
         $DB_Data = $this->DB_Data;
+        $IMAGE_FILE = DB::table('dbo.IMAGE_FILE')
+            ->select('IMAGE_ID', 'CARD_CODE_FILE', 'STUDENT_CARD_FILE', 'FACE_PERSON', 'PRODUCT_SERIAL', 'CUSTOMER_DELIVER', 'RETURN_ASSETS02')
+            ->where('IMAGE_ID' , $DB_Data)
+            ->first();
+        dd($IMAGE_FILE);
         $this->GetData($DB_Data);
         sleep(1);
     }
@@ -93,9 +98,10 @@ class Job_QueueResize_img implements ShouldQueue
                 ->update([
                     'RETURN_ASSETS02' => '1'
                 ]);
+                
         } catch (Exception $e) {
             // bird is clearly not the word
-            $this->failed($e , $_Data->IMAGE_ID);
+            $this->failed($e, $_Data->IMAGE_ID);
         }
     }
 
@@ -190,6 +196,6 @@ class Job_QueueResize_img implements ShouldQueue
         $log = new Logger('Error');
         $log->pushHandler(new RotatingFileHandler(storage_path() . '/logs/ResizeImage/resize_.log', 2, Logger::INFO));
 
-        $log->info('Image ID :'. $IMAGE_ID . '[ Error'. $exception->getMessage() .']' );
+        $log->info('Image ID :' . $IMAGE_ID . '[ Error' . $exception->getMessage() . ']');
     }
 }
