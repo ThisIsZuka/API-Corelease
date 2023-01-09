@@ -15,8 +15,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "*",
         "nyholm/psr7": "^1.5",
+        "predis/predis": "^2.0",
         "rbdwllr/reallysimplejwt": "^3.5",
-        "singpolyma/openpgp-php": "^0.6.0",
         "spatie/crypto": "^2.0",
         "symfony/psr-http-message-bridge": "^2.1"
     },
@@ -33,15 +33,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        },
-        "files": [
-            "vendor/singpolyma/openpgp-php/lib/openpgp.php",
-            "vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php",
-            "vendor/singpolyma/openpgp-php/lib/openpgp_crypt_symmetric.php",
-            "vendor/singpolyma/openpgp-php/lib/openpgp_mcrypt_wrapper.php",
-            "vendor/singpolyma/openpgp-php/lib/openpgp_openssl_wrapper.php",
-            "vendor/singpolyma/openpgp-php/lib/openpgp_sodium.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

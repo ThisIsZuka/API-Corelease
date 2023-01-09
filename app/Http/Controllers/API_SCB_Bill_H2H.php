@@ -157,20 +157,20 @@ class API_SCB_Bill_H2H extends BaseController
 
     private function Check_ref($data)
     {
-        $DB_TTP_InvBarcode_Ref01 = DB::connection('sqlsrv_HPCOM7')->table('dbo.TTP_INV_BARCODE')
+        $DB_TTP_InvBarcode_Ref01 = DB::table('dbo.TTP_INV_BARCODE')
             ->select('SEQ_ID', 'INV_NO', 'REF1_NO', 'REF2_NO', 'INV_AMT', 'CUST_CARD_ID')
             ->where('REF1_NO', $data['reference1'])
             ->get();
         if (count($DB_TTP_InvBarcode_Ref01) == 0) return (throw new Exception('1001'));
 
-        $DB_TTP_InvBarcode_Ref02 = DB::connection('sqlsrv_HPCOM7')->table('dbo.TTP_INV_BARCODE')
+        $DB_TTP_InvBarcode_Ref02 = DB::table('dbo.TTP_INV_BARCODE')
             ->select('SEQ_ID', 'INV_NO', 'REF1_NO', 'REF2_NO', 'INV_AMT', 'CUST_CARD_ID')
             ->where('REF1_NO', $data['reference1'])
             ->where('REF2_NO', $data['reference2'])
             ->get();
         if (count($DB_TTP_InvBarcode_Ref02) == 0) return (throw new Exception('1002'));
 
-        // $Amount = DB::connection('sqlsrv_HPCOM7')->table('dbo.TTP_INV_BARCODE')
+        // $Amount = DB::table('dbo.TTP_INV_BARCODE')
         //     ->select('TTP_INV_BARCODE.INV_NO',   'TTP_INV_BARCODE.REF1_NO', 'TTP_INV_BARCODE.REF2_NO', 'TTP_INV_BARCODE.INV_AMT', 'TTP_APPL_TRANS.PREMIUM_AMT')
         //     // ->leftJoin('TTP_APPL_TRANS', 'TTP_INV_BARCODE.REF1_NO', '=', 'TTP_APPL_TRANS.PAYMENT_REF1')
         //     ->leftJoin('TTP_APPL_TRANS', function ($join) {

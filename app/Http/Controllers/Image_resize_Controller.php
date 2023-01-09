@@ -133,7 +133,7 @@ class Image_resize_Controller extends BaseController
                 ->select('IMAGE_ID', 'CARD_CODE_FILE', 'STUDENT_CARD_FILE', 'FACE_PERSON', 'PRODUCT_SERIAL', 'CUSTOMER_DELIVER', 'RETURN_ASSETS02')
                 // ->where('RETURN_ASSETS02', '!=' ,'1')
                 // ->limit(10)
-                ->where('IMAGE_ID', '71482')
+                // ->where('IMAGE_ID', '71482')
                 ->get();
 
             // dd($IMAGE_FILE);
@@ -201,10 +201,10 @@ class Image_resize_Controller extends BaseController
     {
 
         $return_data = new \stdClass();
-
         $IMAGE_FILE = DB::table('dbo.IMAGE_FILE')
-            ->select('IMAGE_ID', 'CARD_CODE_FILE', 'STUDENT_CARD_FILE', 'FACE_PERSON', 'PRODUCT_SERIAL', 'CUSTOMER_DELIVER', 'RETURN_ASSETS02')
-            ->whereNull('RETURN_ASSETS02')
+            // ->select('IMAGE_ID', 'CARD_CODE_FILE', 'STUDENT_CARD_FILE', 'FACE_PERSON', 'PRODUCT_SERIAL', 'CUSTOMER_DELIVER', 'RETURN_ASSETS02')
+            ->select('IMAGE_ID')
+            // ->whereNull('RETURN_ASSETS02')
             // ->limit(2)
             ->get();
 
