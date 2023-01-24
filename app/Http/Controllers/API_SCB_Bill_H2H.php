@@ -96,7 +96,7 @@ class API_SCB_Bill_H2H extends BaseController
 
             $data = $request->all();
 
-            if(isset($data['request']) == false) throw new Exception('1000');
+            if (isset($data['request']) == false) throw new Exception('1000');
 
             if ($data['request'] == 'verify') {
                 $returnData = $this->Payment_Verify($data);
@@ -130,6 +130,15 @@ class API_SCB_Bill_H2H extends BaseController
     {
         date_default_timezone_set('Asia/bangkok');
         $dateNow = Carbon::now();
+        $tranDate_set = new Carbon($data['tranDate']);
+        $time_set = $tranDate_set->format('H:i:s');
+
+        if ($time_set >= '23:00:00' && $time_set <= '23:14:59') {
+            // dd($dateNow->format('d'));
+            $tranDate_set = $tranDate_set->day(min($dateNow->format('d'), $tranDate_set->daysInMonth));
+        }else if($time_set >= '23:15:00' && $time_set <= '23:59:59'){
+            $tranDate_set = $tranDate_set->subDay();
+        }
 
         try {
             DB::table('dbo.LOG_SCB_BILLPAYMENT')->insert([
@@ -148,6 +157,7 @@ class API_SCB_Bill_H2H extends BaseController
                 'terminalID' => isset($data['terminalID']) ? $data['terminalID'] : null,
                 'CREATE_DATE' => $dateNow,
                 'CREATE_BY' => 'SCB API',
+                'tranDate_set' => $tranDate_set,
             ]);
         } catch (Exception $e) {
             return (throw new Exception('2000'));
@@ -232,6 +242,8 @@ class API_SCB_Bill_H2H extends BaseController
 
             $this->Insert_Request($data);
 
+            $this->CALL_SP($data);
+
             return response()->json(array(
                 "response" => "confirm",
                 "resCode" => "0000",
@@ -290,5 +302,15 @@ class API_SCB_Bill_H2H extends BaseController
                 "paymentID" => self::$SCB_BILLER_ID
             ));
         }
+    }
+
+    function CALL_SP($data)
+    {
+        // DB::select("SET NOCOUNT ON ; exec SP_Auto_Bill_Payment 
+        // @BillIDInput = '" . $data[''] . "' , 
+        // @ContractNumberInput = '" . $data[''] . "' ,
+        // @TransDateTime = '" . $data[''] . "' , 
+        // @TransDateTime = '" . $data[''] . "' 
+        // ");
     }
 }

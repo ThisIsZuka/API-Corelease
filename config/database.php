@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlsrv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -91,6 +91,19 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
+        ],
+
+        'sqlsrv_365' => [
+            'driver' => env('DB_CONNECTION_SECOND'),
+            // 'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_SECOND', 'localhost'),
+            'port' => env('DB_PORT_SECOND', '1433'),
+            'database' => env('DB_DATABASE_SECOND', 'forge'),
+            'username' => env('DB_USERNAME_SECOND', 'forge'),
+            'password' => env('DB_PASSWORD_SECOND', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
         ],
 
         'misdiy' => [

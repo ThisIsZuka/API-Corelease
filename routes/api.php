@@ -163,3 +163,8 @@ Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 
 // Bill Payment
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
+
+
+
+// Test API
+Route::get('/SP_TEST', [test::class, 'Test_API_SP']);
