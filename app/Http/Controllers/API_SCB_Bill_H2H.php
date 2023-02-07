@@ -96,7 +96,7 @@ class API_SCB_Bill_H2H extends BaseController
 
             $data = $request->all();
 
-            if(isset($data['request']) == false) throw new Exception('1000');
+            if (isset($data['request']) == false) throw new Exception('1000');
 
             if ($data['request'] == 'verify') {
                 $returnData = $this->Payment_Verify($data);
@@ -130,6 +130,15 @@ class API_SCB_Bill_H2H extends BaseController
     {
         date_default_timezone_set('Asia/bangkok');
         $dateNow = Carbon::now();
+        $tranDate_set = new Carbon($data['tranDate']);
+        $time_set = $tranDate_set->format('H:i:s');
+
+        if ($time_set >= '23:00:00' && $time_set <= '23:14:59') {
+            // dd($dateNow->format('d'));
+            $tranDate_set = $tranDate_set->day(min($dateNow->format('d'), $tranDate_set->daysInMonth));
+        }else if($time_set >= '23:15:00' && $time_set <= '23:59:59'){
+            $tranDate_set = $tranDate_set->subDay();
+        }
 
         try {
             DB::table('dbo.LOG_SCB_BILLPAYMENT')->insert([
@@ -148,6 +157,7 @@ class API_SCB_Bill_H2H extends BaseController
                 'terminalID' => isset($data['terminalID']) ? $data['terminalID'] : null,
                 'CREATE_DATE' => $dateNow,
                 'CREATE_BY' => 'SCB API',
+                'tranDate_set' => $tranDate_set,
             ]);
         } catch (Exception $e) {
             return (throw new Exception('2000'));
@@ -157,20 +167,20 @@ class API_SCB_Bill_H2H extends BaseController
 
     private function Check_ref($data)
     {
-        $DB_TTP_InvBarcode_Ref01 = DB::connection('sqlsrv_HPCOM7')->table('dbo.TTP_INV_BARCODE')
+        $DB_TTP_InvBarcode_Ref01 = DB::table('dbo.TTP_INV_BARCODE')
             ->select('SEQ_ID', 'INV_NO', 'REF1_NO', 'REF2_NO', 'INV_AMT', 'CUST_CARD_ID')
             ->where('REF1_NO', $data['reference1'])
             ->get();
         if (count($DB_TTP_InvBarcode_Ref01) == 0) return (throw new Exception('1001'));
 
-        $DB_TTP_InvBarcode_Ref02 = DB::connection('sqlsrv_HPCOM7')->table('dbo.TTP_INV_BARCODE')
+        $DB_TTP_InvBarcode_Ref02 = DB::table('dbo.TTP_INV_BARCODE')
             ->select('SEQ_ID', 'INV_NO', 'REF1_NO', 'REF2_NO', 'INV_AMT', 'CUST_CARD_ID')
             ->where('REF1_NO', $data['reference1'])
             ->where('REF2_NO', $data['reference2'])
             ->get();
         if (count($DB_TTP_InvBarcode_Ref02) == 0) return (throw new Exception('1002'));
 
-        // $Amount = DB::connection('sqlsrv_HPCOM7')->table('dbo.TTP_INV_BARCODE')
+        // $Amount = DB::table('dbo.TTP_INV_BARCODE')
         //     ->select('TTP_INV_BARCODE.INV_NO',   'TTP_INV_BARCODE.REF1_NO', 'TTP_INV_BARCODE.REF2_NO', 'TTP_INV_BARCODE.INV_AMT', 'TTP_APPL_TRANS.PREMIUM_AMT')
         //     // ->leftJoin('TTP_APPL_TRANS', 'TTP_INV_BARCODE.REF1_NO', '=', 'TTP_APPL_TRANS.PAYMENT_REF1')
         //     ->leftJoin('TTP_APPL_TRANS', function ($join) {
@@ -232,6 +242,8 @@ class API_SCB_Bill_H2H extends BaseController
 
             $this->Insert_Request($data);
 
+            $this->CALL_SP($data);
+
             return response()->json(array(
                 "response" => "confirm",
                 "resCode" => "0000",
@@ -290,5 +302,15 @@ class API_SCB_Bill_H2H extends BaseController
                 "paymentID" => self::$SCB_BILLER_ID
             ));
         }
+    }
+
+    function CALL_SP($data)
+    {
+        // DB::select("SET NOCOUNT ON ; exec SP_Auto_Bill_Payment 
+        // @BillIDInput = '" . $data[''] . "' , 
+        // @ContractNumberInput = '" . $data[''] . "' ,
+        // @TransDateTime = '" . $data[''] . "' , 
+        // @TransDateTime = '" . $data[''] . "' 
+        // ");
     }
 }

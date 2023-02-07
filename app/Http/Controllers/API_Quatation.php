@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Validator;
 use stdClass;
 
 use App\Http\Controllers\Check_Calculator;
+use App\Http\Controllers\Error_Exception;
 
 class API_Quatation extends BaseController
 {
+
+    private $Error_Exception;
+
+    public function __construct()
+    {
+        $this->Error_Exception = new Error_Exception;
+    }
+
     public function New_Quatation(Request $request)
     {
 
@@ -23,186 +32,18 @@ class API_Quatation extends BaseController
 
             $data = $request->all();
             // dd($data);
+            $this->validate_input($data);
 
-            $validate_Quatation = [
-                "BRANCH_TYPE" => [
-                    'message' => 'Request Parameter [BRANCH_TYPE]',
-                    'numeric' => true,
-                ],
-                "BRANCH_ID" => [
-                    'message' => 'Request Parameter [BRANCH_ID]',
-                    'numeric' => true,
-                ],
-                "TAX_ID" => [
-                    'message' => 'Request Parameter [TAX_ID]',
-                    'numeric' => true,
-                ],
-                "FIRST_NAME" => [
-                    'message' => 'Request Parameter [FIRST_NAME]',
-                    'numeric' => false,
-                ],
-                "LAST_NAME" => [
-                    'message' => 'Request Parameter [LAST_NAME]',
-                    'numeric' => false,
-                ],
-                "OCCUPATION_ID" => [
-                    'message' => 'Request Parameter [OCCUPATION_ID]',
-                    'numeric' => true,
-                ],
-                "UNIVERSITY_ID" => [
-                    'message' => 'Request Parameter [UNIVERSITY_ID]',
-                    'numeric' => true,
-                ],
-                "FACULTY_ID" => [
-                    'message' => 'Request Parameter [FACULTY_ID]',
-                    'numeric' => true,
-                ],
-                "PRODUCT_SERIES" => [
-                    'message' => 'Request Parameter [PRODUCT_SERIES]',
-                    'numeric' => false,
-                ],
-                "DOWN_SUM_AMT" => [
-                    'message' => 'Request Parameter [DOWN_SUM_AMT]',
-                    'numeric' => true,
-                ],
-                "INSTALL_NUM" => [
-                    'message' => 'Request Parameter [INSTALL_NUM]',
-                    'numeric' => true,
-                ],
-            ];
-
-
-            foreach ($validate_Quatation as $key => $value) {
-
-                if (!isset($data[$key])) {
-                    throw new Exception($value['message'], 1000);
-                }
-
-                if ($value['numeric'] == true) {
-                    if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
-                    }
-                }
-
-
-                if ($key == "TAX_ID" && strlen($data[$key]) != 13) {
-                    throw new Exception("Invalid [TAX_ID]", 1000);
-                }
-            }
-
-
-
-            $check_TAX = DB::select("exec SP_CheckDupAppContractByTAXID  @tax_id = '" . $data['TAX_ID'] . "' ");
-
-            if (count($check_TAX) > 0) {
-                throw new Exception("[TAX_ID] is already exists", 2000);
-            }
+            $this->Check_DupTaxID($data);
 
             // Check University Match Faculty
-            $faculty_check = DB::table('dbo.MT_FACULTY')
-                ->select('*')
-                ->where('MT_FACULTY_ID', $data['FACULTY_ID'])
-                ->where('MT_UNIVERSITY_ID', $data['UNIVERSITY_ID'])
-                ->get();
-
-            if (count($faculty_check) == 0) {
-                throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match", 2000);
-            }
-
-
+            $faculty_check = $this->Check_Uni_Fac($data);
 
             // Check SKU Product
-            $product = DB::table('dbo.ASSETS_INFORMATION')
-                ->select('ASSET_ID', 'ASSETS_CATEGORY', 'ASSETS_TYPE', 'BRAND', 'SERIES', 'SUB_SERIES', 'COLOR', 'PRICE', 'SERIALNUMBER', 'MODELNUMBER', 'DESCRIPTION', 'BRAND')
-                // ->whereRaw("TRIM(ASSETS_INFORMATION.MODELNUMBER) = '".$data['PRODUCT_SERIES']."'")
-                ->where('MODELNUMBER', 'like', '%' . $data['PRODUCT_SERIES'] . '%')
-                ->get();
-            // dd($product);
+            $product = $this->Check_SKU_product($data);
 
-            if (count($product) == 0) {
-                throw new Exception("Not Found [PRODUCT_SERIES]", 2000);
-            }
-
-
-
-            // Check ACS
-            $validate_acs = [
-                "ACS_ID" => [
-                    'message' => 'Request Parameter [ACS_ID]',
-                    'numeric' => false,
-                ],
-                // "ACS_DES" => [
-                //     'message' => 'Request Parameter [ACS_DES]',
-                //     'numeric' => false,
-                // ],
-                // "ACS_SUM" => [
-                //     'message' => 'Request Parameter [ACS_SUM]',
-                //     'numeric' => true,
-                // ],
-            ];
-
-
-            if (isset($data['ACS_ID']) && $data['ACS_ID'] != '') {
-                foreach ($validate_acs as $key => $value) {
-                    if (!isset($data[$key])) {
-                        throw new Exception($value['message'], 1000);
-                    }
-
-                    if ($value['numeric'] == true) {
-                        if (!is_numeric($data[$key])) {
-                            throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
-                        }
-                    }
-                }
-            }
-
-            $DB_ASC = DB::table('ASSETS_INFORMATION_REF')
-                ->select('*')
-                ->leftJoin('ASSETS_INFORMATION', 'ASSETS_INFORMATION_REF.ASSET_ID_REF', '=', 'ASSETS_INFORMATION.ASSET_ID')
-                ->where('ASSETS_INFORMATION_REF.ID', '=', $data['ACS_ID'])
-                ->get();
-            // dd($DB_ASC);
-
-
-            // Check INSURE
-            $validate_insure = [
-                "INSURE_ID" => [
-                    'message' => 'Request Parameter [INSURE_ID]',
-                    'numeric' => false,
-                ],
-                // "INSURE_DES" => [
-                //     'message' => 'Request Parameter [INSURE_DES]',
-                //     'numeric' => false,
-                // ],
-                // "INSURE_SUM" => [
-                //     'message' => 'Request Parameter [INSURE_SUM]',
-                //     'numeric' => true,
-                // ],
-            ];
-
-
-
-            if (isset($data['INSURE_ID']) && $data['INSURE_ID'] != '') {
-                foreach ($validate_insure as $key => $value) {
-                    if (!isset($data[$key]) || $data[$key] == null || $data[$key] == "") {
-                        throw new Exception($value['message'], 1000);
-                    }
-
-                    if ($value['numeric'] == true) {
-                        if (!is_numeric($data[$key])) {
-                            throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
-                        }
-                    }
-                }
-            }
-
-            $DB_INSURE = DB::table('dbo.MT_INSURE')
-                ->select('*')
-                ->where('INSURE_ID', '=', $data['INSURE_ID'])
-                ->get();
-
-            // dd($DB_INSURE);
-
+            // Check ACS / INSURE
+            list($DB_ASC, $DB_INSURE) = $this->Check_ACS_INSURE($data);
 
 
             // Get BRANCH_AD
@@ -212,10 +53,10 @@ class API_Quatation extends BaseController
                 ->where('COMP_BRANCH_ID', $data['BRANCH_ID'])
                 ->get();
             $BRANCH_AD = isset($GET_BRANCH_AD[0]) ? $GET_BRANCH_AD[0]->BRANCH_AD : null;
-            // dd($GET_BRANCH_AD);
 
+            // -----------------------------------------------------------------------------------------------------------------------------------//
 
-            //Calcu Prod Price
+            //---Calcu Prod Price
             $GET_ACS_SUM = isset($DB_ASC[0]->PRICE) ? $DB_ASC[0]->PRICE : 0;
             $GET_INSURE_SUM = isset($DB_INSURE[0]->INSURE_PRICE) ? $DB_INSURE[0]->INSURE_PRICE : 0;
 
@@ -224,7 +65,7 @@ class API_Quatation extends BaseController
                 // ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
                 ->where('MODELNUMBER', 'like', '%' . $data['PRODUCT_SERIES'] . '%')
                 ->get();
-            
+
 
             // $PROD_SUM_PRICE = (int)$data['PROD_SUM_PRICE'];
             $PROD_SUM_PRICE = (int)$PRD_PRICE[0]->PRICE;
@@ -258,17 +99,10 @@ class API_Quatation extends BaseController
             $DOWN_PERCENT = ($data['DOWN_SUM_AMT'] / $PROD_TOTAL_AMT);
             // dd($PROD_TOTAL_AMT);
 
+
             // Check Down Guarantor
-            // $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
-            $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0'
-                , @ProductTotal_INPUT = '" . $product[0]->PRICE . "', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
+            $check_Down = $this->Check_Guarantor($data, $product);
 
-            // dd($check_Down);
-            if ($data['DOWN_SUM_AMT'] < $check_Down[0]->{'@DownAMT_OUTPUT'}) {
-                throw new Exception('Request [DOWN_SUM_AMT] >= ' . ($check_Down[0]->{'@DownAMT_OUTPUT'}), 2000);
-            }
-
-            // dd($check_Down);
 
 
             // หา INTEREST_FLAT
@@ -371,7 +205,7 @@ class API_Quatation extends BaseController
                 'INSTALL_SUM_FINAL' => $INSTALL_SUM,
                 'CREDIT_LIMIT' => $PROD_TOTAL_AMT,
                 'HP_VAT_SUM' => $HP_VAT_SUM,
-                'PAY_DOWN_TYPE' => null,
+                'PAY_DOWN_TYPE' => 1,
                 'DESCRIPTION' => null,
                 'ACS_ID' => isset($data['ACS_ID']) ? $data['ACS_ID'] : null,
                 'ACS_DES' => isset($DB_ASC[0]->DESCRIPTION) ? $DB_ASC[0]->DESCRIPTION : null,
@@ -388,7 +222,7 @@ class API_Quatation extends BaseController
                 'CREATE_DATE' => $date_now,
                 'UPDATE_DATE' => null,
                 'NAME_MAKE' => 'API',
-                'Default_DownPercent' => number_format((float)$check_Down[0]->{'@DownAMT_PERCENT_OUTPUT'}, 2, '.', ''),
+                'DEFAULT_DOWN_PERCENT' => number_format((float)$check_Down[0]->{'@DownAMT_PERCENT_OUTPUT'}, 2, '.', ''),
             ]);
 
             // dd($ID_QT+100000);
@@ -416,7 +250,7 @@ class API_Quatation extends BaseController
                     'CREATE_DATE' => $date_now,
                 ]);
             }
-            
+
             return response()->json(array(
                 'Code' => '0000',
                 'status' => 'Success',
@@ -430,24 +264,198 @@ class API_Quatation extends BaseController
                 ]
             ));
         } catch (Exception $e) {
-            // dd($e->getMessage());
-            $MsgError = [
-                "1000" => [
-                    'status' => 'Invalid Data',
-                ],
-                "2000" => [
-                    'status' => 'Invalid Condition',
-                ],
-                "9000" => [
-                    'status' => 'System Error',
-                ],
-            ];
-
-            return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '9000',
-                'status' =>  isset($MsgError[(string)$e->getCode()]['status']) ? $MsgError[(string)$e->getCode()]['status'] : 'System Error',
-                'message' => $e->getMessage()
-            ));
+            return $this->Error_Exception->Msg_error($e);
         }
+    }
+
+    function validate_input($data)
+    {
+        $validate_Quatation = [
+            "BRANCH_TYPE" => [
+                'message' => 'Request Parameter [BRANCH_TYPE]',
+                'numeric' => true,
+            ],
+            "BRANCH_ID" => [
+                'message' => 'Request Parameter [BRANCH_ID]',
+                'numeric' => true,
+            ],
+            "TAX_ID" => [
+                'message' => 'Request Parameter [TAX_ID]',
+                'numeric' => true,
+            ],
+            "FIRST_NAME" => [
+                'message' => 'Request Parameter [FIRST_NAME]',
+                'numeric' => false,
+            ],
+            "LAST_NAME" => [
+                'message' => 'Request Parameter [LAST_NAME]',
+                'numeric' => false,
+            ],
+            "OCCUPATION_ID" => [
+                'message' => 'Request Parameter [OCCUPATION_ID]',
+                'numeric' => true,
+            ],
+            "UNIVERSITY_ID" => [
+                'message' => 'Request Parameter [UNIVERSITY_ID]',
+                'numeric' => true,
+            ],
+            "FACULTY_ID" => [
+                'message' => 'Request Parameter [FACULTY_ID]',
+                'numeric' => true,
+            ],
+            "PRODUCT_SERIES" => [
+                'message' => 'Request Parameter [PRODUCT_SERIES]',
+                'numeric' => false,
+            ],
+            "DOWN_SUM_AMT" => [
+                'message' => 'Request Parameter [DOWN_SUM_AMT]',
+                'numeric' => true,
+            ],
+            "INSTALL_NUM" => [
+                'message' => 'Request Parameter [INSTALL_NUM]',
+                'numeric' => true,
+            ],
+        ];
+
+
+        foreach ($validate_Quatation as $key => $value) {
+
+            if (!isset($data[$key])) {
+                throw new Exception($value['message'], 1000);
+            }
+
+            if ($value['numeric'] == true) {
+                if (!is_numeric($data[$key])) {
+                    throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
+                }
+            }
+
+
+            if ($key == "TAX_ID" && strlen($data[$key]) != 13) {
+                throw new Exception("Invalid [TAX_ID]", 1000);
+            }
+        }
+    }
+
+
+    function Check_DupTaxID($data)
+    {
+        $check_TAX = DB::select("exec SP_CheckDupAppContractByTAXID  @tax_id = '" . $data['TAX_ID'] . "' ");
+
+        if (count($check_TAX) > 0) {
+            throw new Exception("[TAX_ID] is already exists", 2000);
+        }
+    }
+
+    function Check_Uni_Fac($data)
+    {
+        // Check University Match Faculty
+        $faculty_check = DB::table('dbo.MT_FACULTY')
+            ->select('*')
+            ->where('MT_FACULTY_ID', $data['FACULTY_ID'])
+            ->where('MT_UNIVERSITY_ID', $data['UNIVERSITY_ID'])
+            ->get();
+
+        if (count($faculty_check) == 0) {
+            throw new Exception("[FACULTY_ID] and [UNIVERSITY_ID] is not match", 2000);
+        }
+
+        return $faculty_check;
+    }
+
+
+    function Check_SKU_product($data)
+    {
+        $product = DB::table('dbo.ASSETS_INFORMATION')
+            ->select('ASSET_ID', 'ASSETS_CATEGORY', 'ASSETS_TYPE', 'BRAND', 'SERIES', 'SUB_SERIES', 'COLOR', 'PRICE', 'SERIALNUMBER', 'MODELNUMBER', 'DESCRIPTION', 'BRAND')
+            // ->whereRaw("TRIM(ASSETS_INFORMATION.MODELNUMBER) = '".$data['PRODUCT_SERIES']."'")
+            ->where('MODELNUMBER', 'like', '%' . $data['PRODUCT_SERIES'] . '%')
+            ->get();
+        // dd($product);
+
+        if (count($product) == 0) {
+            throw new Exception("Not Found [PRODUCT_SERIES]", 2000);
+        }
+
+        return $product;
+    }
+
+    function Check_ACS_INSURE($data)
+    {
+        // Check ACS
+        $validate_acs = [
+            "ACS_ID" => [
+                'message' => 'Request Parameter [ACS_ID]',
+                'numeric' => false,
+            ],
+        ];
+
+
+        if (isset($data['ACS_ID']) && $data['ACS_ID'] != '') {
+            foreach ($validate_acs as $key => $value) {
+                if (!isset($data[$key])) {
+                    throw new Exception($value['message'], 1000);
+                }
+
+                if ($value['numeric'] == true) {
+                    if (!is_numeric($data[$key])) {
+                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
+                    }
+                }
+            }
+        }
+
+        $DB_ASC = DB::table('ASSETS_INFORMATION_REF')
+            ->select('*')
+            ->leftJoin('ASSETS_INFORMATION', 'ASSETS_INFORMATION_REF.ASSET_ID_REF', '=', 'ASSETS_INFORMATION.ASSET_ID')
+            ->where('ASSETS_INFORMATION_REF.ID', '=', $data['ACS_ID'])
+            ->get();
+        // dd($DB_ASC);
+
+
+        // Check INSURE
+        $validate_insure = [
+            "INSURE_ID" => [
+                'message' => 'Request Parameter [INSURE_ID]',
+                'numeric' => false,
+            ],
+        ];
+
+
+
+        if (isset($data['INSURE_ID']) && $data['INSURE_ID'] != '') {
+            foreach ($validate_insure as $key => $value) {
+                if (!isset($data[$key]) || $data[$key] == null || $data[$key] == "") {
+                    throw new Exception($value['message'], 1000);
+                }
+
+                if ($value['numeric'] == true) {
+                    if (!is_numeric($data[$key])) {
+                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
+                    }
+                }
+            }
+        }
+
+        $DB_INSURE = DB::table('dbo.MT_INSURE')
+            ->select('*')
+            ->where('INSURE_ID', '=', $data['INSURE_ID'])
+            ->get();
+
+        return array($DB_ASC, $DB_INSURE);
+    }
+
+    function Check_Guarantor($data, $product)
+    {
+        // $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
+        $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0'
+        , @ProductTotal_INPUT = '" . $product[0]->PRICE . "', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
+
+        // dd($check_Down);
+        if ($data['DOWN_SUM_AMT'] < $check_Down[0]->{'@DownAMT_OUTPUT'}) {
+            throw new Exception('Request [DOWN_SUM_AMT] >= ' . ($check_Down[0]->{'@DownAMT_OUTPUT'}), 2000);
+        }
+
+        return $check_Down;
     }
 }

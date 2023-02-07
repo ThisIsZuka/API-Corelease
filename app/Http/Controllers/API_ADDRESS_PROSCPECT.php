@@ -13,14 +13,20 @@ use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Validation\ValidationException;
 use stdClass;
+use App\Http\Controllers\Error_Exception;
 
 class API_ADDRESS_PROSCPECT extends BaseController
 {
+
+    private $Error_Exception;
+
     public function __construct()
     {
         // A1.ทะเบียนบ้าน
         // A2.ที่อยู่ปัจจุบัน
         // A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร
+
+        $this->Error_Exception = new Error_Exception;
     }
 
     public function NEW_ADDRESS_PROSCPECT(Request $request)
@@ -345,41 +351,9 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ));
 
         } catch (Exception $e) {
-            // dd($e->getMessage());
-            // $getPrevious = $e->getPrevious();
 
-            $MsgError = [
-                "1000" => [
-                    'status' => 'Invalid Data',
-                ],
-                "2000" => [
-                    'status' => 'Invalid Condition',
-                ],
-                "9000" => [
-                    'status' => 'System Error',
-                ],
-            ];
-
-            if ($e->getPrevious() != null) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' =>  'System Error',
-                    'message' => $e->getPrevious()->getMessage(),
-                    // 'message' => 'Data invalid. Please check data'
-                    // 'message' => [
-                    //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
-                    //     'EN' => 'Data invalid. Please try again'
-                    // ]
-
-                ));
-            }
-
-            return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '1000',
-                'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
-                'message' => $e->getMessage()
-                // 'message' => 'System Error. Please try again'
-            ));
+            return $this->Error_Exception->Msg_error($e);
+            
         }
     }
 }
