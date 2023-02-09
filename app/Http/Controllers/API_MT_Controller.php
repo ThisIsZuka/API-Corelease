@@ -12,6 +12,23 @@ use Session;
 
 class API_MT_Controller extends BaseController
 {
+
+    function return_Error($e){
+        $previous = $e->getPrevious();
+            if ($previous) {
+                $message = $previous->getMessage();
+            } else {
+                $message = $e->getMessage();
+            }
+
+            return response()->json(array(
+                'Code' => '2000',
+                'status' => 'Invalid condition',
+                'message' => $message
+                // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
+            ));
+    }
+
     // คำนำหน้าชื่อ
     public function MT_PREFIX()
     {
@@ -30,21 +47,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -66,21 +69,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -102,21 +91,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -140,21 +115,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -177,21 +138,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -214,21 +161,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -251,21 +184,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -289,21 +208,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -338,21 +243,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -376,21 +267,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -414,21 +291,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -455,21 +318,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -498,21 +347,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -539,21 +374,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -576,21 +397,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -616,21 +423,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -652,21 +445,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -688,21 +467,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -724,21 +489,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -767,21 +518,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -806,21 +543,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -891,7 +614,7 @@ class API_MT_Controller extends BaseController
                     $return_data->data = $MT;
                 }
             } else {
-                // $return_data->Code = '9000';
+                // $return_data->Code = '2000';
                 // $return_data->status = 'Failed';
                 // $return_data->message = 'Required PROVINCE_ID';
                 $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
@@ -917,21 +640,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -955,21 +664,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 
@@ -991,21 +686,7 @@ class API_MT_Controller extends BaseController
 
             return $return_data;
         } catch (Exception $e) {
-            if ($e->getPrevious()) {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getPrevious()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            } else {
-                return response()->json(array(
-                    'Code' => '9000',
-                    'status' => 'System Error',
-                    'message' => $e->getMessage()
-                    // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-                ));
-            }
+            return $this->return_Error($e);
         }
     }
 }
