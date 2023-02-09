@@ -197,7 +197,7 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * @OA\RequestBody(
  *    required=false,
- *    description="Customer information",
+ *    description="Search text",
  *    @OA\JsonContent(
  *       @OA\Property(property="Search", type="string", format="string", example="ขอนแก่น"),
  *    ),
@@ -523,195 +523,6 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * @OA\Post(
- * path="/api/new_customer",
- * summary="Insert new customer",
- * description="new custome <br> ข้อมูลสินค้า",
- * operationId="new_customer",
- * tags={"API QUOTATION"},
- * security={{ "Api-Token": {} }},
- *   @OA\RequestBody(
- *      required=true,
- *      description="Customer information",
- *      @OA\JsonContent(
- *         required={"BRANCH_TYPE", "BRANCH_ID", "TAX_ID", "CUSTOMER_NAME", "OCCUPATION_ID", "UNIVERSITY_ID", "FACULTY_ID", "PRODUCT_SERIES", "PROD_SUM_PRICE", "DOWN_SUM_AMT"},
- *         @OA\Property(property="BRANCH_TYPE", type="string", format="string", example="1"),
- *         @OA\Property(property="BRANCH_ID", type="string", format="string", example="31"),
- *         @OA\Property(property="TAX_ID", type="string", format="string", example="4856465441239"),
- *         @OA\Property(property="CUSTOMER_NAME", type="string", format="string", example="TEST API"),
- *         @OA\Property(property="OCCUPATION_ID", type="string", format="string", example="2"),
- *         @OA\Property(property="UNIVERSITY_ID", type="string", format="string", example="13"),
- *         @OA\Property(property="FACULTY_ID", type="string", format="string", example="807"),
- *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
- *         @OA\Property(property="DOWN_SUM_AMT", type="string", format="string", example="3540"),
- *         @OA\Property(property="INSTALL_NUM", type="string", format="string", example="24"),
- *         @OA\Property(property="ACS_ID", type="string", format="string", example="484"),
- *         @OA\Property(property="ACS_DES", type="string", format="string", example="Apple Pencil 2"),
- *         @OA\Property(property="ACS_SUM", type="string", format="string", example="4190"),
- *         @OA\Property(property="INSURE_ID", type="string", format="string", example="42"),
- *         @OA\Property(property="INSURE_DES", type="string", format="string", example="AppleCare+ for iPhone 13"),
- *         @OA\Property(property="INSURE_SUM", type="string", format="string", example="5090"),
- *      ),
- *   ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * 
- * @OA\Post(
- * path="/api/new_prospect_cus",
- * summary="Insert new customer",
- * description="new prospect <br> ข้อมูลลูกค้า",
- * operationId="new_prospect",
- * tags={"API QUOTATION"},
- * security={{ "Api-Token": {} }},
- *   @OA\RequestBody(
- *      required=true,
- *      description="Prospect customer information",
- *      @OA\MediaType(
- *          mediaType="multipart/form-data",
- *          @OA\Schema(
- *              required={"PST_CUST_ID", "QUOTATION_ID", "TAX_ID", "PREFIX", "FIRST_NAME", "LAST_NAME", "BIRTHDAY", "SEX", "MARITAL_STATUS", "PHONE", "EMAIL", 
- *                        "OCCUPATION_CODE", "MAIN_INCOME", "UNIVERSITY_PROVINCE", "UNIVERSITY_NAME", "FACULTY_NAME", "LEVEL_TYPE", "U_LEVEL", "LOAN_KYS", "REF_TAX_ID", 
- *                        "REF_TITLE", "REF_FIRSTNAME", "REF_LASTNAME", "RELATION_REFERENCE", "REF_OCCUPATION", "REF_BIRTHDAY", "REF_PHONE", "IDCARD_FILE", "STUDENTCARD_FILE", 
- *                        "FACE_FILE", "STUDENT_ID"},
- *              @OA\Property(property="PST_CUST_ID", type="string", format="string", example="768"),
- *              @OA\Property(property="QUOTATION_ID", type="string", format="string", example="814"),
- *              @OA\Property(property="PREFIX", type="string", format="string", example="2"),
- *              @OA\Property(property="FIRST_NAME", type="string", format="string", example="ทดสอบ"),
- *              @OA\Property(property="LAST_NAME", type="string", format="string", example="เอพีไอ"),
- *              @OA\Property(property="TAX_ID", type="int", format="int", example="4856465441255"),
- *              @OA\Property(property="STUDENT_ID", type="int", format="int", example="1122334455"),
- *              @OA\Property(property="BIRTHDAY", type="string", format="date", example="2544-10-18"),
- *              @OA\Property(property="SEX", type="string", format="string", example="1"),
- *              @OA\Property(property="MARITAL_STATUS", type="string", format="string", example="1"),
- *              @OA\Property(property="PHONE", type="string", format="string", example="0812345678"),
- *              @OA\Property(property="EMAIL", type="string", format="email", example="test@hotmail.com"),
- *              @OA\Property(property="FACEBOOK", type="string", format="string"),
- *              @OA\Property(property="LINEID", type="string", format="string"),
- *              @OA\Property(property="OCCUPATION_CODE", type="int", format="int", example="2"),
- *              @OA\Property(property="MAIN_INCOME", type="int", format="int", example="5000"),
- *              @OA\Property(property="UNIVERSITY_PROVINCE", type="int", format="int", example="10"),
- *              @OA\Property(property="UNIVERSITY_DISTRICT", type="int", format="int", example="1007"),
- *              @OA\Property(property="UNIVERSITY_ID", type="int", format="int", example="2"),
- *              @OA\Property(property="FACULTY_ID", type="int", format="int", example="47"),
- *              @OA\Property(property="FACULTY_OTHER", type="string", format="string"),
- *              @OA\Property(property="LEVEL_TYPE", type="string", format="string", example="ปริญญาตรี"),
- *              @OA\Property(property="U_LEVEL", type="int", format="int", example="2"),
- *              @OA\Property(property="LOAN_KYS", type="string", format="string", example="ํYES"),
- *              @OA\Property(property="REF_TAX_ID", type="int", format="int", example="1122233339310"),
- *              @OA\Property(property="REF_TITLE", type="string", format="string", example="1"),
- *              @OA\Property(property="REF_TITLE_OTHER", type="string", format="string"),
- *              @OA\Property(property="REF_FIRSTNAME", type="string", format="string", example="นายทดสอบ"),
- *              @OA\Property(property="REF_LASTNAME", type="string", format="string", example="สกุลทดสอบ"),
- *              @OA\Property(property="RELATION_REFERENCE", type="int", format="int", example="1"),
- *              @OA\Property(property="REF_OCCUPATION", type="int", format="int", example="49"),
- *              @OA\Property(property="REF_BIRTHDAY", type="string", format="date", example="2544-10-18"),
- *              @OA\Property(property="REF_PHONE", type="string", format="string", example="0876543211"),
- *              @OA\Property(property="IDCARD_FILE", type="file", format="binary" ),
- *              @OA\Property(property="STUDENTCARD_FILE", type="file", format="binary" ),
- *              @OA\Property(property="FACE_FILE", type="file", format="binary" ),
- *              @OA\Property(property="URLMAP", type="string", format="string", example="https://www.google.co.th/maps"),
- *              @OA\Property(property="EMAILGuarantor", type="string", format="string"),
- *          ),
- *      ),
- *   ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * 
- * @OA\Post(
- * path="/api/new_address_prospect",
- * summary="Insert new customer",
- * description="new address prospect <br> ข้อมูลที่อยู่ลูกค้า <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
- * operationId="new_address_prospect",
- * tags={"API QUOTATION"},
- * security={{ "Api-Token": {} }},
- *   @OA\RequestBody(
- *      required=true,
- *      description="Address information",
- *      @OA\JsonContent(
- *         required={"QUOTATION_ID", "PST_CUST_ID", "A1_NO", "A1_PROVINCE", "A1_DISTRICT", "A1_SUBDISTRICT", "A1_POSTALCODE", "A1_OWNER_TYPE", "A2_NO", "A2_PROVINCE", "A2_DISTRICT", "A2_SUBDISTRICT", "A2_POSTALCODE", "A2_OWNER_TYPE", "A3_NO", "A3_PROVINCE", "A3_DISTRICT", "A3_SUBDISTRICT", "A3_POSTALCODE", "A3_OWNER_TYPE" },
- *         @OA\Property(property="QUOTATION_ID", type="string", format="string", example="592"),
- *         @OA\Property(property="PST_CUST_ID", type="string", format="string", example="629"),
- *         @OA\Property(property="A1_NO", type="string", format="string", example="17/51", description="บ้านเลขที่"),
- *         @OA\Property(property="A1_MOI", type="string", format="string", example=null, description="หมู่ที่"),
- *         @OA\Property(property="A1_VILLAGE", type="string", format="string", example=null, description="หมู่บ้าน/โครงการ"),
- *         @OA\Property(property="A1_BUILDING", type="string", format="string", example=null, description="อาคาร"),
- *         @OA\Property(property="A1_FLOOR", type="string", format="string", example=null, description="ชั่น"),
- *         @OA\Property(property="A1_ROOM_NO", type="string", format="string", example=null, description="เลขที่ห้อง"),
- *         @OA\Property(property="A1_SOI", type="string", format="string", example=null, description="ซอย"),
- *         @OA\Property(property="A1_ROAD", type="string", format="string", example=null, description="ถนน"),
- *         @OA\Property(property="A1_PROVINCE", type="string", format="string", example="10", description="จังหวัด"),
- *         @OA\Property(property="A1_DISTRICT", type="string", format="string", example="1003", description="อำเภอ"),
- *         @OA\Property(property="A1_SUBDISTRICT", type="string", format="string", example="100302", description="ตำบล"),
- *         @OA\Property(property="A1_POSTALCODE", type="string", format="string", example="10530", description="รหัสไปรษณี"),
- *         @OA\Property(property="A1_OWNER_TYPE", type="string", format="string", example="8", description="สถานะการพักอาศัย"),
- *         @OA\Property(property="A1_LIVEING_TIME", type="string", format="string", example=null, description="ระยะเวลาที่อาศัยอยู่"),
- *         @OA\Property(property="A1_PHONE", type="string", format="string", example=null, description="เบอร์โทรศัทพ์"),
- *         @OA\Property(property="A2_NO", type="string", format="string", example="17/51"),
- *         @OA\Property(property="A2_MOI", type="string", format="string", example=null),
- *         @OA\Property(property="A2_VILLAGE", type="string", format="string", example=null),
- *         @OA\Property(property="A2_BUILDING", type="string", format="string", example=null),
- *         @OA\Property(property="A2_FLOOR", type="string", format="string", example=null),
- *         @OA\Property(property="A2_ROOM_NO", type="string", format="string", example=null),
- *         @OA\Property(property="A2_SOI", type="string", format="string", example=null),
- *         @OA\Property(property="A2_ROAD", type="string", format="string", example=null),
- *         @OA\Property(property="A2_PROVINCE", type="string", format="string", example="10"),
- *         @OA\Property(property="A2_DISTRICT", type="string", format="string", example="1003"),
- *         @OA\Property(property="A2_SUBDISTRICT", type="string", format="string", example="100302"),
- *         @OA\Property(property="A2_POSTALCODE", type="string", format="string", example="10530"),
- *         @OA\Property(property="A2_OWNER_TYPE", type="string", format="string", example="8"),
- *         @OA\Property(property="A2_LIVEING_TIME", type="string", format="string", example=null),
- *         @OA\Property(property="A2_PHONE", type="string", format="string", example=null),
- *         @OA\Property(property="A3_NO", type="string", format="string", example="17/51"),
- *         @OA\Property(property="A3_MOI", type="string", format="string", example=null),
- *         @OA\Property(property="A3_VILLAGE", type="string", format="string", example=null),
- *         @OA\Property(property="A3_BUILDING", type="string", format="string", example=null),
- *         @OA\Property(property="A3_FLOOR", type="string", format="string", example=null),
- *         @OA\Property(property="A3_ROOM_NO", type="string", format="string", example=null),
- *         @OA\Property(property="A3_SOI", type="string", format="string", example=null),
- *         @OA\Property(property="A3_ROAD", type="string", format="string", example=null),
- *         @OA\Property(property="A3_PROVINCE", type="string", format="string", example="10"),
- *         @OA\Property(property="A3_DISTRICT", type="string", format="string", example="1003"),
- *         @OA\Property(property="A3_SUBDISTRICT", type="string", format="string", example="100302"),
- *         @OA\Property(property="A3_POSTALCODE", type="string", format="string", example="10530"),
- *         @OA\Property(property="A3_OWNER_TYPE", type="string", format="string", example="8"),
- *         @OA\Property(property="A3_LIVEING_TIME", type="string", format="string", example=null),
- *         @OA\Property(property="A3_PHONE", type="string", format="string", example=null),
- *      ),
- *   ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * 
- * 
- * 
- * 
- * 
- * @OA\Post(
  * path="/api/new_Quotation",
  * summary="Register Quotation",
  * description="Regsiter Quotation",
@@ -958,6 +769,10 @@ class Controller extends BaseController
     // $query = vsprintf($query, $MT->getBindings());
     // dump($query);
 
+    public function Void(){
+
+    }
+
 }
 
 
@@ -1004,6 +819,198 @@ class Controller extends BaseController
  *      @OA\JsonContent(
  *         required={"PRODUCT_SERIES"},
  *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+
+*/
+
+
+
+/*
+
+ * 
+ * 
+ * @OA\Post(
+ * path="/api/new_customer",
+ * summary="Insert new customer",
+ * description="new custome <br> ข้อมูลสินค้า",
+ * operationId="new_customer",
+ * tags={"API QUOTATION"},
+ * security={{ "Api-Token": {} }},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Customer information",
+ *      @OA\JsonContent(
+ *         required={"BRANCH_TYPE", "BRANCH_ID", "TAX_ID", "CUSTOMER_NAME", "OCCUPATION_ID", "UNIVERSITY_ID", "FACULTY_ID", "PRODUCT_SERIES", "PROD_SUM_PRICE", "DOWN_SUM_AMT"},
+ *         @OA\Property(property="BRANCH_TYPE", type="string", format="string", example="1"),
+ *         @OA\Property(property="BRANCH_ID", type="string", format="string", example="31"),
+ *         @OA\Property(property="TAX_ID", type="string", format="string", example="4856465441239"),
+ *         @OA\Property(property="CUSTOMER_NAME", type="string", format="string", example="TEST API"),
+ *         @OA\Property(property="OCCUPATION_ID", type="string", format="string", example="2"),
+ *         @OA\Property(property="UNIVERSITY_ID", type="string", format="string", example="13"),
+ *         @OA\Property(property="FACULTY_ID", type="string", format="string", example="807"),
+ *         @OA\Property(property="PRODUCT_SERIES", type="string", format="string", example="194252038338"),
+ *         @OA\Property(property="DOWN_SUM_AMT", type="string", format="string", example="3540"),
+ *         @OA\Property(property="INSTALL_NUM", type="string", format="string", example="24"),
+ *         @OA\Property(property="ACS_ID", type="string", format="string", example="484"),
+ *         @OA\Property(property="ACS_DES", type="string", format="string", example="Apple Pencil 2"),
+ *         @OA\Property(property="ACS_SUM", type="string", format="string", example="4190"),
+ *         @OA\Property(property="INSURE_ID", type="string", format="string", example="42"),
+ *         @OA\Property(property="INSURE_DES", type="string", format="string", example="AppleCare+ for iPhone 13"),
+ *         @OA\Property(property="INSURE_SUM", type="string", format="string", example="5090"),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * 
+ * @OA\Post(
+ * path="/api/new_prospect_cus",
+ * summary="Insert new customer",
+ * description="new prospect <br> ข้อมูลลูกค้า",
+ * operationId="new_prospect",
+ * tags={"API QUOTATION"},
+ * security={{ "Api-Token": {} }},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Prospect customer information",
+ *      @OA\MediaType(
+ *          mediaType="multipart/form-data",
+ *          @OA\Schema(
+ *              required={"PST_CUST_ID", "QUOTATION_ID", "TAX_ID", "PREFIX", "FIRST_NAME", "LAST_NAME", "BIRTHDAY", "SEX", "MARITAL_STATUS", "PHONE", "EMAIL", 
+ *                        "OCCUPATION_CODE", "MAIN_INCOME", "UNIVERSITY_PROVINCE", "UNIVERSITY_NAME", "FACULTY_NAME", "LEVEL_TYPE", "U_LEVEL", "LOAN_KYS", "REF_TAX_ID", 
+ *                        "REF_TITLE", "REF_FIRSTNAME", "REF_LASTNAME", "RELATION_REFERENCE", "REF_OCCUPATION", "REF_BIRTHDAY", "REF_PHONE", "IDCARD_FILE", "STUDENTCARD_FILE", 
+ *                        "FACE_FILE", "STUDENT_ID"},
+ *              @OA\Property(property="PST_CUST_ID", type="string", format="string", example="768"),
+ *              @OA\Property(property="QUOTATION_ID", type="string", format="string", example="814"),
+ *              @OA\Property(property="PREFIX", type="string", format="string", example="2"),
+ *              @OA\Property(property="FIRST_NAME", type="string", format="string", example="ทดสอบ"),
+ *              @OA\Property(property="LAST_NAME", type="string", format="string", example="เอพีไอ"),
+ *              @OA\Property(property="TAX_ID", type="int", format="int", example="4856465441255"),
+ *              @OA\Property(property="STUDENT_ID", type="int", format="int", example="1122334455"),
+ *              @OA\Property(property="BIRTHDAY", type="string", format="date", example="2544-10-18"),
+ *              @OA\Property(property="SEX", type="string", format="string", example="1"),
+ *              @OA\Property(property="MARITAL_STATUS", type="string", format="string", example="1"),
+ *              @OA\Property(property="PHONE", type="string", format="string", example="0812345678"),
+ *              @OA\Property(property="EMAIL", type="string", format="email", example="test@hotmail.com"),
+ *              @OA\Property(property="FACEBOOK", type="string", format="string"),
+ *              @OA\Property(property="LINEID", type="string", format="string"),
+ *              @OA\Property(property="OCCUPATION_CODE", type="int", format="int", example="2"),
+ *              @OA\Property(property="MAIN_INCOME", type="int", format="int", example="5000"),
+ *              @OA\Property(property="UNIVERSITY_PROVINCE", type="int", format="int", example="10"),
+ *              @OA\Property(property="UNIVERSITY_DISTRICT", type="int", format="int", example="1007"),
+ *              @OA\Property(property="UNIVERSITY_ID", type="int", format="int", example="2"),
+ *              @OA\Property(property="FACULTY_ID", type="int", format="int", example="47"),
+ *              @OA\Property(property="FACULTY_OTHER", type="string", format="string"),
+ *              @OA\Property(property="LEVEL_TYPE", type="string", format="string", example="ปริญญาตรี"),
+ *              @OA\Property(property="U_LEVEL", type="int", format="int", example="2"),
+ *              @OA\Property(property="LOAN_KYS", type="string", format="string", example="ํYES"),
+ *              @OA\Property(property="REF_TAX_ID", type="int", format="int", example="1122233339310"),
+ *              @OA\Property(property="REF_TITLE", type="string", format="string", example="1"),
+ *              @OA\Property(property="REF_TITLE_OTHER", type="string", format="string"),
+ *              @OA\Property(property="REF_FIRSTNAME", type="string", format="string", example="นายทดสอบ"),
+ *              @OA\Property(property="REF_LASTNAME", type="string", format="string", example="สกุลทดสอบ"),
+ *              @OA\Property(property="RELATION_REFERENCE", type="int", format="int", example="1"),
+ *              @OA\Property(property="REF_OCCUPATION", type="int", format="int", example="49"),
+ *              @OA\Property(property="REF_BIRTHDAY", type="string", format="date", example="2544-10-18"),
+ *              @OA\Property(property="REF_PHONE", type="string", format="string", example="0876543211"),
+ *              @OA\Property(property="IDCARD_FILE", type="file", format="binary" ),
+ *              @OA\Property(property="STUDENTCARD_FILE", type="file", format="binary" ),
+ *              @OA\Property(property="FACE_FILE", type="file", format="binary" ),
+ *              @OA\Property(property="URLMAP", type="string", format="string", example="https://www.google.co.th/maps"),
+ *              @OA\Property(property="EMAILGuarantor", type="string", format="string"),
+ *          ),
+ *      ),
+ *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * 
+ * @OA\Post(
+ * path="/api/new_address_prospect",
+ * summary="Insert new customer",
+ * description="new address prospect <br> ข้อมูลที่อยู่ลูกค้า <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
+ * operationId="new_address_prospect",
+ * tags={"API QUOTATION"},
+ * security={{ "Api-Token": {} }},
+ *   @OA\RequestBody(
+ *      required=true,
+ *      description="Address information",
+ *      @OA\JsonContent(
+ *         required={"QUOTATION_ID", "PST_CUST_ID", "A1_NO", "A1_PROVINCE", "A1_DISTRICT", "A1_SUBDISTRICT", "A1_POSTALCODE", "A1_OWNER_TYPE", "A2_NO", "A2_PROVINCE", "A2_DISTRICT", "A2_SUBDISTRICT", "A2_POSTALCODE", "A2_OWNER_TYPE", "A3_NO", "A3_PROVINCE", "A3_DISTRICT", "A3_SUBDISTRICT", "A3_POSTALCODE", "A3_OWNER_TYPE" },
+ *         @OA\Property(property="QUOTATION_ID", type="string", format="string", example="592"),
+ *         @OA\Property(property="PST_CUST_ID", type="string", format="string", example="629"),
+ *         @OA\Property(property="A1_NO", type="string", format="string", example="17/51", description="บ้านเลขที่"),
+ *         @OA\Property(property="A1_MOI", type="string", format="string", example=null, description="หมู่ที่"),
+ *         @OA\Property(property="A1_VILLAGE", type="string", format="string", example=null, description="หมู่บ้าน/โครงการ"),
+ *         @OA\Property(property="A1_BUILDING", type="string", format="string", example=null, description="อาคาร"),
+ *         @OA\Property(property="A1_FLOOR", type="string", format="string", example=null, description="ชั่น"),
+ *         @OA\Property(property="A1_ROOM_NO", type="string", format="string", example=null, description="เลขที่ห้อง"),
+ *         @OA\Property(property="A1_SOI", type="string", format="string", example=null, description="ซอย"),
+ *         @OA\Property(property="A1_ROAD", type="string", format="string", example=null, description="ถนน"),
+ *         @OA\Property(property="A1_PROVINCE", type="string", format="string", example="10", description="จังหวัด"),
+ *         @OA\Property(property="A1_DISTRICT", type="string", format="string", example="1003", description="อำเภอ"),
+ *         @OA\Property(property="A1_SUBDISTRICT", type="string", format="string", example="100302", description="ตำบล"),
+ *         @OA\Property(property="A1_POSTALCODE", type="string", format="string", example="10530", description="รหัสไปรษณี"),
+ *         @OA\Property(property="A1_OWNER_TYPE", type="string", format="string", example="8", description="สถานะการพักอาศัย"),
+ *         @OA\Property(property="A1_LIVEING_TIME", type="string", format="string", example=null, description="ระยะเวลาที่อาศัยอยู่"),
+ *         @OA\Property(property="A1_PHONE", type="string", format="string", example=null, description="เบอร์โทรศัทพ์"),
+ *         @OA\Property(property="A2_NO", type="string", format="string", example="17/51"),
+ *         @OA\Property(property="A2_MOI", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_VILLAGE", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_BUILDING", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_FLOOR", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_ROOM_NO", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_SOI", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_ROAD", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_PROVINCE", type="string", format="string", example="10"),
+ *         @OA\Property(property="A2_DISTRICT", type="string", format="string", example="1003"),
+ *         @OA\Property(property="A2_SUBDISTRICT", type="string", format="string", example="100302"),
+ *         @OA\Property(property="A2_POSTALCODE", type="string", format="string", example="10530"),
+ *         @OA\Property(property="A2_OWNER_TYPE", type="string", format="string", example="8"),
+ *         @OA\Property(property="A2_LIVEING_TIME", type="string", format="string", example=null),
+ *         @OA\Property(property="A2_PHONE", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_NO", type="string", format="string", example="17/51"),
+ *         @OA\Property(property="A3_MOI", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_VILLAGE", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_BUILDING", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_FLOOR", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_ROOM_NO", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_SOI", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_ROAD", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_PROVINCE", type="string", format="string", example="10"),
+ *         @OA\Property(property="A3_DISTRICT", type="string", format="string", example="1003"),
+ *         @OA\Property(property="A3_SUBDISTRICT", type="string", format="string", example="100302"),
+ *         @OA\Property(property="A3_POSTALCODE", type="string", format="string", example="10530"),
+ *         @OA\Property(property="A3_OWNER_TYPE", type="string", format="string", example="8"),
+ *         @OA\Property(property="A3_LIVEING_TIME", type="string", format="string", example=null),
+ *         @OA\Property(property="A3_PHONE", type="string", format="string", example=null),
  *      ),
  *   ),
  * @OA\Response(

@@ -26,6 +26,8 @@ use App\Http\Controllers\test;
 use App\Http\Controllers\API_SCB_Bill_H2H;
 
 
+use App\Http\Controllers\E_Tax\E_Tax_TFF;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,15 +52,18 @@ Route::group(['middleware' => ['JWT_Token']], function () {
 
     // Route::post('new_customer', [API_STATE_QUOTATION::class, 'New_Quatation']);
 
-    Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
+    // Route::post('new_customer', [API_Quatation::class, 'New_Quatation']);
 
-    Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
+    // Route::post('new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
 
-    Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
-
+    // Route::post('new_address_prospect', [API_ADDRESS_PROSCPECT::class, 'NEW_ADDRESS_PROSCPECT']);
 
     // State Quatation
-    Route::post('new_Quotation', [API_STATE_QUOTATION::class, 'State_Quotation']);
+    // Route::post('new_Quotation', [API_STATE_QUOTATION::class, 'State_Quotation']);
+
+    Route::post('new_Quotation', function () {
+        return abort(403);
+    });
 });
 
 Route::get('SKU_GetProduct', [API_GET_Product::class, 'SKU_GetProduct']);
@@ -168,3 +173,6 @@ Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
 
 // Test API
 Route::get('/SP_TEST', [test::class, 'Test_API_SP']);
+
+Route::post('e-tax', [E_Tax_TFF::class, 'MainRequest']);
+Route::post('test_file', [E_Tax_TFF::class, 'test_file']);

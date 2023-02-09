@@ -24,7 +24,7 @@ class API_GET_Product extends BaseController
             $return_data = new \stdClass();
 
             $MT = DB::table('dbo.ASSETS_INFORMATION')
-                ->select('MODELNUMBER')
+                ->select('MODELNUMBER','DESCRIPTION')
                 ->where('STATUS_ID', '6')
                 ->get();
 
