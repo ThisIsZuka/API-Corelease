@@ -7,6 +7,7 @@ use App\Http\Controllers\Check_Calculator;
 use App\Http\Controllers\Image_resize_Controller;
 use App\Http\Controllers\test;
 use App\Http\Controllers\AMLO_Controller;
+use App\Http\Controllers\E_Tax\E_Tax_TFF;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,5 @@ Route::get('rate_limit', [Image_resize_Controller::class, 'rate_limit_test']);
 Route::get('ncb_test', [test::class, 'test_ncb']);
 
 Route::get('test_amlo', [AMLO_Controller::class, 'New_AMLO']);
+
+Route::get('e-tax', [E_Tax_TFF::class, 'MainRequest']);
