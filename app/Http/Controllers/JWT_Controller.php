@@ -30,7 +30,7 @@ class JWT_Controller extends BaseController
 
             date_default_timezone_set("Asia/Bangkok");
             $now = Carbon::now()->timestamp;
-            $exp = Carbon::now()->addHours(8)->timestamp;
+            $exp = Carbon::now()->addMinute(30)->timestamp;
             $payload = [
                 'iat' => $now,
                 'uid' => 1,
@@ -46,7 +46,7 @@ class JWT_Controller extends BaseController
 
             $data_token = (array(
                 'user' => $data['username'],
-                'expire' => 3600, 
+                'expire' => $exp - $now, 
                 'api-token' => $token,
             ));
             
