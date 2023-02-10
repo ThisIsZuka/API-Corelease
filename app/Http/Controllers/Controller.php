@@ -214,137 +214,11 @@ use Illuminate\Routing\Controller as BaseController;
  * ),
  * 
  * @OA\Get(
- * path="/api/master_category",
- * summary="Master Data หมวดสินค้า",
- * description="หมวดสินค้า",
- * operationId="master_category",
- * tags={"API Production"},
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * @OA\Get(
- * path="/api/master_brand",
- * summary="Master Data ยี่ห้อสินค้า",
- * description="ยี่ห้อสินค้า",
- * operationId="master_brand",
- * tags={"API Production"},
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * @OA\Get(
- * path="/api/master_series/{BRAND_ID}",
- * summary="Master Data รุ่นสินค้า",
- * description="รุ่นสินค้า",
- * operationId="master_series",
- * tags={"API Production"},
- * @OA\Parameter(
- *     name="BRAND_ID",
- *     in="path",
- *     description="รหัสยี่ห้อ เช่น 9",
- *     required=false,
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * @OA\Get(
- * path="/api/master_sub_series/{SERIES_ID}",
- * summary="Master Data ความจุ",
- * description="ความจุ",
- * operationId="master_sub_series",
- * tags={"API Production"},
- * @OA\Parameter(
- *     name="SERIES_ID",
- *     in="path",
- *     description="รหัสรุ่นสินค้า เช่น 59",
- *     required=false,
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * @OA\Get(
- * path="/api/master_color/{SERIES_ID}",
- * summary="Master Data สี",
- * description="สี",
- * operationId="master_color",
- * tags={"API Production"},
- * @OA\Parameter(
- *     name="SERIES_ID",
- *     in="path",
- *     description="รหัสรุ่นสินค้า เช่น 59",
- *     required=false,
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * @OA\Get(
- * path="/api/master_assets_information",
- * summary="Master Data อุปกรณ์เสริม",
- * description="อุปกรณ์เสริม",
- * operationId="master_assets_information",
- * tags={"API Production"},
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
- * 
- * @OA\Get(
- * path="/api/master_insure/{SERIES_ID}",
- * summary="Master Data บริการคุ้มครองเสริม",
- * description="บริการคุ้มครองเสริม",
- * operationId="master_insure",
- * tags={"API Production"},
- * @OA\Parameter(
- *     name="SERIES_ID",
- *     in="path",
- *     description="รหัสรุ่นสินค้า เช่น 59",
- *     required=false,
- * ),
+ * path="/api/SKU_GetProduct",
+ * summary="สินค้า",
+ * description="รายการสินค้าที่เปิด",
+ * operationId="SKU_GetProduct",
+ * tags={"API Product"},
  * @OA\Response(
  *    response=422,
  *    description="Wrong credentials response",
@@ -654,22 +528,6 @@ use Illuminate\Routing\Controller as BaseController;
  * 
  * 
  * 
- * @OA\Get(
- * path="/api/SKU_GetProduct",
- * summary="สินค้า",
- * description="รายการสินค้าที่เปิด",
- * operationId="SKU_GetProduct",
- * tags={"API Check"},
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
  * 
  * 
  * @OA\Post(
@@ -1013,6 +871,156 @@ class Controller extends BaseController
  *         @OA\Property(property="A3_PHONE", type="string", format="string", example=null),
  *      ),
  *   ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+
+*/
+
+
+
+
+/* API Product
+
+* @OA\Get(
+ * path="/api/master_category",
+ * summary="Master Data หมวดสินค้า",
+ * description="หมวดสินค้า",
+ * operationId="master_category",
+ * tags={"API Product"},
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * @OA\Get(
+ * path="/api/master_brand",
+ * summary="Master Data ยี่ห้อสินค้า",
+ * description="ยี่ห้อสินค้า",
+ * operationId="master_brand",
+ * tags={"API Product"},
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * @OA\Get(
+ * path="/api/master_series/{BRAND_ID}",
+ * summary="Master Data รุ่นสินค้า",
+ * description="รุ่นสินค้า",
+ * operationId="master_series",
+ * tags={"API Product"},
+ * @OA\Parameter(
+ *     name="BRAND_ID",
+ *     in="path",
+ *     description="รหัสยี่ห้อ เช่น 9",
+ *     required=false,
+ * ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * @OA\Get(
+ * path="/api/master_sub_series/{SERIES_ID}",
+ * summary="Master Data ความจุ",
+ * description="ความจุ",
+ * operationId="master_sub_series",
+ * tags={"API Product"},
+ * @OA\Parameter(
+ *     name="SERIES_ID",
+ *     in="path",
+ *     description="รหัสรุ่นสินค้า เช่น 59",
+ *     required=false,
+ * ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * @OA\Get(
+ * path="/api/master_color/{SERIES_ID}",
+ * summary="Master Data สี",
+ * description="สี",
+ * operationId="master_color",
+ * tags={"API Product"},
+ * @OA\Parameter(
+ *     name="SERIES_ID",
+ *     in="path",
+ *     description="รหัสรุ่นสินค้า เช่น 59",
+ *     required=false,
+ * ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * @OA\Get(
+ * path="/api/master_assets_information",
+ * summary="Master Data อุปกรณ์เสริม",
+ * description="อุปกรณ์เสริม",
+ * operationId="master_assets_information",
+ * tags={"API Product"},
+ * @OA\Response(
+ *    response=422,
+ *    description="Wrong credentials response",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="Code", type="string", example="9999"),
+ *       @OA\Property(property="status", type="string", example="Sucsess"),
+ *       @OA\Property(property="data", type="string", example="[...]"),
+ *        )
+ *     )
+ * ),
+ * 
+ * @OA\Get(
+ * path="/api/master_insure/{SERIES_ID}",
+ * summary="Master Data บริการคุ้มครองเสริม",
+ * description="บริการคุ้มครองเสริม",
+ * operationId="master_insure",
+ * tags={"API Product"},
+ * @OA\Parameter(
+ *     name="SERIES_ID",
+ *     in="path",
+ *     description="รหัสรุ่นสินค้า เช่น 59",
+ *     required=false,
+ * ),
  * @OA\Response(
  *    response=422,
  *    description="Wrong credentials response",
