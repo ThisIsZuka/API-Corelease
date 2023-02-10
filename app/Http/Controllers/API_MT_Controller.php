@@ -614,9 +614,7 @@ class API_MT_Controller extends BaseController
                     $return_data->data = $MT;
                 }
             } else {
-                // $return_data->Code = '2000';
-                // $return_data->status = 'Failed';
-                // $return_data->message = 'Required PROVINCE_ID';
+
                 $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
                     ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID')
                     ->where(function ($query) use ($data) {
@@ -626,16 +624,16 @@ class API_MT_Controller extends BaseController
                     })
                     ->where('MT_UNIVERSITY_ID', '!=', '0')
                     // ->orderByRaw("CASE WHEN UNIVERSITY_CODE IS NULL THEN 0 ELSE 1 END DESC")
-                    // ->get();
-                    ->paginate(100);
+                    ->get();
+                    // ->paginate(100);
 
                 // dd($MT);
 
                 $return_data->Code = '0000';
                 $return_data->status = 'Sucsess';
-                $return_data->page = $MT->currentPage();
-                $return_data->data = $MT->items();
-                // $return_data->data = $MT;
+                // $return_data->page = $MT->currentPage();
+                // $return_data->data = $MT->items();
+                $return_data->data = $MT;
             }
 
             return $return_data;
