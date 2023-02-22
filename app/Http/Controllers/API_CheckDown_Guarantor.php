@@ -92,9 +92,9 @@ class API_CheckDown_Guarantor extends BaseController
 
             $DB_INSURE = DB::table('dbo.MT_INSURE')
                 ->select('*')
-                ->where('INSURE_ID', '=',isset($data['INSURE_ID']) ? $data['INSURE_ID'] : null)
+                ->where('INSURE_ID', '=', isset($data['INSURE_ID']) ? $data['INSURE_ID'] : null)
                 ->get();
-            
+
 
             $GET_ACS_SUM = isset($DB_ASC[0]->PRICE) ? $DB_ASC[0]->PRICE : 0;
             $GET_INSURE_SUM = isset($DB_INSURE[0]->INSURE_PRICE) ? $DB_INSURE[0]->INSURE_PRICE : 0;
@@ -125,18 +125,15 @@ class API_CheckDown_Guarantor extends BaseController
                 //     ->where('MODELNUMBER', $data['PRODUCT_SERIES'])
                 //     ->get();
 
-                // $check_Down = DB::select("exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
+
                 $check_Down = DB::select("SET NOCOUNT ON ; exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0'
                 , @ProductTotal_INPUT = '" . $ProductTotal_INPUT . "', @DownAMT_OUTPUT = '0', @DownAMT_PERCENT_OUTPUT = '0' ");
 
-                // dd($check_Down);
-                // $procRslts = DB::connection('mysql_procedure')
-                // $check_Down[] = DB::select("CALL SP_Check_DownPercentAndGuarantor(?,?,?,?,?,?,?,?,?,?)", array($product[0]->ASSETS_CATEGORY, $product[0]->SERIES, $data['FACULTY_ID'], $data['UNIVERSITY_ID'], '0', '0', '0', '30000', '0', '0'));
-                // dd($check_Down);
+
                 $responseData = new stdClass;
                 $responseData->DownMin = ($check_Down[0]->DownMAX);
                 $responseData->DownMinPrice = ($check_Down[0]->{'@DownAMT_OUTPUT'});
-                $responseData->ProductTotal = ($check_Down[0]->{'@ProductTotal_INPUT'});
+                $responseData->ProductTotal = $ProductTotal_INPUT;
                 $responseData->RequestGuarantor = $check_Down[0]->Guarantor;
 
                 $return_data->Code = '0000';
@@ -209,16 +206,20 @@ class API_CheckDown_Guarantor extends BaseController
 
 
             // Check tenor
-            $Get_tenor = DB::table('dbo.MT_INSTALLMENT2')
-                // ->select('*')
-                ->select('INSTALL')
-                ->where('MAX', '>=', $data['PROD_SUM_PRICE'])
+            $sumPrice = $data['PROD_SUM_PRICE'];
+
+            $installments = DB::table('MT_INSTALLMENT')
+                ->when($sumPrice > 30000, function ($query) {
+                    return $query->whereIn('INSTALL_ID', [1, 2, 3, 4, 6]);
+                })
+                ->when($sumPrice <= 30000, function ($query) {
+                    return $query->whereIn('INSTALL_ID', [1, 2, 6]);
+                })
                 ->get();
-            // dd($Get_tenor);
 
             $return_data->Code = '0000';
             $return_data->status = 'Sucsess';
-            $return_data->data = $Get_tenor;
+            $return_data->data = $installments;
 
             return $return_data;
         } catch (Exception $e) {

@@ -15,7 +15,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "*",
         "nyholm/psr7": "^1.5",
+        "predis/predis": "^2.0",
         "rbdwllr/reallysimplejwt": "^3.5",
+        "spatie/crypto": "^2.0",
         "symfony/psr-http-message-bridge": "^2.1"
     },
     "require-dev": {

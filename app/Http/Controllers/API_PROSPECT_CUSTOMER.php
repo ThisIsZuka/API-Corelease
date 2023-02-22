@@ -10,12 +10,20 @@ use Exception;
 use DateTimeZone;
 use Carbon\Carbon;
 use stdClass;
+use App\Http\Controllers\Error_Exception;
 
 use \Gumlet\ImageResize;
 
 
 class API_PROSPECT_CUSTOMER extends BaseController
 {
+
+    private $Error_Exception;
+
+    public function __construct()
+    {
+        $this->Error_Exception = new Error_Exception;
+    }
 
     private function is_image($path)
     {
@@ -87,149 +95,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
             $data = $request->all();
 
-            $validate = [
-                "PST_CUST_ID" => [
-                    'message' => 'Request Parameter [PST_CUST_ID]',
-                    'numeric' => true,
-                ],
-                "QUOTATION_ID" => [
-                    'message' => 'Request Parameter [QUOTATION_ID]',
-                    'numeric' => true,
-                ],
-                "PREFIX" => [
-                    'message' => 'Request Parameter [PREFIX]',
-                    'numeric' => true,
-                ],
-                "FIRST_NAME" => [
-                    'message' => 'Request Parameter [FIRST_NAME]',
-                    'numeric' => false,
-                ],
-                "LAST_NAME" => [
-                    'message' => 'Request Parameter [LAST_NAME]',
-                    'numeric' => false,
-                ],
-                "TAX_ID" => [
-                    'message' => 'Request Parameter [TAX_ID]',
-                    'numeric' => true,
-                    'tax_id' => true,
-                ],
-                "STUDENT_ID" => [
-                    'message' => 'Request Parameter [STUDENT_ID]',
-                    'numeric' => false,
-                ],
-                "BIRTHDAY" => [
-                    'message' => 'Request Parameter [BIRTHDAY]',
-                    'numeric' => false,
-                    'typeDate' => true,
-                ],
-                "SEX" => [
-                    'message' => 'Request Parameter [SEX]',
-                    'numeric' => true,
-                ],
-                "MARITAL_STATUS" => [
-                    'message' => 'Request Parameter [MARITAL_STATUS]',
-                    'numeric' => true,
-                ],
-                "PHONE" => [
-                    'message' => 'Request Parameter [PHONE]',
-                    'numeric' => false,
-                ],
-                "EMAIL" => [
-                    'message' => 'Request Parameter [EMAIL]',
-                    'numeric' => false,
-                ],
-                "OCCUPATION_ID" => [
-                    'message' => 'Request Parameter [OCCUPATION_ID]',
-                    'numeric' => true,
-                ],
-                "MAIN_INCOME" => [
-                    'message' => 'Request Parameter [MAIN_INCOME]',
-                    'numeric' => true,
-                ],
-                "UNIVERSITY_PROVINCE" => [
-                    'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
-                    'numeric' => true,
-                ],
-                // "UNIVERSITY_DISTRICT" => [
-                //     'message' => 'Request Parameter [UNIVERSITY_DISTRICT]',
-                //     'numeric' => true,
-                // ],
-                "UNIVERSITY_ID" => [
-                    'message' => 'Request Parameter [UNIVERSITY_ID]',
-                    'numeric' => true,
-                ],
-                "FACULTY_ID" => [
-                    'message' => 'Request Parameter [FACULTY_ID]',
-                    'numeric' => true,
-                ],
-                "LEVEL_TYPE" => [
-                    'message' => 'Request Parameter [LEVEL_TYPE]',
-                    'numeric' => true,
-                ],
-                "U_LEVEL" => [
-                    'message' => 'Request Parameter [U_LEVEL]',
-                    'numeric' => true,
-                ],
-
-                // File image
-                "IDCARD_FILE" => [
-                    'message' => 'Request Parameter [IDCARD_FILE]',
-                    'numeric' => false,
-                    'file' => true,
-                ],
-                "STUDENTCARD_FILE" => [
-                    'message' => 'Request Parameter [STUDENTCARD_FILE]',
-
-                    'numeric' => false,
-                    'file' => true,
-                ],
-                "FACE_FILE" => [
-                    'message' => 'Request Parameter [FACE_FILE]',
-                    'numeric' => false,
-                    'file' => true,
-                ],
-                // "Guarantor" => [
-                //     'message' => 'Request Parameter [Guarantor]',
-                //     'numeric' => true,
-                // ],
-            ];
-
-
-            foreach ($validate as $key => $value) {
-                if (!isset($data[$key])) {
-                    throw new Exception($value['message'], 1000);
-                }
-
-                if ($value['numeric'] == true) {
-                    if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
-                    }
-                }
-
-                if (isset($value['tax_id'])) {
-                    // var_dump(strlen($data[$key]));
-                    if (strlen($data[$key]) != 13) {
-                        throw new Exception("TAX ID must have 13 digits.", 1000);
-                    }
-                }
-
-                if (isset($value['typeDate'])) {
-                    if (strtotime($data[$key]) == false) {
-                        throw new Exception('Request Type of $(date) [' . $key . '] ', 1000);
-                    }
-                }
-
-
-                if (isset($value['file'])) {
-                    if (!is_file($data[$key])) {
-                        throw new Exception('Request File [' . $key . '] ', 1000);
-                    } else if ($this->is_image($data[$key]) == false) {
-                        throw new Exception('Request Image File [' . $key . '] ', 1000);
-                    }
-                }
-            }
-
-
+            $this->validateInput($data);
 
             // Get PROSPECT_CUSTOMER
             $GET_PROSPECT_CUSTOMER = DB::table('dbo.PROSPECT_CUSTOMER')
@@ -242,119 +108,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
 
 
             // get Guarantor
-            $GET_FLAG_GUARANTOR = DB::table('dbo.QUOTATION')
-                ->select('FLAG_GUARANTOR')
-                ->where('QUOTATION_ID', $data['QUOTATION_ID'])
-                ->where('TAX_ID', $data['TAX_ID'])
-                ->get();
-
-
-
-            // Guarantor
-            $validateGuarantor = [
-                "PST_GUAR_ID" => [
-                    'message' => 'Request Parameter [PST_GUAR_ID]',
-                    'numeric' => true,
-                    'Guarantor' => true,
-                    'RequestGuarantor' => true,
-                ],
-                "REF_TAX_ID" => [
-                    'message' => 'Request Parameter [REF_TAX_ID]',
-                    'numeric' => true,
-                    'tax_id' => true,
-                ],
-                "REF_TITLE" => [
-                    'message' => 'Request Parameter [REF_TITLE]',
-                    'numeric' => true,
-                    'Guarantor' => true,
-                ],
-                "REF_FIRSTNAME" => [
-                    'message' => 'Request Parameter [REF_FIRSTNAME]',
-                    'numeric' => false,
-                    'Guarantor' => true,
-                ],
-                "REF_LASTNAME" => [
-                    'message' => 'Request Parameter [REF_LASTNAME]',
-                    'numeric' => false,
-                    'Guarantor' => true,
-                ],
-                "RELATION_REFERENCE" => [
-                    'message' => 'Request Parameter [RELATION_REFERENCE]',
-                    'numeric' => true,
-                ],
-                // "RELATION_REF_DES" => [
-                //     'message' => 'Request Parameter [RELATION_REF_DES]',
-                //     'numeric' => false,
-                // ],
-                "REF_OCCUPATION" => [
-                    'message' => 'Request Parameter [REF_OCCUPATION]',
-                    'numeric' => true,
-                ],
-                "REF_BIRTHDAY" => [
-                    'message' => 'Request Parameter [REF_BIRTHDAY]',
-                    'numeric' => false,
-                    'typeDate' => true,
-                ],
-                "REF_PHONE" => [
-                    'message' => 'Request Parameter [REF_PHONE]',
-                    'numeric' => false,
-                    'Guarantor' => true,
-                ],
-                "EMAILGuarantor" => [
-                    'message' => 'Request Parameter [EMAILGuarantor]',
-                    'numeric' => false,
-                    'Guarantor' => true,
-                    'RequestGuarantor' => true,
-                ],
-            ];
-
-            if ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1) {
-                foreach ($validateGuarantor as $key => $value) {
-                    if (isset($value['Guarantor'])) {
-                        if (!isset($data[$key])) {
-                            throw new Exception($value['message'], 1000);
-                        }
-
-                        if (isset($value['tax_id'])) {
-                            if (strlen($data[$key]) != 13) {
-                                throw new Exception("TAX ID must have 13 digits.", 1000);
-                            }
-                        }
-
-                        if ($value['numeric'] == true) {
-                            if (!is_numeric($data[$key])) {
-                                throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
-                            }
-                        }
-                    }
-                }
-            } else {
-                foreach ($validateGuarantor as $key => $value) {
-                    if (!isset($value['RequestGuarantor'])) {
-                        if (!isset($data[$key])) {
-                            throw new Exception($value['message'], 1000);
-                        }
-
-                        if (isset($value['tax_id'])) {
-                            if (strlen($data[$key]) != 13) {
-                                throw new Exception("TAX ID must have 13 digits.", 1000);
-                            }
-                        }
-
-                        if ($value['numeric'] == true) {
-                            if (!is_numeric($data[$key])) {
-                                throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
-                            }
-                        }
-
-                        if (isset($value['typeDate'])) {
-                            if (strtotime($data[$key]) == false) {
-                                throw new Exception('Request Type of $(date) [' . $key . '] ', 1000);
-                            }
-                        }
-                    }
-                }
-            }
+            $GET_FLAG_GUARANTOR = $this->GetGUARANTOR($data);
 
             // dd($GET_PROSPECT_CUSTOMER);
             $date_now = Carbon::now(new DateTimeZone('Asia/Bangkok'))->format('Y-m-d H:i:s');
@@ -402,6 +156,12 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ->first();
 
 
+            // Get University Detail
+            $MT_UNIVERSITY_NAME = DB::table('dbo.MT_UNIVERSITY_NAME')
+                ->select('*')
+                ->where('MT_UNIVERSITY_ID', $data['UNIVERSITY_ID'])
+                ->first();
+
             DB::table('dbo.PROSPECT_CUSTOMER')
                 ->where('PST_CUST_ID', $data['PST_CUST_ID'])
                 ->where('QUOTATION_ID', $data['QUOTATION_ID'])
@@ -418,13 +178,16 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'SEX' => $data['SEX'],
                     'MARITAL_STATUS' => $data['MARITAL_STATUS'],
                     'PHONE' => $data['PHONE'],
+                    'PHONE_SECOND' => isset($data['PHONE_SECOND']) ? $data['PHONE_SECOND'] : null,
                     'EMAIL' => $data['EMAIL'],
                     'FACEBOOK' => isset($data['FACEBOOK']) ? $data['FACEBOOK'] : null,
                     'LINEID' => isset($data['LINEID']) ? $data['LINEID'] : null,
                     'OCCUPATION_CODE' => $data['OCCUPATION_ID'],
                     'MAIN_INCOME' => $data['MAIN_INCOME'],
-                    'UNIVERSITY_PROVINCE' => $data['UNIVERSITY_PROVINCE'],
-                    'UNIVERSITY_DISTRICT' => isset($data['UNIVERSITY_DISTRICT']) ? $data['UNIVERSITY_DISTRICT'] : null,
+                    // 'UNIVERSITY_PROVINCE' => $data['UNIVERSITY_PROVINCE'],
+                    // 'UNIVERSITY_DISTRICT' => isset($data['UNIVERSITY_DISTRICT']) ? $data['UNIVERSITY_DISTRICT'] : null,
+                    'UNIVERSITY_PROVINCE' => $MT_UNIVERSITY_NAME->PROVINCE_ID,
+                    'UNIVERSITY_DISTRICT' => $MT_UNIVERSITY_NAME->DISTRICT_ID,
                     'UNIVERSITY_NAME' => $data['UNIVERSITY_ID'],
                     'UNIVERSITY_OTHER' => isset($data['UNIVERSITY_OTHER']) ? $data['UNIVERSITY_OTHER'] : null,
                     'CAMPUS_NAME' => isset($data['CAMPUS_NAME']) ? $data['CAMPUS_NAME'] : null,
@@ -455,6 +218,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                     'CREATE_DATE' => $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE == null ? $date_now : $GET_PROSPECT_CUSTOMER[0]->CREATE_DATE,
                     'UPDATE_DATE' => null,
                     'NAME_MAKE' => "API",
+                    'PHONE_SECOND' => isset($data['PHONE_SECOND']) ? $data['PHONE_SECOND'] : null,
                 ]);
 
 
@@ -479,17 +243,17 @@ class API_PROSPECT_CUSTOMER extends BaseController
                         'EMAIL' => $data['EMAILGuarantor'],
                         'RESULT_GUARANTOR' => 'WAIT',
                     ]);
-                DB::table('dbo.PROSPECT_CUSTOMER')
-                    ->where('PST_CUST_ID', $data['PST_CUST_ID'])
-                    ->where('QUOTATION_ID', $data['QUOTATION_ID'])
-                    ->update([
-                        'REF_TITLE' =>  $data['REF_TITLE'],
-                        'REF_FIRSTNAME' => $data['REF_FIRSTNAME'],
-                        'REF_LASTNAME' => $data['REF_LASTNAME'],
-                        'REF_PHONE' => $data['REF_PHONE'],
-                        // 'EMAIL' => $data['EMAILGuarantor'],
-                        // 'RESULT_GUARANTOR' => 'WAIT',
-                    ]);
+                // DB::table('dbo.PROSPECT_CUSTOMER')
+                //     ->where('PST_CUST_ID', $data['PST_CUST_ID'])
+                //     ->where('QUOTATION_ID', $data['QUOTATION_ID'])
+                //     ->update([
+                //         'REF_TITLE' =>  $data['REF_TITLE'],
+                //         'REF_FIRSTNAME' => $data['REF_FIRSTNAME'],
+                //         'REF_LASTNAME' => $data['REF_LASTNAME'],
+                //         'REF_PHONE' => $data['REF_PHONE'],
+                //         // 'EMAIL' => $data['EMAILGuarantor'],
+                //         // 'RESULT_GUARANTOR' => 'WAIT',
+                //     ]);
             } else {
 
                 $RELATION_REF_DES = DB::table('dbo.MT_RELATIONSHIP_REF')
@@ -513,6 +277,7 @@ class API_PROSPECT_CUSTOMER extends BaseController
                         'REF_AGE' => isset($data['REF_AGE']) ? $data['REF_AGE'] : null,
                         'REF_BIRTHDAY' => $REF_BIRTHDAY,
                         'REF_PHONE' => $data['REF_PHONE'],
+                        'REF_PHONE_SECOND' => isset($data['REF_PHONE_SECOND']) ? $data['REF_PHONE_SECOND'] : null,
                     ]);
             }
 
@@ -527,24 +292,273 @@ class API_PROSPECT_CUSTOMER extends BaseController
                 ]
             ));
         } catch (Exception $e) {
-
-            $MsgError = [
-                "1000" => [
-                    'status' => 'Invalid Data',
-                ],
-                "2000" => [
-                    'status' => 'Invalid Condition',
-                ],
-                "9000" => [
-                    'status' => 'System Error',
-                ],
-            ];
-
-            return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '9000',
-                'status' =>  isset($MsgError[(string)$e->getCode()]['status']) ? $MsgError[(string)$e->getCode()]['status'] : 'System Error',
-                'message' => $e->getMessage()
-            ));
+            return $this->Error_Exception->Msg_error($e);
         }
+    }
+
+
+    function validateInput($data)
+    {
+        $validate = [
+            "PST_CUST_ID" => [
+                'message' => 'Request Parameter [PST_CUST_ID]',
+                'numeric' => true,
+            ],
+            "QUOTATION_ID" => [
+                'message' => 'Request Parameter [QUOTATION_ID]',
+                'numeric' => true,
+            ],
+            "PREFIX" => [
+                'message' => 'Request Parameter [PREFIX]',
+                'numeric' => true,
+            ],
+            "FIRST_NAME" => [
+                'message' => 'Request Parameter [FIRST_NAME]',
+                'numeric' => false,
+            ],
+            "LAST_NAME" => [
+                'message' => 'Request Parameter [LAST_NAME]',
+                'numeric' => false,
+            ],
+            "TAX_ID" => [
+                'message' => 'Request Parameter [TAX_ID]',
+                'numeric' => true,
+                'tax_id' => true,
+            ],
+            "STUDENT_ID" => [
+                'message' => 'Request Parameter [STUDENT_ID]',
+                'numeric' => false,
+            ],
+            "BIRTHDAY" => [
+                'message' => 'Request Parameter [BIRTHDAY]',
+                'numeric' => false,
+                'typeDate' => true,
+            ],
+            "SEX" => [
+                'message' => 'Request Parameter [SEX]',
+                'numeric' => true,
+            ],
+            "MARITAL_STATUS" => [
+                'message' => 'Request Parameter [MARITAL_STATUS]',
+                'numeric' => true,
+            ],
+            "PHONE" => [
+                'message' => 'Request Parameter [PHONE]',
+                'numeric' => false,
+            ],
+            "EMAIL" => [
+                'message' => 'Request Parameter [EMAIL]',
+                'numeric' => false,
+            ],
+            "OCCUPATION_ID" => [
+                'message' => 'Request Parameter [OCCUPATION_ID]',
+                'numeric' => true,
+            ],
+            "MAIN_INCOME" => [
+                'message' => 'Request Parameter [MAIN_INCOME]',
+                'numeric' => true,
+            ],
+            // "UNIVERSITY_PROVINCE" => [
+            //     'message' => 'Request Parameter [UNIVERSITY_PROVINCE]',
+            //     'numeric' => true,
+            // ],
+            // "UNIVERSITY_DISTRICT" => [
+            //     'message' => 'Request Parameter [UNIVERSITY_DISTRICT]',
+            //     'numeric' => true,
+            // ],
+            "UNIVERSITY_ID" => [
+                'message' => 'Request Parameter [UNIVERSITY_ID]',
+                'numeric' => true,
+            ],
+            "FACULTY_ID" => [
+                'message' => 'Request Parameter [FACULTY_ID]',
+                'numeric' => true,
+            ],
+            "LEVEL_TYPE" => [
+                'message' => 'Request Parameter [LEVEL_TYPE]',
+                'numeric' => true,
+            ],
+            "U_LEVEL" => [
+                'message' => 'Request Parameter [U_LEVEL]',
+                'numeric' => true,
+            ],
+
+            // File image
+            "IDCARD_FILE" => [
+                'message' => 'Request Parameter [IDCARD_FILE]',
+                'numeric' => false,
+                'file' => true,
+            ],
+            "STUDENTCARD_FILE" => [
+                'message' => 'Request Parameter [STUDENTCARD_FILE]',
+
+                'numeric' => false,
+                'file' => true,
+            ],
+            "FACE_FILE" => [
+                'message' => 'Request Parameter [FACE_FILE]',
+                'numeric' => false,
+                'file' => true,
+            ],
+            // "Guarantor" => [
+            //     'message' => 'Request Parameter [Guarantor]',
+            //     'numeric' => true,
+            // ],
+        ];
+
+
+        foreach ($validate as $key => $value) {
+            if (!isset($data[$key])) {
+                throw new Exception($value['message'], 1000);
+            }
+
+            if ($value['numeric'] == true) {
+                if (!is_numeric($data[$key])) {
+                    throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
+                }
+            }
+
+            if (isset($value['tax_id'])) {
+                // var_dump(strlen($data[$key]));
+                if (strlen($data[$key]) != 13) {
+                    throw new Exception("TAX ID must have 13 digits.", 1000);
+                }
+            }
+
+            if (isset($value['typeDate'])) {
+                if (strtotime($data[$key]) == false) {
+                    throw new Exception('Request Type of $(date) [' . $key . '] ', 1000);
+                }
+            }
+
+
+            if (isset($value['file'])) {
+                if (!is_file($data[$key])) {
+                    throw new Exception('Request File [' . $key . '] ', 1000);
+                } else if ($this->is_image($data[$key]) == false) {
+                    throw new Exception('Request Image File [' . $key . '] ', 1000);
+                }
+            }
+        }
+    }
+
+
+    function GetGUARANTOR($data)
+    {
+        $GET_FLAG_GUARANTOR = DB::table('dbo.QUOTATION')
+            ->select('FLAG_GUARANTOR')
+            ->where('QUOTATION_ID', $data['QUOTATION_ID'])
+            ->where('TAX_ID', $data['TAX_ID'])
+            ->get();
+
+
+
+        // Guarantor
+        $validateGuarantor = [
+            "PST_GUAR_ID" => [
+                'message' => 'Request Parameter [PST_GUAR_ID]',
+                'numeric' => true,
+                'Guarantor' => true,
+                'RequestGuarantor' => true,
+            ],
+            "REF_TAX_ID" => [
+                'message' => 'Request Parameter [REF_TAX_ID]',
+                'numeric' => true,
+                'tax_id' => true,
+            ],
+            "REF_TITLE" => [
+                'message' => 'Request Parameter [REF_TITLE]',
+                'numeric' => true,
+                'Guarantor' => true,
+            ],
+            "REF_FIRSTNAME" => [
+                'message' => 'Request Parameter [REF_FIRSTNAME]',
+                'numeric' => false,
+                'Guarantor' => true,
+            ],
+            "REF_LASTNAME" => [
+                'message' => 'Request Parameter [REF_LASTNAME]',
+                'numeric' => false,
+                'Guarantor' => true,
+            ],
+            "RELATION_REFERENCE" => [
+                'message' => 'Request Parameter [RELATION_REFERENCE]',
+                'numeric' => true,
+            ],
+            // "RELATION_REF_DES" => [
+            //     'message' => 'Request Parameter [RELATION_REF_DES]',
+            //     'numeric' => false,
+            // ],
+            "REF_OCCUPATION" => [
+                'message' => 'Request Parameter [REF_OCCUPATION]',
+                'numeric' => true,
+            ],
+            "REF_BIRTHDAY" => [
+                'message' => 'Request Parameter [REF_BIRTHDAY]',
+                'numeric' => false,
+                'typeDate' => true,
+            ],
+            "REF_PHONE" => [
+                'message' => 'Request Parameter [REF_PHONE]',
+                'numeric' => false,
+                'Guarantor' => true,
+            ],
+            "EMAILGuarantor" => [
+                'message' => 'Request Parameter [EMAILGuarantor]',
+                'numeric' => false,
+                'Guarantor' => true,
+                'RequestGuarantor' => true,
+            ],
+        ];
+
+        if ($GET_FLAG_GUARANTOR[0]->FLAG_GUARANTOR == 1) {
+            foreach ($validateGuarantor as $key => $value) {
+                if (isset($value['Guarantor'])) {
+                    if (!isset($data[$key])) {
+                        throw new Exception($value['message'], 1000);
+                    }
+
+                    if (isset($value['tax_id'])) {
+                        if (strlen($data[$key]) != 13) {
+                            throw new Exception("TAX ID must have 13 digits.", 1000);
+                        }
+                    }
+
+                    if ($value['numeric'] == true) {
+                        if (!is_numeric($data[$key])) {
+                            throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
+                        }
+                    }
+                }
+            }
+        } else {
+            foreach ($validateGuarantor as $key => $value) {
+                if (!isset($value['RequestGuarantor'])) {
+                    if (!isset($data[$key])) {
+                        throw new Exception($value['message'], 1000);
+                    }
+
+                    if (isset($value['tax_id'])) {
+                        if (strlen($data[$key]) != 13) {
+                            throw new Exception("TAX ID must have 13 digits.", 1000);
+                        }
+                    }
+
+                    if ($value['numeric'] == true) {
+                        if (!is_numeric($data[$key])) {
+                            throw new Exception('Request Type of $(int) [' . $key . '] ', 1000);
+                        }
+                    }
+
+                    if (isset($value['typeDate'])) {
+                        if (strtotime($data[$key]) == false) {
+                            throw new Exception('Request Type of $(date) [' . $key . '] ', 1000);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $GET_FLAG_GUARANTOR;
     }
 }

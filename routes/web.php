@@ -12,6 +12,8 @@ use Facade\FlareClient\Http\Response;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use PHPUnit\Util\Json;
+use App\Http\Controllers\AMLO_Controller;
+use App\Http\Controllers\E_Tax\E_Tax_TFF;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +49,9 @@ Route::get('rate_limit', [Image_resize_Controller::class, 'rate_limit_test']);
 
 Route::get('ncbfiles', [NCBController::class, 'getListOfFiles']);
 Route::get('download', [NCBController::class, 'download']);
+
+Route::get('ncb_test', [test::class, 'test_ncb']);
+
+Route::get('test_amlo', [AMLO_Controller::class, 'New_AMLO']);
+
+Route::get('e-tax', [E_Tax_TFF::class, 'MainRequest']);

@@ -6,7 +6,7 @@
         "version": "1.2.0"
     },
     "paths": {
-        "/API-Corelease/api/Get_Token": {
+        "/api/Get_Token": {
             "post": {
                 "tags": [
                     "Authentication"
@@ -69,7 +69,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_prefix": {
+        "/api/master_prefix": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -105,7 +105,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_nationality": {
+        "/api/master_nationality": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -141,7 +141,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_marital_status": {
+        "/api/master_marital_status": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -177,7 +177,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_occupation": {
+        "/api/master_occupation": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -213,7 +213,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_level_type": {
+        "/api/master_level_type": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -249,7 +249,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_level": {
+        "/api/master_level": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -285,7 +285,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_rerationship_ref": {
+        "/api/master_rerationship_ref": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -321,7 +321,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_branch_type": {
+        "/api/master_branch_type": {
             "get": {
                 "tags": [
                     "API Branch"
@@ -357,7 +357,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_setup_company/{BRANCH_TYPE_ID}": {
+        "/api/master_setup_company/{BRANCH_TYPE_ID}": {
             "post": {
                 "tags": [
                     "API Branch"
@@ -374,7 +374,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Customer information",
+                    "description": "Search text",
                     "required": false,
                     "content": {
                         "application/json": {
@@ -419,14 +419,14 @@
                 }
             }
         },
-        "/API-Corelease/api/master_category": {
+        "/api/SKU_GetProduct": {
             "get": {
                 "tags": [
-                    "API Production"
+                    "API Product"
                 ],
-                "summary": "Master Data หมวดสินค้า",
-                "description": "หมวดสินค้า",
-                "operationId": "master_category",
+                "summary": "สินค้า",
+                "description": "รายการสินค้าที่เปิด",
+                "operationId": "SKU_GetProduct",
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -455,255 +455,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_brand": {
-            "get": {
-                "tags": [
-                    "API Production"
-                ],
-                "summary": "Master Data ยี่ห้อสินค้า",
-                "description": "ยี่ห้อสินค้า",
-                "operationId": "master_brand",
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_series/{BRAND_ID}": {
-            "get": {
-                "tags": [
-                    "API Production"
-                ],
-                "summary": "Master Data รุ่นสินค้า",
-                "description": "รุ่นสินค้า",
-                "operationId": "master_series",
-                "parameters": [
-                    {
-                        "name": "BRAND_ID",
-                        "in": "path",
-                        "description": "รหัสยี่ห้อ เช่น 9",
-                        "required": false
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_sub_series/{SERIES_ID}": {
-            "get": {
-                "tags": [
-                    "API Production"
-                ],
-                "summary": "Master Data ความจุ",
-                "description": "ความจุ",
-                "operationId": "master_sub_series",
-                "parameters": [
-                    {
-                        "name": "SERIES_ID",
-                        "in": "path",
-                        "description": "รหัสรุ่นสินค้า เช่น 59",
-                        "required": false
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_color/{SERIES_ID}": {
-            "get": {
-                "tags": [
-                    "API Production"
-                ],
-                "summary": "Master Data สี",
-                "description": "สี",
-                "operationId": "master_color",
-                "parameters": [
-                    {
-                        "name": "SERIES_ID",
-                        "in": "path",
-                        "description": "รหัสรุ่นสินค้า เช่น 59",
-                        "required": false
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_assets_information": {
-            "get": {
-                "tags": [
-                    "API Production"
-                ],
-                "summary": "Master Data อุปกรณ์เสริม",
-                "description": "อุปกรณ์เสริม",
-                "operationId": "master_assets_information",
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_insure/{SERIES_ID}": {
-            "get": {
-                "tags": [
-                    "API Production"
-                ],
-                "summary": "Master Data บริการคุ้มครองเสริม",
-                "description": "บริการคุ้มครองเสริม",
-                "operationId": "master_insure",
-                "parameters": [
-                    {
-                        "name": "SERIES_ID",
-                        "in": "path",
-                        "description": "รหัสรุ่นสินค้า เช่น 59",
-                        "required": false
-                    }
-                ],
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/master_installment": {
+        "/api/master_installment": {
             "get": {
                 "tags": [
                     "API INSTALLMENT"
@@ -739,7 +491,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_residence": {
+        "/api/master_residence": {
             "get": {
                 "tags": [
                     "API Address"
@@ -775,7 +527,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_province": {
+        "/api/master_province": {
             "get": {
                 "tags": [
                     "API Address"
@@ -811,7 +563,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_district/{PROVINCE_ID}": {
+        "/api/master_district/{PROVINCE_ID}": {
             "get": {
                 "tags": [
                     "API Address"
@@ -855,7 +607,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_sub_district/{DISTRICT_ID}": {
+        "/api/master_sub_district/{DISTRICT_ID}": {
             "get": {
                 "tags": [
                     "API Address"
@@ -899,7 +651,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_university": {
+        "/api/master_university": {
             "post": {
                 "tags": [
                     "API University"
@@ -963,7 +715,7 @@
                 }
             }
         },
-        "/API-Corelease/api/master_faculty": {
+        "/api/master_faculty": {
             "get": {
                 "tags": [
                     "API University"
@@ -1007,748 +759,7 @@
                 }
             }
         },
-        "/API-Corelease/api/new_customer": {
-            "post": {
-                "tags": [
-                    "API QUOTATION"
-                ],
-                "summary": "Insert new customer",
-                "description": "new custome <br> ข้อมูลสินค้า",
-                "operationId": "new_customer",
-                "requestBody": {
-                    "description": "Customer information",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "BRANCH_TYPE",
-                                    "BRANCH_ID",
-                                    "TAX_ID",
-                                    "CUSTOMER_NAME",
-                                    "OCCUPATION_ID",
-                                    "UNIVERSITY_ID",
-                                    "FACULTY_ID",
-                                    "PRODUCT_SERIES",
-                                    "PROD_SUM_PRICE",
-                                    "DOWN_SUM_AMT"
-                                ],
-                                "properties": {
-                                    "BRANCH_TYPE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1"
-                                    },
-                                    "BRANCH_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "31"
-                                    },
-                                    "TAX_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "4856465441239"
-                                    },
-                                    "CUSTOMER_NAME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "TEST API"
-                                    },
-                                    "OCCUPATION_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "2"
-                                    },
-                                    "UNIVERSITY_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "13"
-                                    },
-                                    "FACULTY_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "807"
-                                    },
-                                    "PRODUCT_SERIES": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "194252038338"
-                                    },
-                                    "DOWN_SUM_AMT": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "3540"
-                                    },
-                                    "INSTALL_NUM": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "24"
-                                    },
-                                    "ACS_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "484"
-                                    },
-                                    "ACS_DES": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "Apple Pencil 2"
-                                    },
-                                    "ACS_SUM": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "4190"
-                                    },
-                                    "INSURE_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "42"
-                                    },
-                                    "INSURE_DES": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "AppleCare+ for iPhone 13"
-                                    },
-                                    "INSURE_SUM": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "5090"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "Api-Token": []
-                    }
-                ]
-            }
-        },
-        "/API-Corelease/api/new_prospect_cus": {
-            "post": {
-                "tags": [
-                    "API QUOTATION"
-                ],
-                "summary": "Insert new customer",
-                "description": "new prospect <br> ข้อมูลลูกค้า",
-                "operationId": "new_prospect",
-                "requestBody": {
-                    "description": "Prospect customer information",
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "PST_CUST_ID",
-                                    "QUOTATION_ID",
-                                    "TAX_ID",
-                                    "PREFIX",
-                                    "FIRST_NAME",
-                                    "LAST_NAME",
-                                    "BIRTHDAY",
-                                    "SEX",
-                                    "MARITAL_STATUS",
-                                    "PHONE",
-                                    "EMAIL",
-                                    "OCCUPATION_CODE",
-                                    "MAIN_INCOME",
-                                    "UNIVERSITY_PROVINCE",
-                                    "UNIVERSITY_NAME",
-                                    "FACULTY_NAME",
-                                    "LEVEL_TYPE",
-                                    "U_LEVEL",
-                                    "LOAN_KYS",
-                                    "REF_TAX_ID",
-                                    "REF_TITLE",
-                                    "REF_FIRSTNAME",
-                                    "REF_LASTNAME",
-                                    "RELATION_REFERENCE",
-                                    "REF_OCCUPATION",
-                                    "REF_BIRTHDAY",
-                                    "REF_PHONE",
-                                    "IDCARD_FILE",
-                                    "STUDENTCARD_FILE",
-                                    "FACE_FILE",
-                                    "STUDENT_ID"
-                                ],
-                                "properties": {
-                                    "PST_CUST_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "768"
-                                    },
-                                    "QUOTATION_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "814"
-                                    },
-                                    "PREFIX": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "2"
-                                    },
-                                    "FIRST_NAME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "ทดสอบ"
-                                    },
-                                    "LAST_NAME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "เอพีไอ"
-                                    },
-                                    "TAX_ID": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "4856465441255"
-                                    },
-                                    "STUDENT_ID": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "1122334455"
-                                    },
-                                    "BIRTHDAY": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2544-10-18"
-                                    },
-                                    "SEX": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1"
-                                    },
-                                    "MARITAL_STATUS": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1"
-                                    },
-                                    "PHONE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "0812345678"
-                                    },
-                                    "EMAIL": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "test@hotmail.com"
-                                    },
-                                    "FACEBOOK": {
-                                        "type": "string",
-                                        "format": "string"
-                                    },
-                                    "LINEID": {
-                                        "type": "string",
-                                        "format": "string"
-                                    },
-                                    "OCCUPATION_CODE": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "2"
-                                    },
-                                    "MAIN_INCOME": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "5000"
-                                    },
-                                    "UNIVERSITY_PROVINCE": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "10"
-                                    },
-                                    "UNIVERSITY_DISTRICT": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "1007"
-                                    },
-                                    "UNIVERSITY_ID": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "2"
-                                    },
-                                    "FACULTY_ID": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "47"
-                                    },
-                                    "FACULTY_OTHER": {
-                                        "type": "string",
-                                        "format": "string"
-                                    },
-                                    "LEVEL_TYPE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "ปริญญาตรี"
-                                    },
-                                    "U_LEVEL": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "2"
-                                    },
-                                    "LOAN_KYS": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "ํYES"
-                                    },
-                                    "REF_TAX_ID": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "1122233339310"
-                                    },
-                                    "REF_TITLE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1"
-                                    },
-                                    "REF_TITLE_OTHER": {
-                                        "type": "string",
-                                        "format": "string"
-                                    },
-                                    "REF_FIRSTNAME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "นายทดสอบ"
-                                    },
-                                    "REF_LASTNAME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "สกุลทดสอบ"
-                                    },
-                                    "RELATION_REFERENCE": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "1"
-                                    },
-                                    "REF_OCCUPATION": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "49"
-                                    },
-                                    "REF_BIRTHDAY": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2544-10-18"
-                                    },
-                                    "REF_PHONE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "0876543211"
-                                    },
-                                    "IDCARD_FILE": {
-                                        "type": "file",
-                                        "format": "binary"
-                                    },
-                                    "STUDENTCARD_FILE": {
-                                        "type": "file",
-                                        "format": "binary"
-                                    },
-                                    "FACE_FILE": {
-                                        "type": "file",
-                                        "format": "binary"
-                                    },
-                                    "URLMAP": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "https://www.google.co.th/maps"
-                                    },
-                                    "EMAILGuarantor": {
-                                        "type": "string",
-                                        "format": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "Api-Token": []
-                    }
-                ]
-            }
-        },
-        "/API-Corelease/api/new_address_prospect": {
-            "post": {
-                "tags": [
-                    "API QUOTATION"
-                ],
-                "summary": "Insert new customer",
-                "description": "new address prospect <br> ข้อมูลที่อยู่ลูกค้า <br>A1.ทะเบียนบ้าน <br> A2.ที่อยู่ปัจจุบัน <br> A3.ที่อยู่จัดส่งสินค้า หรือ จัดส่งเอกสาร",
-                "operationId": "new_address_prospect",
-                "requestBody": {
-                    "description": "Address information",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "QUOTATION_ID",
-                                    "PST_CUST_ID",
-                                    "A1_NO",
-                                    "A1_PROVINCE",
-                                    "A1_DISTRICT",
-                                    "A1_SUBDISTRICT",
-                                    "A1_POSTALCODE",
-                                    "A1_OWNER_TYPE",
-                                    "A2_NO",
-                                    "A2_PROVINCE",
-                                    "A2_DISTRICT",
-                                    "A2_SUBDISTRICT",
-                                    "A2_POSTALCODE",
-                                    "A2_OWNER_TYPE",
-                                    "A3_NO",
-                                    "A3_PROVINCE",
-                                    "A3_DISTRICT",
-                                    "A3_SUBDISTRICT",
-                                    "A3_POSTALCODE",
-                                    "A3_OWNER_TYPE"
-                                ],
-                                "properties": {
-                                    "QUOTATION_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "592"
-                                    },
-                                    "PST_CUST_ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "629"
-                                    },
-                                    "A1_NO": {
-                                        "description": "บ้านเลขที่",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "17/51"
-                                    },
-                                    "A1_MOI": {
-                                        "description": "หมู่ที่",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_VILLAGE": {
-                                        "description": "หมู่บ้าน/โครงการ",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_BUILDING": {
-                                        "description": "อาคาร",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_FLOOR": {
-                                        "description": "ชั่น",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_ROOM_NO": {
-                                        "description": "เลขที่ห้อง",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_SOI": {
-                                        "description": "ซอย",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_ROAD": {
-                                        "description": "ถนน",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_PROVINCE": {
-                                        "description": "จังหวัด",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "10"
-                                    },
-                                    "A1_DISTRICT": {
-                                        "description": "อำเภอ",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1003"
-                                    },
-                                    "A1_SUBDISTRICT": {
-                                        "description": "ตำบล",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "100302"
-                                    },
-                                    "A1_POSTALCODE": {
-                                        "description": "รหัสไปรษณี",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "10530"
-                                    },
-                                    "A1_OWNER_TYPE": {
-                                        "description": "สถานะการพักอาศัย",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "8"
-                                    },
-                                    "A1_LIVEING_TIME": {
-                                        "description": "ระยะเวลาที่อาศัยอยู่",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A1_PHONE": {
-                                        "description": "เบอร์โทรศัทพ์",
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_NO": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "17/51"
-                                    },
-                                    "A2_MOI": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_VILLAGE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_BUILDING": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_FLOOR": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_ROOM_NO": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_SOI": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_ROAD": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_PROVINCE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "10"
-                                    },
-                                    "A2_DISTRICT": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1003"
-                                    },
-                                    "A2_SUBDISTRICT": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "100302"
-                                    },
-                                    "A2_POSTALCODE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "10530"
-                                    },
-                                    "A2_OWNER_TYPE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "8"
-                                    },
-                                    "A2_LIVEING_TIME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A2_PHONE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_NO": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "17/51"
-                                    },
-                                    "A3_MOI": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_VILLAGE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_BUILDING": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_FLOOR": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_ROOM_NO": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_SOI": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_ROAD": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_PROVINCE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "10"
-                                    },
-                                    "A3_DISTRICT": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "1003"
-                                    },
-                                    "A3_SUBDISTRICT": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "100302"
-                                    },
-                                    "A3_POSTALCODE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "10530"
-                                    },
-                                    "A3_OWNER_TYPE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "8"
-                                    },
-                                    "A3_LIVEING_TIME": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    },
-                                    "A3_PHONE": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": null
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "Api-Token": []
-                    }
-                ]
-            }
-        },
-        "/API-Corelease/api/new_Quotation": {
+        "/api/new_Quotation": {
             "post": {
                 "tags": [
                     "API QUOTATION"
@@ -1782,7 +793,6 @@
                                     "EMAIL",
                                     "OCCUPATION_ID",
                                     "MAIN_INCOME",
-                                    "UNIVERSITY_PROVINCE",
                                     "LEVEL_TYPE",
                                     "U_LEVEL",
                                     "LOAN_KYS",
@@ -1903,6 +913,11 @@
                                         "format": "string",
                                         "example": "0812345678"
                                     },
+                                    "PHONE_SECOND": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "0876543219"
+                                    },
                                     "EMAIL": {
                                         "type": "string",
                                         "format": "email",
@@ -1920,16 +935,6 @@
                                         "type": "integer",
                                         "format": "int",
                                         "example": "5000"
-                                    },
-                                    "UNIVERSITY_PROVINCE": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "10"
-                                    },
-                                    "UNIVERSITY_DISTRICT": {
-                                        "type": "integer",
-                                        "format": "int",
-                                        "example": "1007"
                                     },
                                     "UNIVERSITY_ID": {
                                         "type": "integer",
@@ -2003,6 +1008,11 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "0876543211"
+                                    },
+                                    "REF_PHONE_SECOND": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "0800521521"
                                     },
                                     "IDCARD_FILE": {
                                         "type": "file",
@@ -2277,43 +1287,7 @@
                 ]
             }
         },
-        "/API-Corelease/api/SKU_GetProduct": {
-            "get": {
-                "tags": [
-                    "API Check"
-                ],
-                "summary": "สินค้า",
-                "description": "รายการสินค้าที่เปิด",
-                "operationId": "SKU_GetProduct",
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/API-Corelease/api/SKUCheckDownGua": {
+        "/api/SKUCheckDownGua": {
             "post": {
                 "tags": [
                     "API Check"
@@ -2392,7 +1366,7 @@
                 }
             }
         },
-        "/API-Corelease/api/SKU_ASSETS_INSURANCE": {
+        "/api/SKU_ASSETS_INSURANCE": {
             "post": {
                 "tags": [
                     "API Check"
@@ -2449,7 +1423,7 @@
                 }
             }
         },
-        "/API-Corelease/api/Check_Tenor": {
+        "/api/Check_Tenor": {
             "post": {
                 "tags": [
                     "API Check"
