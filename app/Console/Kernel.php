@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\API_NCB_FORMATTER_v13;
+use DateTime;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\URL;
 
 class Kernel extends ConsoleKernel
 {
@@ -27,6 +31,17 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('cron:Daily365')->daily();
+
+        $schedule->call(function () {
+            $NCB_formatter = new API_NCB_FORMATTER_v13;
+            $d = new DateTime();
+            $NCB_formatter->generate($d->format('Y-m-d'));
+        })->lastDayOfMonth('23:59');
+
+        // $schedule->call(function () {
+        //     $NCB_formatter = new API_NCB_FORMATTER_v13;
+        //     $NCB_formatter->generate('2022-12-31');
+        // })->name('generate_NCB_file')->everyMinute();
     }
 
     /**

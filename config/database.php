@@ -106,6 +106,21 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
+        ],
+
+        'k2prd' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('PRD_DB_HOST', 'localhost'),
+            'port' => env('PRD_DB_PORT', '1433'),
+            'database' => env('PRD_DB_DATABASE', 'forge'),
+            'username' => env('PRD_DB_USERNAME', 'forge'),
+            'password' => env('PRD_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
         ]
         // 'sqlsrv_pro' => [
         //     'driver' => 'sqlsrv',

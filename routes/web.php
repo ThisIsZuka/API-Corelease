@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\API_NCB_FORMATTER_v13;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\Check_Calculator;
 
 use App\Http\Controllers\Image_resize_Controller;
+use App\Http\Controllers\NCBController;
 use App\Http\Controllers\test;
-
+use Facade\FlareClient\Http\Response;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use PHPUnit\Util\Json;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +24,9 @@ use App\Http\Controllers\test;
 |
 */
 
-Route::get('/', function () {
-    return view('NCBMonthly');
-});
+// Route::get('/', function () {
+//     return view('NCBMonthly');
+// });
 
 Route::get('test_post_api', function () {
     return view('test_api');
@@ -40,5 +45,5 @@ Route::get('new_resize', [Image_resize_Controller::class, 'GetImage_base64']);
 
 Route::get('rate_limit', [Image_resize_Controller::class, 'rate_limit_test']);
 
-
-Route::get('ncb_test', [test::class, 'test_ncb']);
+Route::get('ncbfiles', [NCBController::class, 'getListOfFiles']);
+Route::get('download', [NCBController::class, 'download']);
