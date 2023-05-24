@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\UFUND;
 
 use Illuminate\Routing\Controller as BaseController;
 
@@ -12,8 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
 
-use App\Http\Controllers\Check_Calculator;
-use App\Http\Controllers\Error_Exception;
+use App\Http\Controllers\UFUND\Check_Calculator;
+use App\Http\Controllers\UFUND\Error_Exception;
 
 class API_Quatation extends BaseController
 {

@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\Daily365::class,
+        Commands\PostICareAPI::class,
     ];
 
     /**
@@ -30,6 +31,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->command('cron:Daily365')->daily();
+        $schedule->command('cron:PostICareAPI')->daily();
         $schedule->command('cron:Daily365')->daily();
 
         $schedule->call(function () {
