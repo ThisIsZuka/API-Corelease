@@ -59,7 +59,7 @@ class file {
 
         try {
             $thisfile = fopen($file, 'w');
-            fwrite($thisfile, $content);
+            fwrite($thisfile, iconv('UTF-8', 'TIS-620//TRANSLIT//IGNORE', $content));
             fclose($thisfile);
 
             return $file;

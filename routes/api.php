@@ -12,15 +12,16 @@ use App\Http\Controllers\UFUND\API_Quatation;
 use App\Http\Controllers\UFUND\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\UFUND\API_ADDRESS_PROSCPECT;
 
-use App\Http\Controllers\UFUND\API_MT_Controller;
-use App\Http\Controllers\UFUND\API_CheckDown_Guarantor;
-use App\Http\Controllers\UFUND\API_GET_ASSEST;
-use App\Http\Controllers\UFUND\API_GET_Warrantee;
-use App\Http\Controllers\UFUND\API_GET_Asset_Insurance;
-use App\Http\Controllers\UFUND\API_STATE_CustomerStatus;
-use App\Http\Controllers\UFUND\API_GET_Product;
-use App\Http\Controllers\test;
+
+use App\Http\Controllers\API_CheckDown_Guarantor;
 use App\Http\Controllers\API_Connect_to_D365;
+use App\Http\Controllers\API_GET_ASSEST;
+use App\Http\Controllers\API_GET_Warrantee;
+use App\Http\Controllers\API_GET_Asset_Insurance;
+use App\Http\Controllers\API_STATE_CustomerStatus;
+use App\Http\Controllers\API_GET_Product;
+use App\Http\Controllers\API_NCB_FORMATTER_v13;
+use App\Http\Controllers\test;
 
 use App\Http\Controllers\API_SCB_Bill_H2H;
 
@@ -157,13 +158,20 @@ Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
 
 Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
 
-
 Route::post('/Cal_EFFECTIVE', [test::class, 'Cal_EFFECTIVE']);
 
 Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
 
-Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
+Route::post('/getlist/listofncbfiles', [API_NCB_FORMATTER_v13::class, 'getfiles']);
 
+Route::post('/NCBFormated/txt/{date}', function ($date) {
+    $ncbFormatted = new API_NCB_FORMATTER_v13;
+    return response($ncbFormatted->generate($date));
+});
+
+Route::get('/download/ncb', function (Request $req) {
+    return response()->download(public_path() . "/file_location/" . $req->get('path'));
+});
 // Route::get('clear-cache', function() {
 //     Artisan::call('cache:clear');
 //     return "Cache is cleared";
