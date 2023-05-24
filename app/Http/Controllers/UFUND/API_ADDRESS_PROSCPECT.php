@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\UFUND;
 
 use Illuminate\Routing\Controller as BaseController;
 
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Validation\ValidationException;
 use stdClass;
-use App\Http\Controllers\Error_Exception;
+use App\Http\Controllers\UFUND\Error_Exception;
 
 class API_ADDRESS_PROSCPECT extends BaseController
 {

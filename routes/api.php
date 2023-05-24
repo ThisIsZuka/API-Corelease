@@ -3,30 +3,32 @@
 use App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API_MT_Controller;
 use App\Http\Controllers\JWT_Controller;
 use Illuminate\Support\Facades\DB;
 
 
-use App\Http\Controllers\API_STATE_QUOTATION;
-use App\Http\Controllers\API_Quatation;
-use App\Http\Controllers\API_PROSPECT_CUSTOMER;
-use App\Http\Controllers\API_ADDRESS_PROSCPECT;
+use App\Http\Controllers\UFUND\API_STATE_QUOTATION;
+use App\Http\Controllers\UFUND\API_Quatation;
+use App\Http\Controllers\UFUND\API_PROSPECT_CUSTOMER;
+use App\Http\Controllers\UFUND\API_ADDRESS_PROSCPECT;
 
-
-use App\Http\Controllers\API_CheckDown_Guarantor;
-use App\Http\Controllers\API_Connect_to_D365;
-use App\Http\Controllers\API_GET_ASSEST;
-use App\Http\Controllers\API_GET_Warrantee;
-use App\Http\Controllers\API_GET_Asset_Insurance;
-use App\Http\Controllers\API_STATE_CustomerStatus;
-use App\Http\Controllers\API_GET_Product;
+use App\Http\Controllers\UFUND\API_MT_Controller;
+use App\Http\Controllers\UFUND\API_CheckDown_Guarantor;
+use App\Http\Controllers\UFUND\API_GET_ASSEST;
+use App\Http\Controllers\UFUND\API_GET_Warrantee;
+use App\Http\Controllers\UFUND\API_GET_Asset_Insurance;
+use App\Http\Controllers\UFUND\API_STATE_CustomerStatus;
+use App\Http\Controllers\UFUND\API_GET_Product;
 use App\Http\Controllers\test;
+use App\Http\Controllers\API_Connect_to_D365;
 
 use App\Http\Controllers\API_SCB_Bill_H2H;
 
-
 use App\Http\Controllers\E_Tax\E_Tax_TFF;
+use App\Http\Controllers\ICare\API_ICare;
+
+use App\Http\Controllers\API_USER_Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +50,7 @@ header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Author
 Route::post('/Get_Token', [JWT_Controller::class, 'Get_Token']);
 
 // Route::group(['middleware' => ['JWT_Token', 'throttle:api']], function () {
-Route::group(['middleware' => ['JWT_Token']], function () {
+Route::group(['middleware' => ['API_CheckUser']], function () {
 
     // Route::post('new_customer', [API_STATE_QUOTATION::class, 'New_Quatation']);
 
@@ -82,8 +84,10 @@ Route::post('Check_Tenor', [API_CheckDown_Guarantor::class, 'Check_Tenor']);
 ///////////////////////////////////////////////////////////////////////////
 
 // State Customer
+Route::group(['middleware' => ['API_CheckUser']], function () {
 
-Route::post('/CustomerStatus', [API_STATE_CustomerStatus::class, 'Get_CustomerStatus']);
+    Route::post('/CustomerStatus', [API_STATE_CustomerStatus::class, 'Get_CustomerStatus']);
+});
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -169,10 +173,20 @@ Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 // Bill Payment
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
 
+// API_USER_Auth
+Route::group(['middleware' => ['API_CheckUser']], function () {
 
+    Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
+
+    Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
+ 
+});
+
+
+// API I-Care
 
 // Test API
 Route::get('/SP_TEST', [test::class, 'Test_API_SP']);
 
 Route::post('e-tax', [E_Tax_TFF::class, 'MainRequest']);
-Route::post('test_file', [E_Tax_TFF::class, 'test_file']);
+Route::get('i_care', [API_ICare::class, 'NewLoan']);

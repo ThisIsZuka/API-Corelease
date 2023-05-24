@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\UFUND;
 
 use Illuminate\Routing\Controller as BaseController;
 
@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use stdClass;
 
-class API_GET_ASSEST extends BaseController
+class API_GET_Warrantee extends BaseController
 {
 
-    public function API_GET_ASSEST(Request $request)
+    public function API_GET_Warrantee(Request $request)
     {
         try {
 
@@ -29,7 +29,7 @@ class API_GET_ASSEST extends BaseController
                     'message' => 'Request Parameter [PRODUCT_SERIES]',
                     // 'message' => [
                     //     'TH' => 'ข้อมูลสินค้าไม่ถูกต้อง',
-                    //     'EN' => 'Product invalid'
+                    //     'EN' => 'Product Invalid'
                     // ],
                     'numeric' => true,
                 ],
@@ -66,16 +66,17 @@ class API_GET_ASSEST extends BaseController
 
             try {
                 // $check_Down = DB::select("exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
-                $ASSETS_INFO = DB::select("SET NOCOUNT ON ; exec SP_GET_ASSETS_INFORMATION_REF_DETAIL @SERIES_CODE_INPUT = '" . $product[0]->SERIES . "'  ");
+                $INSURE = DB::select("SET NOCOUNT ON ; exec SP_GET_MT_INSURE_MT_SERIES_DETAIL @SERIES_ID_INPUT = '" . $product[0]->SERIES . "'  ");
                 $responseData = new stdClass;
 
-                $return_data->Code = '0000';
+                $return_data->Code = '9999';
                 $return_data->status = 'Sucsess';
-                $return_data->data = $ASSETS_INFO;
+                $return_data->data = $INSURE;
+                // dd($return_data);
 
                 return $return_data;
             } catch (Exception $e) {
-                throw new Exception("Data Error. Please Check variable", 2000);
+                throw new Exception("Data invalid. Please Check variable", 2000);
                 // $mes_error = (object)[
                 //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
                 //     'EN' => 'Data invalid. please try again'
@@ -84,6 +85,7 @@ class API_GET_ASSEST extends BaseController
             }
 
         } catch (Exception $e) {
+
             $MsgError = [
                 "1000" => [
                     'status' => 'Invalid Data',
@@ -96,6 +98,8 @@ class API_GET_ASSEST extends BaseController
                 ],
             ];
 
+            // dd($e);
+            // $getPrevious = $e->getPrevious();
             if ($e->getPrevious() != null) {
                 return response()->json(array(
                     'Code' => '9000',
@@ -109,6 +113,7 @@ class API_GET_ASSEST extends BaseController
                 'status' =>  $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
                 'message' => $e->getMessage()
             ));
+
         }
     }
 }

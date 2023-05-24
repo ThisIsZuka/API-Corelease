@@ -66,6 +66,6 @@ class Kernel extends HttpKernel
 
         'JWT_Token' => \App\Http\Middleware\JWT_Token::class,
         'AuthViewPage' => \App\Http\Middleware\AuthViewPage::class,
-
+        'API_CheckUser' => \App\Http\Middleware\API_CheckUser::class,
     ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\UFUND;
 
 use Illuminate\Routing\Controller as BaseController;
 
@@ -10,7 +10,7 @@ use Exception;
 use DateTimeZone;
 use Carbon\Carbon;
 use stdClass;
-use App\Http\Controllers\Error_Exception;
+use App\Http\Controllers\UFUND\Error_Exception;
 
 use \Gumlet\ImageResize;
 
