@@ -173,12 +173,21 @@ Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 // Bill Payment
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
 
-// API_USER_Auth
+// API_Admin
 Route::group(['middleware' => ['API_CheckUser']], function () {
 
     Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
 
     Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
+ 
+});
+
+// API_USER_Auth
+Route::group(['middleware' => ['API_Admin']], function () {
+
+    // Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
+
+    // Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
  
 });
 

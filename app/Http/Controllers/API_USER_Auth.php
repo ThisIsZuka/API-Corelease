@@ -23,12 +23,21 @@ class API_USER_Auth extends Controller
             $req = $request->all();
 
             // Generate a unique key for the user
-            $apiKey = 'CMS-'.strtoupper(bin2hex(random_bytes(45))); // This generates a 45 characters long key
+            $apiKey = 'CMS-' . strtoupper(bin2hex(random_bytes(45))); // This generates a 45 characters long key
             $hashedAuth_KEY = Hash::make($apiKey);
 
             $username = $req['username'];
             $password = $req['password'];
             $hashedPassword = Hash::make($password);
+
+            $CheckdupUser = DB::table('dbo.API_Auth_User')
+                ->select('*')
+                ->where('USERNAME', $username)
+                ->get();
+
+            if(count($CheckdupUser) > 0){
+                throw new Exception('USERNAME already exists in the system');
+            }
 
             DB::table('dbo.API_Auth_User')->insert([
                 'USERNAME' => $username,
@@ -60,7 +69,7 @@ class API_USER_Auth extends Controller
             $req = $request->all();
 
             // Generate a unique key for the user
-            $apiKey = 'CMS-'.strtoupper(bin2hex(random_bytes(45))); // This generates a 45 characters long key
+            $apiKey = 'CMS-' . strtoupper(bin2hex(random_bytes(45))); // This generates a 45 characters long key
             $hashedAuth_KEY = Hash::make($apiKey);
 
             $username = $req['username'];
