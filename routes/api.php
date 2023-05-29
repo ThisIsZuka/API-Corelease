@@ -66,6 +66,14 @@ Route::group(['middleware' => ['API_CheckUser']], function () {
     Route::post('new_Quotation', function () {
         return abort(403);
     });
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    // State Customer
+    Route::post('/CustomerStatus', [API_STATE_CustomerStatus::class, 'Get_CustomerStatus']);
+
+
+    ///////////////////////////////////////////////////////////////////////////
 });
 
 Route::get('SKU_GetProduct', [API_GET_Product::class, 'SKU_GetProduct']);
@@ -80,14 +88,6 @@ Route::post('SKU_ASSETS_INSURANCE', [API_GET_Asset_Insurance::class, 'API_GET_As
 
 
 Route::post('Check_Tenor', [API_CheckDown_Guarantor::class, 'Check_Tenor']);
-
-///////////////////////////////////////////////////////////////////////////
-
-// State Customer
-Route::group(['middleware' => ['API_CheckUser']], function () {
-
-    Route::post('/CustomerStatus', [API_STATE_CustomerStatus::class, 'Get_CustomerStatus']);
-});
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -174,21 +174,20 @@ Route::post('/generate_NCBFormat', [API_NCB_FORMATTER::class, 'generate']);
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
 
 // API_Admin
-Route::group(['middleware' => ['API_CheckUser']], function () {
+Route::group(['middleware' => ['API_Admin']], function () {
 
     Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
 
     Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
- 
 });
 
 // API_USER_Auth
-Route::group(['middleware' => ['API_Admin']], function () {
+Route::group(['middleware' => ['API_CheckUser']], function () {
 
     // Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
 
     // Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
- 
+
 });
 
 

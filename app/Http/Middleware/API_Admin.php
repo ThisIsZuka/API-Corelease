@@ -29,7 +29,7 @@ class API_Admin
         }
 
 
-        if ($username != ENV('API_USERNAME') || $username != ENV('API_PASSWORD')) {
+        if ($username != ENV('API_USERNAME') || $password != ENV('API_PASSWORD')) {
             return response()->json([
                 'Code' => '4110',
                 'error' => 'Invalid credentials'
