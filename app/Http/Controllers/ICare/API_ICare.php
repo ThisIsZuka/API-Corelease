@@ -34,7 +34,9 @@ class API_ICare extends BaseController
             // dd($req['APP_ID']);
             $path = 'submissions/submit/loan';
 
-            $data = $this->SetupDataNewLoan($req['APP_ID']);
+            $Cancel = $req['Cancel'] ?? false;
+
+            $data = $this->SetupDataNewLoan($req['APP_ID'], $Cancel);
 
             $this->HTTPS($path, $data);
         } catch (Exception $e) {
@@ -44,7 +46,6 @@ class API_ICare extends BaseController
 
     function HTTPS($path, $Data)
     {
-        // dd($Data);
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcklkIjozfQ.JvIwhfmFnRm9GCdUUN9IfZLBxlXbw5o7MpemG23qd6E',
@@ -54,7 +55,7 @@ class API_ICare extends BaseController
         dd($res);
     }
 
-    function SetupDataNewLoan($APP_ID)
+    function SetupDataNewLoan($APP_ID, $Cancel = false)
     {
         $DB_APP = DB::table('dbo.APPLICATION')
             ->select('*')
@@ -141,7 +142,7 @@ class API_ICare extends BaseController
 
         $data->metadata = new stdClass();
         $data->metadata->additionalDocument = new stdClass();
-        $data->metadata->canceling = false;
+        $data->metadata->canceling = $Cancel == 'true' ? true : false;
         $data->metadata->memo = (string)'';
 
         return $data;
