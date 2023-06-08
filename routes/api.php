@@ -25,9 +25,11 @@ use App\Http\Controllers\API_NCB_FORMATTER_v13;
 use App\Http\Controllers\test;
 
 use App\Http\Controllers\API_SCB_Bill_H2H;
-
+use Illuminate\Support\Facades\File;
 
 use App\Http\Controllers\E_Tax\E_Tax_TFF;
+use App\Http\Controllers\line_webhook\Line;
+use Facade\FlareClient\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,6 +162,7 @@ Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
 
 Route::post('/getlist/listofncbfiles', [API_NCB_FORMATTER_v13::class, 'getfiles']);
 
+//NCB Formatter
 Route::post('/NCBFormated/txt/{date}', function ($date) {
     $ncbFormatted = new API_NCB_FORMATTER_v13;
     return response($ncbFormatted->generate($date));
@@ -173,10 +176,15 @@ Route::get('/download/ncb', function (Request $req) {
 //     return "Cache is cleared";
 // });
 
+//LINE webhook
+Route::post('/line/webhook', function (Request $req) {
+    File::put(public_path() . '\line_webhook_logs.txt', json_encode($req->all()));
+    return response()->json(public_path() . '\line_webhook_logs.txt');
+});
+
 
 // Bill Payment
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
-
 
 
 // Test API
@@ -184,3 +192,6 @@ Route::get('/SP_TEST', [test::class, 'Test_API_SP']);
 
 Route::post('e-tax', [E_Tax_TFF::class, 'MainRequest']);
 Route::post('test_file', [E_Tax_TFF::class, 'test_file']);
+Route::post('test', function (Request $req) {
+    return response()->json('hello world');
+});

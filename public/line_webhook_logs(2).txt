@@ -1,0 +1,30 @@
+{
+    "destination":"U9770ae1a11ff12f66f9cd0f6f51759c6"
+    ,"events":[
+        {
+            "type":"message"
+            ,"message":{
+                "type":"sticker"
+                ,"id":"17699139076160"
+                ,"stickerId":"7805503"
+                ,"packageId":"1192006"
+                ,"stickerResourceType":"STATIC"
+                ,"keywords":[
+                    "Crying"
+                    ,"Stunned"
+                ]
+            }
+            ,"webhookEventId":"01GT18P6AFQ6034MEWJBT3NH4X"
+            ,"deliveryContext":{
+                "isRedelivery":false
+            }
+            ,"timestamp":1677227398998
+            ,"source":{
+                "type":"user"
+                ,"userId":"Ua0c2a3546f00c92b931fe127b7d30220"
+            }
+            ,"replyToken":"98079f2324ca42148f0dd0d73545bf70"
+            ,"mode":"active"
+        }
+    ]
+}

@@ -8,6 +8,8 @@ use Exception;
 use phpDocumentor\Reflection\PseudoTypes\False_;
 use Session;
 
+use function PHPUnit\Framework\isEmpty;
+
 /**
  * กรณีที่มีการผิดนัดชำระหนี้ แต่มีการชำระภายหลังแม้ไม่เต็มจำนวน จะไม่ต้องทำการส่งรายงานวันค้างชำระแล้ว
  * การผิดนัดชำระจะนับเฉพาะกรณีที่ผิดนัดชำระมากกว่า 1 ครั้งเท่านั้น
@@ -48,7 +50,41 @@ class NCB_FORMATTER {
             if ($date !== '') {
                 $str_where = 'WHERE [AS OF DATE] = ' . "'$date'" . ' AND [FAMILY NAME] IS NOT NULL';
             }
-            $this->raw = $db->select($db->raw('SELECT * FROM [HPCOM7].[dbo].[NCB_testFormat] ' . $str_where));
+            $this->raw = $db->select($db->raw('
+            SELECT
+            [FAMILY NAME] COLLATE THAI_CI_AS [FAMILY NAME]
+            ,[FIRST NAME] COLLATE THAI_CI_AS [FIRST NAME]
+            ,[DATE OF BIRTH]
+            ,[CUSTOMER TYPE]
+            ,[ID TYPE]
+            ,[ID NUMBER]
+            ,[ISSUE COUNTRY]
+            ,[ADDRESS LINE 1] COLLATE THAI_CI_AS [ADDRESS LINE 1]
+            ,[SUB DISTINCT] COLLATE THAI_CI_AS [SUB DISTINCT]
+            ,[DISTINCT] COLLATE THAI_CI_AS [DISTINCT]
+            ,[PROVINCE] COLLATE THAI_CI_AS [PROVINCE]
+            ,[COUNTRY]
+            ,[POSTAL CODE]
+            ,[ACCOUNT NUMBER]
+            ,[ACCOUNT TYPE]
+            ,[OWNERSHIP INDICATOR]
+            ,[CURRENCY CODE]
+            ,[DATE ACCOUNT OPENED]
+            ,[DATE OF LAST PAYMENT]
+            ,[DATE ACCOUNT CLOSE]
+            ,[AS OF DATE]
+            ,[CREDIT LIMIT]
+            ,[AMOUNT OWNED]
+            ,[AMOUNT PAST DUE]
+            ,[NUMBER OF DAY PAST DUE]
+            ,[DEFAULT DATE]
+            ,[INSTALLMENT FREQUECY]
+            ,[INSTALLMENT AMOUNT]
+            ,[INSTALLMENT NUMBER OF PAYMENT]
+            ,[ACCOUNT STATUS]
+            ,[DATE OF LAST DEBT RESTRUCTURING]
+            FROM NCB_testFormat
+            ' . $str_where));
             return $this;
         } catch (\Throwable $th) {
             throw $th;
@@ -106,6 +142,13 @@ class NCB_FORMATTER {
         return $body;
     }
 
+    function non_whiteSpaceClear($str, $subst = '') {
+        $re = '/[\x{200B}-\x{200D}\x{FEFF}\x{FD3E}\x{FD3F}\x{00A7}\x{002D}]/u';
+        $result = preg_replace($re, $subst, $str);
+
+        return $result;
+    }
+
     private function chk_requirement($fieldname, $value = '', $secmentname = '', $row = '') {
         $txt = "";
         $zerofill = false;
@@ -113,7 +156,7 @@ class NCB_FORMATTER {
         if ($this->section == 'header') {
             $fieldtag = "";
             $str = isset($this->member_data[$fieldname]) ? $this->member_data[$fieldname]:$value;
-            $txtlength = mb_strlen($str);
+            $txtlength = mb_strlen($str, 'utf-8');
             $required = true;
             $requestCountStringLength = isset($this->tudf_header_section[$fieldname]["countStringLenght"]) ? $this->tudf_header_section[$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_header_section[$fieldname]["fixedLength"]) ? $this->tudf_header_section[$fieldname]["fixedLength"]:0;
@@ -125,7 +168,7 @@ class NCB_FORMATTER {
         } else {
             $fieldtag = isset($this->tudf_body_section[$secmentname][$fieldname]["FieldTag"])? $this->tudf_body_section[$secmentname][$fieldname]["FieldTag"]:'';
             $raw = (array) $this->raw[$row];
-            $str = isset($raw[strtoupper($fieldname)]) ? $raw[strtoupper($fieldname)]:$value;
+            $str = isset($raw[strtoupper($fieldname)]) ? $this->non_whiteSpaceClear($raw[strtoupper($fieldname)]):$this->non_whiteSpaceClear($value);
             $required = isset($this->tudf_body_section[$secmentname][$fieldname]["required"]) ? $this->tudf_body_section[$secmentname][$fieldname]["required"]:true;
             $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
             $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
@@ -133,7 +176,7 @@ class NCB_FORMATTER {
             // if (count($options) > 0) {
             //     $str = $options[$str];
             // }
-            $txtlength = mb_strlen($str);
+            $txtlength = mb_strlen($str, 'utf-8');
             $requestCountStringLength = isset($this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]) ? $this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]:0;
             $maxLength = isset($this->tudf_body_section[$secmentname][$fieldname]["maxLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["maxLength"]:0;
@@ -145,9 +188,10 @@ class NCB_FORMATTER {
 
         
         if ($fixedLength > 0) {
+            // UTF-8 ใช้ 3 bytes ใน 1 char ใช้ strlen ไม่ได้ต้องใช้ mb_strlen แทน
+            $txtlength = mb_strlen($str, 'utf-8');
+
             $str = mb_substr($str, 0,  $fixedLength);
-            // UTF-8 ใช้ 3 bytes ใน 1 char ใช้ strlen ไม่ได้ต้องใช้ mb_strlegn แทน
-            $txtlength = mb_strlen($str);
             $txt .= $zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= $freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= !$zerofill && !$freespace ? strtoupper($str):'';
@@ -158,12 +202,12 @@ class NCB_FORMATTER {
             $txt .= strtoupper($str);
         }
 
-        $txtlength = mb_strlen($str);
+        $txtlength = mb_strlen($txt, 'utf-8');
 
         if ($txtlength == 0&&!$required) {
             return  '';
         } else {
-            $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - mb_strlen($txtlength)) < 0?0:(2 - mb_strlen($txtlength))):'';
+            $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - mb_strlen($txtlength, 'utf-8')) < 0?0:(2 - mb_strlen($txtlength, 'utf-8'))):'';
             return  $fieldtag . $pre . $txt;
         }
     }

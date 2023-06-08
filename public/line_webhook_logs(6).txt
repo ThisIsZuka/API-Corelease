@@ -1,0 +1,28 @@
+{
+    "destination":"U9770ae1a11ff12f66f9cd0f6f51759c6"
+    ,"events":[
+        {
+            "type":"message"
+            ,"message":{
+                "type":"file"
+                ,"id":"17699208674181"
+                ,"fileName":"\u0e27\u0e34\u0e18\u0e35\u0e2a\u0e23\u0e49\u0e32\u0e07 variable type table \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a test \u0e41\u0e25\u0e30\u0e01\u0e32\u0e23 update table by select.sql"
+                ,"fileSize":2778
+                ,"contentProvider":{
+                    "type":"line"
+                }
+            }
+            ,"webhookEventId":"01GT19EREBSZGKT3BCRRQ8CCAT"
+            ,"deliveryContext":{
+                "isRedelivery":true
+            }
+            ,"timestamp":1677228204401
+            ,"source":{
+                "type":"user"
+                ,"userId":"Ua0c2a3546f00c92b931fe127b7d30220"
+            }
+            ,"replyToken":"9b5bcde4582e434390bcec3d9db8ba6a"
+            ,"mode":"active"
+        }
+    ]
+}

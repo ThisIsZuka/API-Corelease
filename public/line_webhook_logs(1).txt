@@ -1,0 +1,24 @@
+{
+    "destination":"U9770ae1a11ff12f66f9cd0f6f51759c6"
+    ,"events":[
+        {
+            "type":"message"
+            ,"message":{
+                "type":"text"
+                ,"id":"17699120254396"
+                ,"text":"haloop"
+            }
+            ,"webhookEventId":"01GT18FE6CWDQ9GQ84JS73WAZF"
+            ,"deliveryContext":{
+                "isRedelivery":false
+            }
+            ,"timestamp":1677227178138
+            ,"source":{
+                "type":"user"
+                ,"userId":"Ua0c2a3546f00c92b931fe127b7d30220"
+            }
+            ,"replyToken":"9f5cb70b06a74ac4aa5b72db8f68b2e2"
+            ,"mode":"active"
+        }
+    ]
+}
