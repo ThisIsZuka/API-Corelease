@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <button id="test-api"> test </button>
+    <button id="test-api"> test upload to new server</button>
 
 </body>
 
