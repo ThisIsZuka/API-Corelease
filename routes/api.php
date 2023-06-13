@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\File;
 
 use App\Http\Controllers\E_Tax\E_Tax_TFF;
 use App\Http\Controllers\line_webhook\Line;
+use App\Http\Controllers\UfundCustomer\ContractInfo;
+use App\Http\Controllers\UfundCustomer\Customer;
 use Facade\FlareClient\Http\Response;
 
 /*
@@ -167,6 +169,26 @@ Route::post('/NCBFormated/txt/{date}', function ($date) {
     $ncbFormatted = new API_NCB_FORMATTER_v13;
     return response($ncbFormatted->generate($date));
 });
+
+Route::get('/pineapple/uat/UserInfo/{useremail}', function ($useremail) {
+    $customer  = new Customer;
+    return $customer->get_Customer_by_Email($useremail);
+});
+
+Route::get('/pineapple/uat/ContractInfo/{contract_id}', function ($contract_id) {
+    $contract = new ContractInfo;
+    return $contract->getContractInfo($contract_id);
+});
+
+// Route::get('/pineapple/{useremail}', function ($useremail) {
+//     return $useremail;
+//     // if (isset($useremail)&&is_string($useremail)) {
+//     //     $customer  = new Customer;
+//     //     return $customer->get_Customer_by_Email($useremail);
+//     // } else {
+//     //     return response()->json('parameter Email is empty or Email is not text. please try again.');
+//     // }
+// });
 
 Route::get('/download/ncb', function (Request $req) {
     return response()->download(public_path() . "/file_location/" . $req->get('path'));
