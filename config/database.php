@@ -91,6 +91,8 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
+            'encrypt' => 'yes',
+            'trust_server_certificate' => true,
         ],
 
         'sqlsrv_365' => [
@@ -106,6 +108,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'sqlsrv_e_tax' => [
+            'driver' => env('DB_CONNECTION_E_TAX'),
+            // 'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_E_TAX', 'localhost'),
+            'port' => env('DB_PORT_E_TAX', '1433'),
+            'database' => env('DB_DATABASE_E_TAX', 'forge'),
+            'username' => env('DB_USERNAME_E_TAX', 'forge'),
+            'password' => env('DB_PASSWORD_E_TAX', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
         'misdiy' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
@@ -114,6 +129,21 @@ return [
             'database' => env('MIS_DB_DATABASE', 'forge'),
             'username' => env('MIS_DB_USERNAME', 'forge'),
             'password' => env('MIS_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
+
+        'k2prd' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('PRD_DB_HOST', 'localhost'),
+            'port' => env('PRD_DB_PORT', '1433'),
+            'database' => env('PRD_DB_DATABASE', 'forge'),
+            'username' => env('PRD_DB_USERNAME', 'forge'),
+            'password' => env('PRD_DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

@@ -21,8 +21,10 @@ class NCB_FORMATTER {
 
     public function __construct()
     {
+        $this->production = true;
         $this->date = new DateTime('now');
-        $this->filename = "ncb-{$this->date->format('Ymd')}";
+        $month = $this->date->modify('-1 month')->format('m');
+        $this->filename = "TUCRS-THUNDERF-{$this->date->modify('-1 month')->format('Y')}-{$month}";
         $this->pathfile = "";
         $this->version = "";
         $this->type = "";
@@ -38,9 +40,15 @@ class NCB_FORMATTER {
         ];
     }
 
-    function getData() {
+    function getData($date = '') {
         try {
-            $this->raw = DB::select(DB::raw('EXEC dbo.SP_NCB_GETINSTALLDETAIL_DEMO'));
+            $db = DB::connection('k2prd');
+            $str_where = '';
+            // $this->raw = $db->select($db->raw('EXEC dbo.SP_NCB_GETINSTALLDETAIL_DEMO'));
+            if ($date !== '') {
+                $str_where = 'WHERE [AS OF DATE] = ' . "'$date'" . ' AND [FAMILY NAME] IS NOT NULL';
+            }
+            $this->raw = $db->select($db->raw('SELECT * FROM [HPCOM7].[dbo].[NCB_testFormat] ' . $str_where));
             return $this;
         } catch (\Throwable $th) {
             throw $th;
@@ -63,12 +71,13 @@ class NCB_FORMATTER {
     function header_text_file() {
         $this->section = 'header';
         $head = NCB_FORMATTER::TUDF;
+        $date = new DateTime();
         
         $head .= $this->version;
         $head .= $this->chk_requirement('membercode');
         $head .= $this->chk_requirement('membername');
         $head .= $this->chk_requirement('cycle_identification');
-        $head .= $this->chk_requirement('as_of_date', $this->date->format('Ymd'));
+        $head .= $this->chk_requirement('as_of_date', $date->modify('-1 month')->modify('last day of this month')->format('Ymd'));
         $head .= $this->chk_requirement('password');
         $head .= $this->chk_requirement('futureuse');
         $head .= $this->chk_requirement('memberdata');
@@ -104,7 +113,8 @@ class NCB_FORMATTER {
         if ($this->section == 'header') {
             $fieldtag = "";
             $str = isset($this->member_data[$fieldname]) ? $this->member_data[$fieldname]:$value;
-            $txtlength = strlen($str);
+            $txtlength = mb_strlen($str);
+            $required = true;
             $requestCountStringLength = isset($this->tudf_header_section[$fieldname]["countStringLenght"]) ? $this->tudf_header_section[$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_header_section[$fieldname]["fixedLength"]) ? $this->tudf_header_section[$fieldname]["fixedLength"]:0;
             $zerofill = isset($this->tudf_header_section[$fieldname]["zerofill"]) ? $this->tudf_header_section[$fieldname]["zerofill"]:false;
@@ -115,14 +125,15 @@ class NCB_FORMATTER {
         } else {
             $fieldtag = isset($this->tudf_body_section[$secmentname][$fieldname]["FieldTag"])? $this->tudf_body_section[$secmentname][$fieldname]["FieldTag"]:'';
             $raw = (array) $this->raw[$row];
-            $str = isset($raw[$fieldname]) ? trim($raw[$fieldname]):trim($value);
+            $str = isset($raw[strtoupper($fieldname)]) ? $raw[strtoupper($fieldname)]:$value;
+            $required = isset($this->tudf_body_section[$secmentname][$fieldname]["required"]) ? $this->tudf_body_section[$secmentname][$fieldname]["required"]:true;
             $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
             $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
             $str = $str == ''||$str == null ? $default:$str;
-            if (count($options) > 0) {
-                $str = $options[$str];
-            }
-            $txtlength = strlen($str);
+            // if (count($options) > 0) {
+            //     $str = $options[$str];
+            // }
+            $txtlength = mb_strlen($str);
             $requestCountStringLength = isset($this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]) ? $this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]:0;
             $maxLength = isset($this->tudf_body_section[$secmentname][$fieldname]["maxLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["maxLength"]:0;
@@ -134,19 +145,27 @@ class NCB_FORMATTER {
 
         
         if ($fixedLength > 0) {
-            $str = substr($str, 0, $fixedLength);
-            $txtlength = strlen($str);
+            $str = mb_substr($str, 0,  $fixedLength);
+            // UTF-8 ใช้ 3 bytes ใน 1 char ใช้ strlen ไม่ได้ต้องใช้ mb_strlegn แทน
+            $txtlength = mb_strlen($str);
             $txt .= $zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= $freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= !$zerofill && !$freespace ? strtoupper($str):'';
         } else if ($maxLength > 0) {
-            $str = substr($str, 0, $maxLength);
-            $txt .= substr($str, 0, $maxLength);
+            $str = mb_substr($str, 0, $maxLength);
+            $txt .= mb_substr($str, 0, $maxLength);
         } else {
             $txt .= strtoupper($str);
         }
-        $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - strlen($txtlength)) < 0?0:(2 - strlen($txtlength))):'';
-        return  $fieldtag . $pre . $txt;
+
+        $txtlength = mb_strlen($str);
+
+        if ($txtlength == 0&&!$required) {
+            return  '';
+        } else {
+            $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - mb_strlen($txtlength)) < 0?0:(2 - mb_strlen($txtlength))):'';
+            return  $fieldtag . $pre . $txt;
+        }
     }
 
     private function prefix() {
