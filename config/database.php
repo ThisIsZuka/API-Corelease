@@ -91,6 +91,8 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
+            'encrypt' => 'yes',
+            'trust_server_certificate' => true,
         ],
 
         'sqlsrv_365' => [
