@@ -12,8 +12,15 @@ class Customer {
 
     function get_customer_by_email($email) {
         $userInfo = $this->models->search_userEmail($email);
-        return response()->json($userInfo);
-        // $userInfo = $this->models::select("EXEC [dbo].[CONTRACT_USER_BY_EMAIL] @EMAIL = ?", [$email]);
-        // return response()->json($userInfo);
+        if (!empty($userInfo)) {
+            return response()->json($userInfo);
+        } else {
+            return response()->json([
+                [
+                    "code" => "-1"
+                    ,"message" => "Email: " . $email . " not found." 
+                ]
+            ]);
+        }
     }
 }
