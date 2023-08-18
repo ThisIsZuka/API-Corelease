@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers;
+use App\Models\ContractModels;
+use App\Models\CustomerModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API_MT_Controller;
@@ -172,12 +174,14 @@ Route::post('/NCBFormated/txt/{date}', function ($date) {
 
 Route::get('/pineapple/uat/UserInfo/{useremail}', function ($useremail) {
     $customer  = new Customer;
-    return $customer->get_Customer_by_Email($useremail);
+    $CustomerModels = new CustomerModels;
+    return $customer->get_Customer_by_Email($useremail, $CustomerModels);
 });
 
 Route::get('/pineapple/uat/ContractInfo/{contract_id}', function ($contract_id) {
     $contract = new ContractInfo;
-    return $contract->getContractInfo($contract_id);
+    $ContractModels = new ContractModels;
+    return $contract->getContractInfo($contract_id, $ContractModels);
 });
 
 // Route::get('/pineapple/{useremail}', function ($useremail) {

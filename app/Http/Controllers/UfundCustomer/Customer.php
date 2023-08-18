@@ -4,13 +4,18 @@ namespace App\Http\Controllers\UfundCustomer;
 use App\Models\CustomerModels;
 
 class Customer {
-    function __construct()
-    {
-        $this->models = new CustomerModels();
-        return $this;
-    }
+    function get_customer_by_email($email, CustomerModels $models) {
+        $this->models = $models;
 
-    function get_customer_by_email($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json([
+                [
+                    "code" => "-1",
+                    "message" => "Invalid email format."
+                ]
+            ]);
+        }
+        
         $userInfo = $this->models->search_userEmail($email);
         if (!empty($userInfo)) {
             return response()->json($userInfo);

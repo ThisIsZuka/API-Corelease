@@ -10,13 +10,6 @@ use Session;
 
 use function PHPUnit\Framework\isEmpty;
 
-/**
- * กรณีที่มีการผิดนัดชำระหนี้ แต่มีการชำระภายหลังแม้ไม่เต็มจำนวน จะไม่ต้องทำการส่งรายงานวันค้างชำระแล้ว
- * การผิดนัดชำระจะนับเฉพาะกรณีที่ผิดนัดชำระมากกว่า 1 ครั้งเท่านั้น
- * 
- * ส่วนยอดค้าางชำระจะอ้างอิงจากยอดค้างชำระตามจริง
- */
-
 class NCB_FORMATTER {
     public const TUDF = "TUDF";
     public const TRAILER = "TRLR";
@@ -48,42 +41,72 @@ class NCB_FORMATTER {
             $str_where = '';
             // $this->raw = $db->select($db->raw('EXEC dbo.SP_NCB_GETINSTALLDETAIL_DEMO'));
             if ($date !== '') {
-                $str_where = 'WHERE [AS OF DATE] = ' . "'$date'" . ' AND [FAMILY NAME] IS NOT NULL';
+                $str_where = 'WHERE [AS OF DATE] = ' . "'$date'" . ' AND [FAMILY NAME 1] IS NOT NULL';
             }
             $this->raw = $db->select($db->raw('
-            SELECT
-            [FAMILY NAME] COLLATE THAI_CI_AS [FAMILY NAME]
-            ,[FIRST NAME] COLLATE THAI_CI_AS [FIRST NAME]
-            ,[DATE OF BIRTH]
-            ,[CUSTOMER TYPE]
-            ,[ID TYPE]
-            ,[ID NUMBER]
-            ,[ISSUE COUNTRY]
-            ,[ADDRESS LINE 1] COLLATE THAI_CI_AS [ADDRESS LINE 1]
-            ,[SUB DISTINCT] COLLATE THAI_CI_AS [SUB DISTINCT]
-            ,[DISTINCT] COLLATE THAI_CI_AS [DISTINCT]
-            ,[PROVINCE] COLLATE THAI_CI_AS [PROVINCE]
-            ,[COUNTRY]
-            ,[POSTAL CODE]
-            ,[ACCOUNT NUMBER]
-            ,[ACCOUNT TYPE]
-            ,[OWNERSHIP INDICATOR]
-            ,[CURRENCY CODE]
-            ,[DATE ACCOUNT OPENED]
-            ,[DATE OF LAST PAYMENT]
-            ,[DATE ACCOUNT CLOSE]
-            ,[AS OF DATE]
-            ,[CREDIT LIMIT]
-            ,[AMOUNT OWNED]
-            ,[AMOUNT PAST DUE]
-            ,[NUMBER OF DAY PAST DUE]
-            ,[DEFAULT DATE]
-            ,[INSTALLMENT FREQUECY]
-            ,[INSTALLMENT AMOUNT]
-            ,[INSTALLMENT NUMBER OF PAYMENT]
-            ,[ACCOUNT STATUS]
-            ,[DATE OF LAST DEBT RESTRUCTURING]
-            FROM NCB_testFormat
+SELECT [Family Name 1]
+      ,[Family Name 2]
+      ,[First Name]
+      ,[Middle]
+      ,[Marital Status]
+      ,[Date Of Birth]
+      ,[Gender]
+      ,[Title/Prefix]
+      ,[Nationality]
+      ,[Number of Children]
+      ,[Spouse Name]
+      ,[Occupation]
+      ,[Customer Type Field]
+      ,[ID Type]
+      ,[ID Number]
+      ,[ID Issue Country]
+      ,[Address Line 1]
+      ,[Address Line 2]
+      ,[Address Line 3]
+      ,[Sub district]
+      ,[District]
+      ,[Province]
+      ,[Country]
+      ,[Postal Code]
+      ,[Telephone]
+      ,[Telephone Type]
+      ,[Address Type]
+      ,[Residential Status]
+      ,[Current/New Member Code]
+      ,[Current/New Member Name]
+      ,[Current/New Account Number]
+      ,[Account Type]
+      ,[Ownership Indicator]
+      ,[Currency Code]
+      ,[Future Use]
+      ,[Date Account Opened]
+      ,[Date Of Last Payment]
+      ,[Date Account Closed]
+      ,[As Of Date]
+      ,[Credit Limit/Original Loan Amount]
+      ,[Amount Owed/Credit Use]
+      ,[Amount Past Due]
+      ,[Number Of Days Past Due/Delinquency Status]
+      ,[Old Member Code]
+      ,[Old Member Name]
+      ,[Old Account Number]
+      ,[Default Date]
+      ,[Installment Frequency]
+      ,[Installment Amount]
+      ,[Installment Number Of Payments]
+      ,[Account Status]
+      ,[Loan Object]
+      ,[Collateral 1]
+      ,[Collateral 2]
+      ,[Collateral 3]
+      ,[Date of last debt restructuring]
+      ,[Percent payment]
+      ,[Type of credit card]
+      ,[Number of co-borrower]
+      ,[Unit Make]
+      ,[Unit Model]
+      ,[Credit Limit Type Flag]
+  FROM [HPCOM7].[dbo].[NationalCreditBureau]
             ' . $str_where));
             return $this;
         } catch (\Throwable $th) {
@@ -169,10 +192,16 @@ class NCB_FORMATTER {
             $fieldtag = isset($this->tudf_body_section[$secmentname][$fieldname]["FieldTag"])? $this->tudf_body_section[$secmentname][$fieldname]["FieldTag"]:'';
             $raw = (array) $this->raw[$row];
             $str = isset($raw[strtoupper($fieldname)]) ? $this->non_whiteSpaceClear($raw[strtoupper($fieldname)]):$this->non_whiteSpaceClear($value);
+            $fieldtype = isset($this->tudf_body_section[$secmentname][$fieldname]["fieldtype"])? $this->tudf_body_section[$secmentname][$fieldname]["fieldtype"]:'';
+
+            if ($fieldtype == "AW"&&($str == ""||$str == "NULL"||$str == "NU"||$str=="NUL")) {
+                return '';
+            }
+
             $required = isset($this->tudf_body_section[$secmentname][$fieldname]["required"]) ? $this->tudf_body_section[$secmentname][$fieldname]["required"]:true;
             $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
             $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
-            $str = $str == ''||$str == null ? $default:$str;
+            $str = $str == ''||$str == null||$str == "NULL" ? $default:$str;
             // if (count($options) > 0) {
             //     $str = $options[$str];
             // }
@@ -207,7 +236,8 @@ class NCB_FORMATTER {
         if ($txtlength == 0&&!$required) {
             return  '';
         } else {
-            $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - mb_strlen($txtlength, 'utf-8')) < 0?0:(2 - mb_strlen($txtlength, 'utf-8'))):'';
+            $strCountLength = (2 - mb_strlen($txtlength, 'utf-8'));
+            $pre = $requestCountStringLength ? $this->zerofill($txtlength, $strCountLength < 0 ? 0:$strCountLength):'';
             return  $fieldtag . $pre . $txt;
         }
     }
@@ -245,10 +275,4 @@ class NCB_FORMATTER {
     private function repeat($string, $number) {
         return str_repeat($string, $number);
     }
-
-    // function generate_by_type() {
-    //     if (!is_dir($this->pathfile)) {
-    //         $this->make($this->pathfile);
-    //     }
-    // }
 }

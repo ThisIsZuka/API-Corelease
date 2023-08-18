@@ -49,25 +49,79 @@ $NCBV13 = [
                 "countStringLenght" => true,
                 "default" => "N01"
             ],
-            "Family Name" => [
+            "Family Name 1" => [
                 "FieldTag" => "01",
                 "countStringLenght" => true,
                 "maxLength" => 50
+            ],
+            "Family Name 2" => [
+                "FieldTag" => "02",
+                "countStringLenght" => true,
+                "maxLength" => 26,
+                "fieldtype" => "AW"
             ],
             "First Name" => [
                 "FieldTag" => "04",
                 "countStringLenght" => true,
                 "maxLength" => 30
             ],
+            "Middle" => [
+                "FieldTag" => "05",
+                "countStringLenght" => true,
+                "maxLength" => 30,
+                "fieldtype" => "AW"
+            ],
+            "Marital Status" => [
+                "FieldTag" => "06",
+                "countStringLenght" => true,
+                "maxLength" => 4,
+                "fieldtype" => "AW"
+            ],
             "Date of Birth" => [
                 "FieldTag" => "07",
                 "countStringLenght" => true,
                 "fixedLength" => 8,
             ],
-            "Customer type" => [
+            "Gender" => [
+                "FieldTag" => "08",
+                "countStringLenght" => true,
+                "fixedLength" => 1,
+                "fieldtype" => "AW"
+            ],
+            "Title/Prefix" => [
+                "FieldTag" => "09",
+                "countStringLenght" => true,
+                "fixedLength" => 15,
+                "fieldtype" => "AW"
+            ],
+            "Nationality" => [
+                "FieldTag" => "10",
+                "countStringLenght" => true,
+                "fixedLength" => 2,
+                "fieldtype" => "AW"
+            ],
+            "Number of children" => [
+                "FieldTag" => "11",
+                "countStringLenght" => true,
+                "fixedLength" => 2,
+                "fieldtype" => "AW"
+            ],
+            "Spouse Name" => [
+                "FieldTag" => "12",
+                "countStringLenght" => true,
+                "fixedLength" => 45,
+                "fieldtype" => "AW"
+            ],
+            "Occupation" => [
+                "FieldTag" => "13",
+                "countStringLenght" => true,
+                "fixedLength" => 1,
+            ],
+            "Customer Type Field" => [
                 "FieldTag" => '15',
                 "countStringLenght" => true,
-                "fixedLength" => 1
+                "fixedLength" => 1,
+                "fieldtype" => "AW"
             ]
         ],
         "ID Segment" => [
@@ -94,7 +148,7 @@ $NCBV13 = [
                 "maxLength" => 20,
                 "countStringLenght" => true
             ],
-            "Issue Country" => [
+            "ID Issue Country" => [
                 "FieldTag" => "03",
                 "fixedLength" => 2,
                 "countStringLenght" => true,
@@ -108,25 +162,40 @@ $NCBV13 = [
                 "maxLength" => 3,
                 "default" => "A01"
             ],
-            "Address line 1" => [
+            "Address Line 1" => [
                 "countStringLenght" => true,
                 "FieldTag" => "01",
                 "maxLength" => '45',
             ],
-            "Sub distinct" => [
+            "Address Line 2" => [
+                "countStringLenght" => true,
+                "FieldTag" => "02",
+                "maxLength" => '45',
+                "fieldtype" => "AW"
+            ],
+            "Address Line 3" => [
+                "countStringLenght" => true,
+                "FieldTag" => "03",
+                "maxLength" => '45',
+                "fieldtype" => "AW"
+            ],
+            "Sub district" => [
                 "countStringLenght" => true,
                 "FieldTag" => "04",
                 "maxLength" => '40',
+                "fieldtype" => "AW"
             ],
-            "Distinct" => [
+            "District" => [
                 "countStringLenght" => true,
                 "FieldTag" => "05",
                 "maxLength" => '40',
+                "fieldtype" => "AW"
             ],
             "Province" => [
                 "countStringLenght" => true,
                 "FieldTag" => "06",
                 "maxLength" => '40',
+                "fieldtype" => "AW"
             ],
             "Country" => [
                 "countStringLenght" => true,
@@ -138,8 +207,30 @@ $NCBV13 = [
             "Postal Code" => [
                 "countStringLenght" => true,
                 "FieldTag" => "08",
-                "maxLength" => '10'
-            ]
+                "maxLength" => '10',
+                "fieldtype" => "AW"
+            ],
+            "Telephone" => [
+                "countStringLenght" => true,
+                "FieldTag" => "09",
+                "maxLength" => '20'
+            ],
+            "Telephone Type" => [
+                "countStringLenght" => true,
+                "FieldTag" => "10",
+                "maxLength" => '1'
+            ],
+            "Address Type" => [
+                "countStringLenght" => true,
+                "FieldTag" => "11",
+                "maxLength" => '1'
+            ],
+            "Residential Status" => [
+                "countStringLenght" => true,
+                "FieldTag" => "12",
+                "maxLength" => '1',
+                "fieldtype" => "AW"
+            ],
         ],
         "Account Segment" => [
             "Segment Tag" => [
@@ -148,19 +239,19 @@ $NCBV13 = [
                 'fixedLength' => 4,
                 "default" => 'T001'
             ],
-            "Member Code" => [
+            "Current/New Member Code" => [
                 "FieldTag" => '01',
                 "countStringLenght" => true,
                 'fixedLength' => 10,
                 "default" => "HP22190000"
             ],
-            "Member Name" => [
+            "Current/New Member Name" => [
                 "FieldTag" => '02',
                 "countStringLenght" => true,
                 'maxLength' => 16,
                 "default" => "THUNDERF"
             ],
-            "Account Number" => [
+            "Current/New Account Number" => [
                 "FieldTag" => '03',
                 "countStringLenght" => true,
                 'maxLength' => 25
@@ -190,7 +281,13 @@ $NCBV13 = [
                 "FieldTag" => '06',
                 "countStringLenght" => true,
                 'fixedLength' => 3,
-                'default' => 'THB'
+                'default' => 'THB',
+                "fieldtype" => "AW"
+            ],
+            "Future Use" => [
+                "FieldTag" => '07',
+                "countStringLenght" => true,
+                'fixedLength' => 1
             ],
             "Date Account Opened" => [
                 "FieldTag" => '08',
@@ -204,7 +301,7 @@ $NCBV13 = [
                 'fixedLength' => 8,
                 'default' => '19000101'
             ],
-            "Data Account Closed" => [
+            "Date Account Closed" => [
                 "FieldTag" => '10',
                 "countStringLenght" => true,
                 'fixedLength' => 8,
@@ -216,12 +313,12 @@ $NCBV13 = [
                 'fixedLength' => 8,
                 'default' => '19000101'
             ],
-            "Credit Limit" => [
+            "Credit Limit/Original Loan Amount" => [
                 "FieldTag" => '12',
                 "countStringLenght" => true,
                 "maxLength" => 9
             ],
-            "Amount Owned" => [
+            "Amount Owed/Credit Use" => [
                 "FieldTag" => "13",
                 "countStringLenght" => true,
                 "maxLength" => 9,
@@ -233,10 +330,28 @@ $NCBV13 = [
                 "maxLength" => 9,
                 'default' => '000000000'
             ],
-            "NUMBER OF DAY PAST DUE" => [
+            "Number Of Days Past Due/Delinquency Status" => [
                 "FieldTag" => "15",
                 "countStringLenght" => true,
                 "maxLength" => 3
+            ],
+            "Old Member Code" => [
+                "FieldTag" => "16",
+                "countStringLenght" => true,
+                "maxLength" => 10,
+                "fieldtype" => "AW"
+            ],
+            "Old Member Name" => [
+                "FieldTag" => "17",
+                "countStringLenght" => true,
+                "maxLength" => 16,
+                "fieldtype" => "AW"
+            ],
+            "Old Account Number" => [
+                "FieldTag" => "18",
+                "countStringLenght" => true,
+                "maxLength" => 25
+                ,"fieldtype" => "AW"
             ],
             "Default Date" => [
                 "FieldTag" => "19",
@@ -247,18 +362,18 @@ $NCBV13 = [
                 "FieldTag" => "20",
                 "countStringLenght" => true,
                 "fixedLength" => 1,
-                "options" => [
-                    "Unspecified" => 0,
-                    "Weekly" => 1,
-                    "Biweekly" => 2,
-                    "Monthly" => 3,
-                    "Bimonthly" => 4,
-                    "Quarterly" => 5,
-                    "Daily" => 6,
-                    "Special use" => 7,
-                    "Semi-yearly" => 8,
-                    "Yearly" => 9
-                ],
+                // "options" => [
+                //     "Unspecified" => 0,
+                //     "Weekly" => 1,
+                //     "Biweekly" => 2,
+                //     "Monthly" => 3,
+                //     "Bimonthly" => 4,
+                //     "Quarterly" => 5,
+                //     "Daily" => 6,
+                //     "Special use" => 7,
+                //     "Semi-yearly" => 8,
+                //     "Yearly" => 9
+                // ],
                 "default" => 3
             ],
             "Installment Amount" => [
@@ -266,7 +381,7 @@ $NCBV13 = [
                 "countStringLenght" => true,
                 "maxLength" => 9
             ],
-            "Installment Number Of Payment" => [
+            "Installment Number Of Payments" => [
                 "FieldTag" => "22",
                 "countStringLenght" => true,
                 "maxLength" => 4
@@ -277,23 +392,71 @@ $NCBV13 = [
                 "fixedLength" => 2,
                 "default" => '10'
             ],
-            "Date of Last Debt Restructring" => [
+            "Loan Objective" => [
+                "FieldTag" => "32",
+                "countStringLenght" => true,
+                "fixedLength" => 5,
+                "fieldtype" => "AW"
+            ],
+            "Collateral 1" => [
+                "FieldTag" => "33",
+                "countStringLenght" => true,
+                "fixedLength" => 3,
+                "fieldtype" => "AW"
+            ],
+            "Collateral 2" => [
+                "FieldTag" => "34",
+                "countStringLenght" => true,
+                "fixedLength" => 3,
+                "fieldtype" => "AW"
+            ],
+            "Collateral 3" => [
+                "FieldTag" => "35",
+                "countStringLenght" => true,
+                "fixedLength" => 3,
+                "fieldtype" => "AW"
+            ],
+            "Date of last debt restructuring" => [
                 "FieldTag" => "36",
                 "countStringLenght" => true,
                 "fixedLength" => 8,
                 "default" => "19000101"
             ],
+            "Percent payment" => [
+                "FieldTag" => "37",
+                "countStringLenght" => true,
+                "fixedLength" => 5,
+                "fieldtype" => "AW"
+            ],
+            "Type of credit card" => [
+                "FieldTag" => "38",
+                "countStringLenght" => true,
+                "fixedLength" => 2,
+                "fieldtype" => "AW"
+            ],
+            "Number of co-borrower" => [
+                "FieldTag" => "39",
+                "countStringLenght" => true,
+                "fixedLength" => 2,
+                "fieldtype" => "AW"
+            ],
             "Unit Make" => [
                 "FieldTag" => "40",
                 "countStringLenght" => true,
                 "maxLength" => 15,
-                "required" => false
+                "fieldtype" => "AW"
             ],
-            "Unit model" => [
+            "Unit Model" => [
                 "FieldTag" => "41",
                 "countStringLenght" => true,
                 "maxLength" => 15,
-                "required" => false
+                "fieldtype" => "AW"
+            ],
+            "Credit Limit Type Flag" => [
+                "FieldTag" => "42",
+                "countStringLenght" => true,
+                "maxLength" => 3,
+                "fieldtype" => "AW"
             ],
             "End of Subject" => [
                 "Segment Tag" => "",
