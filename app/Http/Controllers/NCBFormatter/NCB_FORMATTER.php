@@ -216,6 +216,7 @@ SELECT [Family Name 1]
         }
 
         
+        
         if ($fixedLength > 0) {
             // UTF-8 ใช้ 3 bytes ใน 1 char ใช้ strlen ไม่ได้ต้องใช้ mb_strlen แทน
             $txtlength = mb_strlen($str, 'utf-8');

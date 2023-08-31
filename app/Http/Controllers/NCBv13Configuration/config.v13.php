@@ -74,25 +74,17 @@ $NCBV13 = [
             "Marital Status" => [
                 "FieldTag" => "06",
                 "countStringLenght" => true,
-                "maxLength" => 4,
-                "fieldtype" => "AW"
+                "fixedLength" => 4,
+                "fieldtype" => "AW",
+                "zerofill" => true,
+                "position" => 'prefix'
+
             ],
-            "Date of Birth" => [
+            "Date Of Birth" => [
                 "FieldTag" => "07",
                 "countStringLenght" => true,
                 "fixedLength" => 8,
-            ],
-            "Gender" => [
-                "FieldTag" => "08",
-                "countStringLenght" => true,
-                "fixedLength" => 1,
-                "fieldtype" => "AW"
-            ],
-            "Title/Prefix" => [
-                "FieldTag" => "09",
-                "countStringLenght" => true,
-                "fixedLength" => 15,
-                "fieldtype" => "AW"
+                "required" => true
             ],
             "Nationality" => [
                 "FieldTag" => "10",
@@ -112,11 +104,6 @@ $NCBV13 = [
                 "fixedLength" => 45,
                 "fieldtype" => "AW"
             ],
-            "Occupation" => [
-                "FieldTag" => "13",
-                "countStringLenght" => true,
-                "fixedLength" => 1,
-            ],
             "Customer Type Field" => [
                 "FieldTag" => '15',
                 "countStringLenght" => true,
@@ -135,6 +122,8 @@ $NCBV13 = [
                 "FieldTag" => "01",
                 "countStringLenght" => true,
                 "fixedLength" => 2,
+                "zerofill" => true,
+                "position" => 'prefix',
                 "options" => [
                     "Citizen ID" => '01',
                     "Civil Servant ID" => '02', 
@@ -150,6 +139,8 @@ $NCBV13 = [
             ],
             "ID Issue Country" => [
                 "FieldTag" => "03",
+                "zerofill" => true,
+                "position" => "prefix",
                 "fixedLength" => 2,
                 "countStringLenght" => true,
                 "fieldtype" => "AW"
@@ -242,6 +233,8 @@ $NCBV13 = [
             "Current/New Member Code" => [
                 "FieldTag" => '01',
                 "countStringLenght" => true,
+                "zerofill" => true,
+                "position" => "prefix",
                 'fixedLength' => 10,
                 "default" => "HP22190000"
             ],
@@ -259,6 +252,8 @@ $NCBV13 = [
             "Account Type" => [
                 "FieldTag" => '04',
                 "countStringLenght" => true,
+                "zerofill" => true,
+                "position" => "prefix",
                 'fixedLength' => 2,
                 'options' => [
                     'Personal Loan' => 1,
@@ -270,16 +265,12 @@ $NCBV13 = [
                 "countStringLenght" => true,
                 'fixedLength' => 1,
                 'default' => 1
-                // 'options' => [
-                //     "Individual" => 1,
-                //     "Supplementary Card" => 2,
-                //     "Joint" => 4,
-                //     "Guarantor" => 5
-                // ]
             ],
             "Currency Code" => [
                 "FieldTag" => '06',
                 "countStringLenght" => true,
+                "freespace" => true,
+                "position" => "prefix",
                 'fixedLength' => 3,
                 'default' => 'THB',
                 "fieldtype" => "AW"
@@ -362,18 +353,6 @@ $NCBV13 = [
                 "FieldTag" => "20",
                 "countStringLenght" => true,
                 "fixedLength" => 1,
-                // "options" => [
-                //     "Unspecified" => 0,
-                //     "Weekly" => 1,
-                //     "Biweekly" => 2,
-                //     "Monthly" => 3,
-                //     "Bimonthly" => 4,
-                //     "Quarterly" => 5,
-                //     "Daily" => 6,
-                //     "Special use" => 7,
-                //     "Semi-yearly" => 8,
-                //     "Yearly" => 9
-                // ],
                 "default" => 3
             ],
             "Installment Amount" => [
@@ -450,12 +429,6 @@ $NCBV13 = [
                 "FieldTag" => "41",
                 "countStringLenght" => true,
                 "maxLength" => 15,
-                "fieldtype" => "AW"
-            ],
-            "Credit Limit Type Flag" => [
-                "FieldTag" => "42",
-                "countStringLenght" => true,
-                "maxLength" => 3,
                 "fieldtype" => "AW"
             ],
             "End of Subject" => [
