@@ -8,12 +8,7 @@ use Exception;
 use phpDocumentor\Reflection\PseudoTypes\False_;
 use Session;
 
-/**
- * กรณีที่มีการผิดนัดชำระหนี้ แต่มีการชำระภายหลังแม้ไม่เต็มจำนวน จะไม่ต้องทำการส่งรายงานวันค้างชำระแล้ว
- * การผิดนัดชำระจะนับเฉพาะกรณีที่ผิดนัดชำระมากกว่า 1 ครั้งเท่านั้น
- * 
- * ส่วนยอดค้าางชำระจะอ้างอิงจากยอดค้างชำระตามจริง
- */
+use function PHPUnit\Framework\isEmpty;
 
 class NCB_FORMATTER {
     public const TUDF = "TUDF";
@@ -46,9 +41,73 @@ class NCB_FORMATTER {
             $str_where = '';
             // $this->raw = $db->select($db->raw('EXEC dbo.SP_NCB_GETINSTALLDETAIL_DEMO'));
             if ($date !== '') {
-                $str_where = 'WHERE [AS OF DATE] = ' . "'$date'" . ' AND [FAMILY NAME] IS NOT NULL';
+                $str_where = 'WHERE [AS OF DATE] = ' . "'$date'" . ' AND [FAMILY NAME 1] IS NOT NULL';
             }
-            $this->raw = $db->select($db->raw('SELECT * FROM [HPCOM7].[dbo].[NCB_testFormat] ' . $str_where));
+            $this->raw = $db->select($db->raw('
+SELECT [Family Name 1]
+      ,[Family Name 2]
+      ,[First Name]
+      ,[Middle]
+      ,[Marital Status]
+      ,[Date Of Birth]
+      ,[Gender]
+      ,[Title/Prefix]
+      ,[Nationality]
+      ,[Number of Children]
+      ,[Spouse Name]
+      ,[Occupation]
+      ,[Customer Type Field]
+      ,[ID Type]
+      ,[ID Number]
+      ,[ID Issue Country]
+      ,[Address Line 1]
+      ,[Address Line 2]
+      ,[Address Line 3]
+      ,[Sub district]
+      ,[District]
+      ,[Province]
+      ,[Country]
+      ,[Postal Code]
+      ,[Telephone]
+      ,[Telephone Type]
+      ,[Address Type]
+      ,[Residential Status]
+      ,[Current/New Member Code]
+      ,[Current/New Member Name]
+      ,[Current/New Account Number]
+      ,[Account Type]
+      ,[Ownership Indicator]
+      ,[Currency Code]
+      ,[Future Use]
+      ,[Date Account Opened]
+      ,[Date Of Last Payment]
+      ,[Date Account Closed]
+      ,[As Of Date]
+      ,[Credit Limit/Original Loan Amount]
+      ,[Amount Owed/Credit Use]
+      ,[Amount Past Due]
+      ,[Number Of Days Past Due/Delinquency Status]
+      ,[Old Member Code]
+      ,[Old Member Name]
+      ,[Old Account Number]
+      ,[Default Date]
+      ,[Installment Frequency]
+      ,[Installment Amount]
+      ,[Installment Number Of Payments]
+      ,[Account Status]
+      ,[Loan Object]
+      ,[Collateral 1]
+      ,[Collateral 2]
+      ,[Collateral 3]
+      ,[Date of last debt restructuring]
+      ,[Percent payment]
+      ,[Type of credit card]
+      ,[Number of co-borrower]
+      ,[Unit Make]
+      ,[Unit Model]
+      ,[Credit Limit Type Flag]
+  FROM [HPCOM7].[dbo].[NationalCreditBureau]
+            ' . $str_where));
             return $this;
         } catch (\Throwable $th) {
             throw $th;
@@ -106,6 +165,13 @@ class NCB_FORMATTER {
         return $body;
     }
 
+    function non_whiteSpaceClear($str, $subst = '') {
+        $re = '/[\x{200B}-\x{200D}\x{FEFF}\x{FD3E}\x{FD3F}\x{00A7}\x{002D}]/u';
+        $result = preg_replace($re, $subst, $str);
+
+        return $result;
+    }
+
     private function chk_requirement($fieldname, $value = '', $secmentname = '', $row = '') {
         $txt = "";
         $zerofill = false;
@@ -113,7 +179,7 @@ class NCB_FORMATTER {
         if ($this->section == 'header') {
             $fieldtag = "";
             $str = isset($this->member_data[$fieldname]) ? $this->member_data[$fieldname]:$value;
-            $txtlength = mb_strlen($str);
+            $txtlength = mb_strlen($str, 'utf-8');
             $required = true;
             $requestCountStringLength = isset($this->tudf_header_section[$fieldname]["countStringLenght"]) ? $this->tudf_header_section[$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_header_section[$fieldname]["fixedLength"]) ? $this->tudf_header_section[$fieldname]["fixedLength"]:0;
@@ -125,15 +191,21 @@ class NCB_FORMATTER {
         } else {
             $fieldtag = isset($this->tudf_body_section[$secmentname][$fieldname]["FieldTag"])? $this->tudf_body_section[$secmentname][$fieldname]["FieldTag"]:'';
             $raw = (array) $this->raw[$row];
-            $str = isset($raw[strtoupper($fieldname)]) ? $raw[strtoupper($fieldname)]:$value;
+            $str = isset($raw[strtoupper($fieldname)]) ? $this->non_whiteSpaceClear($raw[strtoupper($fieldname)]):$this->non_whiteSpaceClear($value);
+            $fieldtype = isset($this->tudf_body_section[$secmentname][$fieldname]["fieldtype"])? $this->tudf_body_section[$secmentname][$fieldname]["fieldtype"]:'';
+
+            if ($fieldtype == "AW"&&($str == ""||$str == "NULL"||$str == "NU"||$str=="NUL")) {
+                return '';
+            }
+
             $required = isset($this->tudf_body_section[$secmentname][$fieldname]["required"]) ? $this->tudf_body_section[$secmentname][$fieldname]["required"]:true;
             $options = isset($this->tudf_body_section[$secmentname][$fieldname]["options"]) ? $this->tudf_body_section[$secmentname][$fieldname]["options"]:[];
             $default = isset($this->tudf_body_section[$secmentname][$fieldname]["default"]) ? $this->tudf_body_section[$secmentname][$fieldname]["default"]:'';
-            $str = $str == ''||$str == null ? $default:$str;
+            $str = $str == ''||$str == null||$str == "NULL" ? $default:$str;
             // if (count($options) > 0) {
             //     $str = $options[$str];
             // }
-            $txtlength = mb_strlen($str);
+            $txtlength = mb_strlen($str, 'utf-8');
             $requestCountStringLength = isset($this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]) ? $this->tudf_body_section[$secmentname][$fieldname]["countStringLenght"]:false;
             $fixedLength = isset($this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["fixedLength"]:0;
             $maxLength = isset($this->tudf_body_section[$secmentname][$fieldname]["maxLength"]) ? $this->tudf_body_section[$secmentname][$fieldname]["maxLength"]:0;
@@ -144,10 +216,12 @@ class NCB_FORMATTER {
         }
 
         
+        
         if ($fixedLength > 0) {
+            // UTF-8 ใช้ 3 bytes ใน 1 char ใช้ strlen ไม่ได้ต้องใช้ mb_strlen แทน
+            $txtlength = mb_strlen($str, 'utf-8');
+
             $str = mb_substr($str, 0,  $fixedLength);
-            // UTF-8 ใช้ 3 bytes ใน 1 char ใช้ strlen ไม่ได้ต้องใช้ mb_strlegn แทน
-            $txtlength = mb_strlen($str);
             $txt .= $zerofill ? $this->zerofill(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= $freespace ? $this->freespace(strtoupper($str), $fixedLength - $txtlength):'';
             $txt .= !$zerofill && !$freespace ? strtoupper($str):'';
@@ -158,12 +232,13 @@ class NCB_FORMATTER {
             $txt .= strtoupper($str);
         }
 
-        $txtlength = mb_strlen($str);
+        $txtlength = mb_strlen($txt, 'utf-8');
 
         if ($txtlength == 0&&!$required) {
             return  '';
         } else {
-            $pre = $requestCountStringLength ? $this->prefix()->zerofill($txtlength, (2 - mb_strlen($txtlength)) < 0?0:(2 - mb_strlen($txtlength))):'';
+            $strCountLength = (2 - mb_strlen($txtlength, 'utf-8'));
+            $pre = $requestCountStringLength ? $this->zerofill($txtlength, $strCountLength < 0 ? 0:$strCountLength):'';
             return  $fieldtag . $pre . $txt;
         }
     }
@@ -201,10 +276,4 @@ class NCB_FORMATTER {
     private function repeat($string, $number) {
         return str_repeat($string, $number);
     }
-
-    // function generate_by_type() {
-    //     if (!is_dir($this->pathfile)) {
-    //         $this->make($this->pathfile);
-    //     }
-    // }
 }

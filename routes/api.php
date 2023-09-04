@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers;
+use App\Models\ContractModels;
+use App\Models\CustomerModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JWT_Controller;
@@ -24,8 +26,14 @@ use App\Http\Controllers\API_NCB_FORMATTER_v13;
 use App\Http\Controllers\test;
 
 use App\Http\Controllers\API_SCB_Bill_H2H;
+use Illuminate\Support\Facades\File;
 
 use App\Http\Controllers\E_Tax\E_Tax_TFF;
+use App\Http\Controllers\line_webhook\Line;
+use App\Http\Controllers\UfundCustomer\ContractInfo;
+use App\Http\Controllers\UfundCustomer\Customer;
+use Facade\FlareClient\Http\Response;
+
 use App\Http\Controllers\ICare\API_ICare;
 
 use App\Http\Controllers\API_USER_Auth;
@@ -164,10 +172,33 @@ Route::post('/create_purcharseOrder', [API_POController::class, 'createPO']);
 
 Route::post('/getlist/listofncbfiles', [API_NCB_FORMATTER_v13::class, 'getfiles']);
 
+//NCB Formatter
 Route::post('/NCBFormated/txt/{date}', function ($date) {
     $ncbFormatted = new API_NCB_FORMATTER_v13;
     return response($ncbFormatted->generate($date));
 });
+
+Route::get('/pineapple/uat/UserInfo/{useremail}', function ($useremail) {
+    $customer  = new Customer;
+    $CustomerModels = new CustomerModels;
+    return $customer->get_Customer_by_Email($useremail, $CustomerModels);
+});
+
+Route::get('/pineapple/uat/ContractInfo/{contract_id}', function ($contract_id) {
+    $contract = new ContractInfo;
+    $ContractModels = new ContractModels;
+    return $contract->getContractInfo($contract_id, $ContractModels);
+});
+
+// Route::get('/pineapple/{useremail}', function ($useremail) {
+//     return $useremail;
+//     // if (isset($useremail)&&is_string($useremail)) {
+//     //     $customer  = new Customer;
+//     //     return $customer->get_Customer_by_Email($useremail);
+//     // } else {
+//     //     return response()->json('parameter Email is empty or Email is not text. please try again.');
+//     // }
+// });
 
 Route::get('/download/ncb', function (Request $req) {
     return response()->download(public_path() . "/file_location/" . $req->get('path'));
@@ -176,6 +207,12 @@ Route::get('/download/ncb', function (Request $req) {
 //     Artisan::call('cache:clear');
 //     return "Cache is cleared";
 // });
+
+//LINE webhook
+Route::post('/line/webhook', function (Request $req) {
+    File::put(public_path() . '\line_webhook_logs.txt', json_encode($req->all()));
+    return response()->json(public_path() . '\line_webhook_logs.txt');
+});
 
 
 // Bill Payment
@@ -199,10 +236,20 @@ Route::group(['middleware' => ['API_CheckUser']], function () {
 });
 
 
+<<<<<<< HEAD
+=======
 // API I-Care
 
+>>>>>>> origin/Dev
 // Test API
 Route::get('/SP_TEST', [test::class, 'Test_API_SP']);
 
 Route::post('e-tax', [E_Tax_TFF::class, 'MainRequest']);
+<<<<<<< HEAD
+Route::post('test_file', [E_Tax_TFF::class, 'test_file']);
+Route::post('test', function (Request $req) {
+    return response()->json('hello world');
+});
+=======
 Route::get('i_care', [API_ICare::class, 'NewLoan']);
+>>>>>>> origin/Dev

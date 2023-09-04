@@ -1,0 +1,24 @@
+{
+    "destination":"U9770ae1a11ff12f66f9cd0f6f51759c6"
+    ,"events":[
+        {
+            "type":"message"
+            ,"message":{
+                "type":"text"
+                ,"id":"17699169821201"
+                ,"text":"server: 10.102.6.100,18963 via user MISDEV\nuser: MISDEV\npass: 0608H"
+            }
+            ,"webhookEventId":"01GT19120QJ2GY633RK61BTC00"
+            ,"deliveryContext":{
+                "isRedelivery":false
+            }
+            ,"timestamp":1677227755153
+            ,"source":{
+                "type":"user"
+                ,"userId":"Ua0c2a3546f00c92b931fe127b7d30220"
+            }
+            ,"replyToken":"85e16a3533f8447baec5cbf0fcdcdb26"
+            ,"mode":"active"
+        }
+    ]
+}

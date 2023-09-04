@@ -1,0 +1,27 @@
+{
+    "destination":"U9770ae1a11ff12f66f9cd0f6f51759c6"
+    ,"events":[
+        {
+            "type":"message"
+            ,"message":{
+                "type":"image"
+                ,"id":"17699186550224"
+                ,"contentProvider":{
+                    "type":"line"
+                }
+            }
+            ,"webhookEventId":"01GT196YWR9GNC2459JB2S5J9W"
+            ,"deliveryContext":{
+                "isRedelivery":false
+            }
+            ,"timestamp":1677227948868
+            ,"source":{
+                "type":"group"
+                ,"groupId":"C2befd020ee8692b92c1bc27af50ceb51"
+                ,"userId":"Udc3ec75526bc530a137999e33febf295"
+            }
+            ,"replyToken":"65b81aaac16248959bb9e0c05bf2e9a3"
+            ,"mode":"active"
+        }
+    ]
+}
