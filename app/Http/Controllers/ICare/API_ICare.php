@@ -50,9 +50,9 @@ class API_ICare extends BaseController
             'Content-Type' => 'application/json',
             'Authorization' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcklkIjozfQ.JvIwhfmFnRm9GCdUUN9IfZLBxlXbw5o7MpemG23qd6E',
         ])->post("{$this->Endpoint}/{$path}", [$Data]);
-        dd($response);
+        // dd($response);
         $res = json_decode($response->body());
-        dd($res);
+        // dd($res);
     }
 
     function SetupDataNewLoan($APP_ID, $Cancel = false)

@@ -12,37 +12,10 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *      version="1.2.0",
- *      title="L5 OpenApi API-Corelease",
- *      description="L5 Swagger OpenApi description"
+ *      title="API-Corelease",
+ *      description="OpenApi UFUND"
  * )
  *
- * 
- * 
- * @OA\Post(
- * path="/api/Get_Token",
- * summary="Login",
- * description="Get_Token",
- * operationId="Get_Token",
- * tags={"Authentication"},
- *   @OA\RequestBody(
- *      required=true,
- *      description="Customer information",
- *      @OA\JsonContent(
- *         required={"username","password"},
- *         @OA\Property(property="username", type="string", format="string", example="api_ufund"),
- *         @OA\Property(property="password", type="string", format="password", example="U6undp0Rt4l"),
- *      ),
- *   ),
- * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
- *    @OA\JsonContent(
- *       @OA\Property(property="Code", type="string", example="9999"),
- *       @OA\Property(property="status", type="string", example="Sucsess"),
- *       @OA\Property(property="data", type="string", example="[...]"),
- *        )
- *     )
- * ),
  * 
  * 
  *
