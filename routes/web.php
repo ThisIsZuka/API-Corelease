@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 use PHPUnit\Util\Json;
 use App\Http\Controllers\AMLO_Controller;
 use App\Http\Controllers\E_Tax\E_Tax_TFF;
+use App\Http\Controllers\E_Tax\Service_E_Tax;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +56,5 @@ Route::get('ncb_test', [test::class, 'test_ncb']);
 Route::get('test_amlo', [AMLO_Controller::class, 'New_AMLO']);
 
 Route::get('e-tax', [E_Tax_TFF::class, 'MainRequest']);
+
+Route::get('api_etax', [Service_E_Tax::class, 'Post_ETax']);

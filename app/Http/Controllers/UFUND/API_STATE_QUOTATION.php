@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\UFUND;
 
 use Illuminate\Routing\Controller as BaseController;
 
@@ -13,9 +13,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
 
-use App\Http\Controllers\API_Quatation;
-use App\Http\Controllers\API_PROSPECT_CUSTOMER;
-use App\Http\Controllers\API_ADDRESS_PROSCPECT;
+use App\Http\Controllers\UFUND\API_Quatation;
+use App\Http\Controllers\UFUND\API_PROSPECT_CUSTOMER;
+use App\Http\Controllers\UFUND\API_ADDRESS_PROSCPECT;
 
 class API_STATE_QUOTATION extends BaseController
 {
