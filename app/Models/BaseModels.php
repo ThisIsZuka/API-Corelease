@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 
-class Basemodels {
+class BaseModels {
     public function __construct($table)
     {
         $this->table = $table;
     }
     public static function getInstant($table) {
-        $db = new Basemodels($table);
+        $db = new BaseModels($table);
         return $db->connect();
     }
     public function connect()

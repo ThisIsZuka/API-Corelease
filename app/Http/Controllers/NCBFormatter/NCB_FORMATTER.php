@@ -37,7 +37,7 @@ class NCB_FORMATTER {
 
     function getData($date = '') {
         try {
-            $db = DB::connection('k2prd');
+            $db = DB::connection('sqlsrv');
             $str_where = '';
             // $this->raw = $db->select($db->raw('EXEC dbo.SP_NCB_GETINSTALLDETAIL_DEMO'));
             if ($date !== '') {

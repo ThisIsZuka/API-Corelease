@@ -22,6 +22,8 @@ use App\Http\Controllers\UFUND\API_GET_Warrantee;
 use App\Http\Controllers\UFUND\API_GET_Asset_Insurance;
 use App\Http\Controllers\UFUND\API_STATE_CustomerStatus;
 use App\Http\Controllers\UFUND\API_GET_Product;
+use App\Http\Controllers\UFUND\INTEREST_EFFECTIVE;
+
 use App\Http\Controllers\API_NCB_FORMATTER_v13;
 use App\Http\Controllers\test;
 
@@ -215,6 +217,10 @@ Route::post('/line/webhook', function (Request $req) {
 });
 
 
+// Cal Rate Excel
+Route::get('/CalculateEFFECTIVE', [INTEREST_EFFECTIVE::class, 'CalculateEFFECTIVE']);
+
+
 // Bill Payment
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
 
@@ -236,20 +242,14 @@ Route::group(['middleware' => ['API_CheckUser']], function () {
 });
 
 
-<<<<<<< HEAD
-=======
 // API I-Care
 
->>>>>>> origin/Dev
 // Test API
 Route::get('/SP_TEST', [test::class, 'Test_API_SP']);
 
 Route::post('e-tax', [E_Tax_TFF::class, 'MainRequest']);
-<<<<<<< HEAD
 Route::post('test_file', [E_Tax_TFF::class, 'test_file']);
 Route::post('test', function (Request $req) {
     return response()->json('hello world');
 });
-=======
 Route::get('i_care', [API_ICare::class, 'NewLoan']);
->>>>>>> origin/Dev
