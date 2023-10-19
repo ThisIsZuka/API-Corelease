@@ -35,14 +35,14 @@ class Error_Exception extends BaseController
 
         if ($e->getPrevious() != null) {
             return response()->json(array(
-                'Code' => '9000',
+                'code' => '9000',
                 'status' =>  'System Error',
                 'message' => $e->getPrevious()->getMessage(),
             ));
         }
 
         return response()->json(array(
-            'Code' => (string)$e->getCode() ?: '1000',
+            'code' => (string)$e->getCode() ?: '1000',
             'status' => isset($MsgError[(string)$e->getCode()]['status']) ? $MsgError[(string)$e->getCode()]['status'] : 'Invalid Data' ,
             'message' => $e->getMessage()
             // 'message' => 'System Error. Please try again'

@@ -249,7 +249,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
                 ],
             ];
 
-            
+
             foreach ($checkAddress as $key) {
                 // echo $key['PROVINCE'];
                 $GetAddress = DB::table('dbo.MT_POST_CODE')
@@ -275,7 +275,7 @@ class API_ADDRESS_PROSCPECT extends BaseController
 
 
             $check_owner_type = [
-                'A1_OWNER_TYPE' , 'A2_OWNER_TYPE' , 'A3_OWNER_TYPE' , 
+                'A1_OWNER_TYPE', 'A2_OWNER_TYPE', 'A3_OWNER_TYPE',
             ];
 
             foreach ($check_owner_type as $key) {
@@ -338,22 +338,40 @@ class API_ADDRESS_PROSCPECT extends BaseController
                     'A3_OWNER_TYPE' => $data['A3_OWNER_TYPE'],
                     'A3_LIVEING_TIME' => isset($data['A3_LIVEING_TIME']) ? $data['A3_LIVEING_TIME'] : null,
                     'A3_PHONE' => isset($data['A3_PHONE']) ? $data['A3_PHONE'] : null,
+                    'A_MASTER_WORK' => null,
+                    'A_COPY_WORK' => null,
+                    'A_NO_WORK' => null,
+                    'A_MOI_WORK' => null,
+                    'A_VILLAGE_WORK' => null,
+                    'A_BUILDING_WORK' => null,
+                    'A_FLOOR_WORK' => null,
+                    'A_ROOM_NO_WORK' => null,
+                    'A_SOI_WORK' => null,
+                    'A_ROAD_WORK' => null,
+                    'A_PROVINCE_WORK' => null,
+                    'A_DISTRICT_WORK' => null,
+                    'A_SUBDISTRICT_WORK' => null,
+                    'A_POSTALCODE_WORK' => null,
+                    'A_OWNER_TYPE_WORK' => null,
+                    'A_LIVEING_TIME_WORK' => null,
+                    'A_PHONE_WORK' => null,
+                    'A_LATITUDE_WORK' => null,
+                    'A_LONGITUDE_WORK' => null,
+                    'A_NAME_WORK' => null,
                 ]);
 
 
-                return response()->json(array(
-                    'Code' => '0000',
-                    'status' => 'Success',
-                    'data' => [
-                        'QUOTATION_ID' => $data['QUOTATION_ID'],
-                        'PST_CUST_ID' => $data['PST_CUST_ID']
-                    ]
-                ));
-
+            return response()->json(array(
+                'code' => '0000',
+                'status' => 'Success',
+                'data' => [
+                    'QUOTATION_ID' => $data['QUOTATION_ID'],
+                    'PST_CUST_ID' => $data['PST_CUST_ID']
+                ]
+            ));
         } catch (Exception $e) {
 
             return $this->Error_Exception->Msg_error($e);
-            
         }
     }
 }

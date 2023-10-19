@@ -2,12 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\API_USER_Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-class API_CheckUser
+class API_CheckUser extends API_USER_Auth
 {
     /**
      * Handle an incoming request.

@@ -69,7 +69,7 @@ class API_GET_ASSEST extends BaseController
                 $ASSETS_INFO = DB::select("SET NOCOUNT ON ; exec SP_GET_ASSETS_INFORMATION_REF_DETAIL @SERIES_CODE_INPUT = '" . $product[0]->SERIES . "'  ");
                 $responseData = new stdClass;
 
-                $return_data->Code = '0000';
+                $return_data->code = '0000';
                 $return_data->status = 'Sucsess';
                 $return_data->data = $ASSETS_INFO;
 
@@ -98,14 +98,14 @@ class API_GET_ASSEST extends BaseController
 
             if ($e->getPrevious() != null) {
                 return response()->json(array(
-                    'Code' => '9000',
+                    'code' => '9000',
                     'status' =>  'System Error',
                     'message' => $e->getPrevious()->getMessage(),
                 ));
             }
 
             return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '1000',
+                'code' => (string)$e->getCode() ?: '1000',
                 'status' =>  $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
                 'message' => $e->getMessage()
             ));

@@ -136,7 +136,7 @@ class API_CheckDown_Guarantor extends BaseController
                 $responseData->ProductTotal = $ProductTotal_INPUT;
                 $responseData->RequestGuarantor = $check_Down[0]->Guarantor;
 
-                $return_data->Code = '0000';
+                $return_data->code = '0000';
                 $return_data->status = 'Sucsess';
                 $return_data->data = $responseData;
 
@@ -164,7 +164,7 @@ class API_CheckDown_Guarantor extends BaseController
             ];
 
             return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '9000',
+                'code' => (string)$e->getCode() ?: '9000',
                 'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'System Error',
                 'message' => $e->getMessage()
             ));
@@ -217,7 +217,7 @@ class API_CheckDown_Guarantor extends BaseController
                 })
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $installments;
 
@@ -237,7 +237,7 @@ class API_CheckDown_Guarantor extends BaseController
             ];
 
             return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '9000',
+                'code' => (string)$e->getCode() ?: '9000',
                 'status' => $MsgError[(string)$e->getCode()]['status'] ?: 'System Error',
                 'message' => $e->getMessage()
             ));

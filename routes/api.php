@@ -14,6 +14,7 @@ use App\Http\Controllers\UFUND\API_Quatation;
 use App\Http\Controllers\UFUND\API_PROSPECT_CUSTOMER;
 use App\Http\Controllers\UFUND\API_ADDRESS_PROSCPECT;
 
+use App\Http\Controllers\UFUND\API_OTP;
 use App\Http\Controllers\UFUND\API_MT_Controller;
 use App\Http\Controllers\UFUND\API_CheckDown_Guarantor;
 use App\Http\Controllers\API_Connect_to_D365;
@@ -58,10 +59,26 @@ header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Author
 
 ///////////////////////////////---Auth----////////////////////////////////////////////
 
-Route::post('/Get_Token', [JWT_Controller::class, 'Get_Token']);
+// API_Admin
+Route::group(['middleware' => ['API_Admin']], function () {
+
+    Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
+
+    Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
+});
+
+
+Route::post('/GenToken', [API_USER_Auth::class, 'generateToken']);
+
+Route::get('/refreshToken', [API_USER_Auth::class, 'refreshToken']);
+
+///////////////////////////////---END Auth----////////////////////////////////////////////
+
+
+// API_USER_Auth
 
 // Route::group(['middleware' => ['JWT_Token', 'throttle:api']], function () {
-Route::group(['middleware' => ['API_CheckUser']], function () {
+Route::group(['middleware' => ['JWT_Token']], function () {
 
     // Route::post('new_customer', [API_STATE_QUOTATION::class, 'New_Quatation']);
 
@@ -74,9 +91,8 @@ Route::group(['middleware' => ['API_CheckUser']], function () {
     // State Quatation
     // Route::post('new_Quotation', [API_STATE_QUOTATION::class, 'State_Quotation']);
 
-    Route::post('new_Quotation', function () {
-        return abort(403);
-    });
+
+    Route::get('/test_auth', [INTEREST_EFFECTIVE::class, 'CalculateEFFECTIVE']);
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -85,6 +101,10 @@ Route::group(['middleware' => ['API_CheckUser']], function () {
 
 
     ///////////////////////////////////////////////////////////////////////////
+
+    Route::post('new_Quotation', function () {
+        return 'test';
+    });
 });
 
 Route::get('SKU_GetProduct', [API_GET_Product::class, 'SKU_GetProduct']);
@@ -165,6 +185,10 @@ Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
 //     Route::get('/master_faculty', [API_MT_Controller::class, 'GET_MT_FACULTY']);
 // });
 
+Route::post('/sms_otp', [API_OTP::class, 'SendSMS_OTP']);
+
+Route::post('/mail_otp', [API_OTP::class, 'SendEMail_OTP']);
+
 
 Route::get('/MT_STATUS', [API_MT_Controller::class, 'GET_MT_STATUS']);
 
@@ -223,23 +247,6 @@ Route::get('/CalculateEFFECTIVE', [INTEREST_EFFECTIVE::class, 'CalculateEFFECTIV
 
 // Bill Payment
 Route::post('/SCBbillPayment', [API_SCB_Bill_H2H::class, 'SCB_Routing']);
-
-// API_Admin
-Route::group(['middleware' => ['API_Admin']], function () {
-
-    Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
-
-    Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
-});
-
-// API_USER_Auth
-Route::group(['middleware' => ['API_CheckUser']], function () {
-
-    // Route::post('/Create_User_API', [API_USER_Auth::class, 'CreateUser']);
-
-    // Route::post('/Update_User_API', [API_USER_Auth::class, 'UpdateUser']);
-
-});
 
 
 // API I-Care

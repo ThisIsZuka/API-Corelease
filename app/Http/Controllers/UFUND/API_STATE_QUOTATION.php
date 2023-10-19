@@ -69,7 +69,7 @@ class API_STATE_QUOTATION extends BaseController
             // dd($Return_PROSPECT_CUS);
 
             return response()->json(array(
-                'Code' => '0000',
+                'code' => '0000',
                 'status' => 'Success',
                 'data' => $NEW_QT
             ));
@@ -80,7 +80,7 @@ class API_STATE_QUOTATION extends BaseController
             $options = $e->GetOptions();
             // dd($options->Code);
             return response()->json(array(
-                'Code' => $options->Code,
+                'code' => $options->Code,
                 'status' => $options->status,
                 'message' => $options->message
             ));

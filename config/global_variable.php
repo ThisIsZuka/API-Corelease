@@ -13,5 +13,7 @@ return [
     'MAILBIT_ClientID' => env('MAILBIT_ClientID'),
     'MAILBIT_SenderId' => env('MAILBIT_SenderId'),
 
+    'NIPAMAIL_TokenKey' => env('NIPAMAIL_TokenKey'),
+
     'E_TAX_APIKey' => env('E_TAX_APIKey')
 ];

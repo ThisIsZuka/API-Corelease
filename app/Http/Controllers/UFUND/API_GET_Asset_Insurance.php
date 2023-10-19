@@ -62,7 +62,7 @@ class API_GET_Asset_Insurance extends BaseController
                 $INSURE = DB::select("SET NOCOUNT ON ; exec SP_GET_MT_INSURE_MT_SERIES_DETAIL @SERIES_ID_INPUT = '" . $product[0]->SERIES . "'  ");
 
 
-                $return_data->Code = '0000';
+                $return_data->code = '0000';
                 $return_data->status = 'Sucsess';
                 $return_data->data = (array(
                     'ASSETS' => $ASSETS_INFO,
@@ -89,14 +89,14 @@ class API_GET_Asset_Insurance extends BaseController
 
             if ($e->getPrevious() != null) {
                 return response()->json(array(
-                    'Code' => '9000',
+                    'code' => '9000',
                     'status' =>  'System Error',
                     'message' => $e->getPrevious()->getMessage(),
                 ));
             }
 
             return response()->json(array(
-                'Code' => (string)$e->getCode() ?: '1000',
+                'code' => (string)$e->getCode() ?: '1000',
                 'status' =>  $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
                 'message' => $e->getMessage()
             ));

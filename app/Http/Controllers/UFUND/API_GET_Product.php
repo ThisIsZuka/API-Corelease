@@ -24,11 +24,13 @@ class API_GET_Product extends BaseController
             $return_data = new \stdClass();
 
             $MT = DB::table('dbo.ASSETS_INFORMATION')
-                ->select('MODELNUMBER','DESCRIPTION')
+                // ->select('MODELNUMBER','DESCRIPTION')
+                ->select('*')
                 ->where('STATUS_ID', '6')
+                ->limit(10)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -36,7 +38,7 @@ class API_GET_Product extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return response()->json(array(
-                'Code' => '9000',
+                'code' => '9000',
                 'status' => 'System Error',
                 'message' => $e->getMessage()
                 // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'

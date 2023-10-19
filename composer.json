@@ -8,7 +8,7 @@
         "php": "^7.3|^8.0",
         "darkaonline/l5-swagger": "^8.0",
         "dompdf/dompdf": "^2.0",
-        // "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^2.0",
         "gumlet/php-image-resize": "2.0.*",
         "guzzlehttp/guzzle": "*",
         "laravel/framework": "^8.54",
@@ -17,9 +17,9 @@
         "laravel/ui": "*",
         "nyholm/psr7": "^1.5",
         "predis/predis": "^2.0",
-        "rbdwllr/reallysimplejwt": "^3.5",
         "spatie/crypto": "^2.0",
-        "symfony/psr-http-message-bridge": "^2.1"
+        "symfony/psr-http-message-bridge": "^2.1",
+        "tymon/jwt-auth": "^1.0@dev"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

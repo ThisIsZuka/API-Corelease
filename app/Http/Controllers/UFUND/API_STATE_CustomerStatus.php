@@ -61,7 +61,7 @@ class API_STATE_CustomerStatus extends BaseController
             }
 
             return response()->json(array(
-                'Code' => '0000',
+                'code' => '0000',
                 'status' => 'Success',
                 'data' => $return_data
             ));
@@ -83,7 +83,7 @@ class API_STATE_CustomerStatus extends BaseController
 
         if($QT == 0){
             return response()->json(array(
-                'Code' => '1000',
+                'code' => '1000',
                 'status' => 'Invalid Data',
                 'message' => '$e->getMessage()'
             ));

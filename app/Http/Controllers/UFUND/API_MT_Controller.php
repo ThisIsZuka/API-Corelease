@@ -22,7 +22,7 @@ class API_MT_Controller extends BaseController
             }
 
             return response()->json(array(
-                'Code' => '2000',
+                'code' => '2000',
                 'status' => 'Invalid condition',
                 'message' => $message
                 // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
@@ -40,7 +40,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -62,7 +62,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -84,7 +84,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -108,7 +108,7 @@ class API_MT_Controller extends BaseController
                 ->where('Ocpt_name', 'like', '%นักเรียน%')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -131,7 +131,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -154,7 +154,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -177,7 +177,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -201,7 +201,7 @@ class API_MT_Controller extends BaseController
                 ->where('ACTIVE_STATUS', '=', 'T')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -237,7 +237,7 @@ class API_MT_Controller extends BaseController
                 })
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -260,7 +260,7 @@ class API_MT_Controller extends BaseController
                 ->where('ACTIVE_STATUS', 'T')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -284,7 +284,7 @@ class API_MT_Controller extends BaseController
                 ->where('ACTIVE_STATUS', '1')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -311,7 +311,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SERIES.BRAND_ID', $data_get)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -340,7 +340,7 @@ class API_MT_Controller extends BaseController
                 ->distinct('MT_SUB_SERIES.SUB_SERIES_ID')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -367,7 +367,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SERIES.SERIES_ID', $data_get)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -391,7 +391,7 @@ class API_MT_Controller extends BaseController
                 ->where('DESCRIPTION', 'like', '%Apple Pencil%')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -417,7 +417,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_SERIES.SERIES_ID', '=', $data_get)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -439,7 +439,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -461,7 +461,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -483,7 +483,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -512,7 +512,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_DISTRICT.PROVINCE_ID', $data_get)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -537,7 +537,7 @@ class API_MT_Controller extends BaseController
                 ->where('DISTRICT_ID', $data_get)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -578,7 +578,7 @@ class API_MT_Controller extends BaseController
                             ->where('MT_UNIVERSITY_ID', '!=', '0')
                             ->get();
 
-                        $return_data->Code = '0000';
+                        $return_data->code = '0000';
                         $return_data->status = 'Sucsess';
                         $return_data->data = $MT;
                     } else {
@@ -593,7 +593,7 @@ class API_MT_Controller extends BaseController
                             ->where('MT_UNIVERSITY_ID', '!=', '0')
                             ->get();
 
-                        $return_data->Code = '0000';
+                        $return_data->code = '0000';
                         $return_data->status = 'Sucsess';
                         $return_data->data = $MT;
                     }
@@ -609,7 +609,7 @@ class API_MT_Controller extends BaseController
                         ->where('MT_UNIVERSITY_ID', '!=', '0')
                         ->get();
 
-                    $return_data->Code = '0000';
+                    $return_data->code = '0000';
                     $return_data->status = 'Sucsess';
                     $return_data->data = $MT;
                 }
@@ -629,7 +629,7 @@ class API_MT_Controller extends BaseController
 
                 // dd($MT);
 
-                $return_data->Code = '0000';
+                $return_data->code = '0000';
                 $return_data->status = 'Sucsess';
                 // $return_data->page = $MT->currentPage();
                 // $return_data->data = $MT->items();
@@ -656,7 +656,7 @@ class API_MT_Controller extends BaseController
                 ->where('MT_UNIVERSITY_ID', $data_get)
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
@@ -677,7 +677,7 @@ class API_MT_Controller extends BaseController
                 ->select('*')
                 ->get();
 
-            $return_data->Code = '0000';
+            $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
