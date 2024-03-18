@@ -11,68 +11,62 @@ use DateTimeZone;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\UFUND\Error_Exception;
 use App\Models\ASSETS_INFORMATION;
-
 use stdClass;
 
-class API_GET_ASSEST extends BaseController
+class ApiGetWarrantee extends BaseController
 {
 
-    public function API_GET_ASSEST(Request $request)
+    public $Error_Exception;
+
+    public function __construct()
+    {
+        $this->Error_Exception = new Error_Exception;
+    }
+
+    public function API_GET_Warrantee(Request $request)
     {
         try {
 
             $return_data = new stdClass;
             $data = $request->all();
 
-            $validate = [
-                "PRODUCT_SERIES" => [
-                    'message' => 'Request Parameter [PRODUCT_SERIES]',
-                    // 'message' => [
-                    //     'TH' => 'ข้อมูลสินค้าไม่ถูกต้อง',
-                    //     'EN' => 'Product invalid'
-                    // ],
-                    'numeric' => true,
-                ],
+            $validationRules = [
+                'PRODUCT_SERIES' => 'required|integer',
             ];
 
-            foreach ($validate as $key => $value) {
-                if (!isset($data[$key])) {
-                    throw new Exception($value['message'], 1000);
-                }
+            $attributeNames = [
+                'PRODUCT_SERIES' => 'PRODUCT_SERIES',
+            ];
 
-                if ($value['numeric'] == true) {
-                    if (!is_numeric($data[$key])) {
-                        throw new Exception('Request Type of $(int) [' . $key . ']', 1000);
-                        // throw new Exception(json_encode($value['message']));
-                    }
-                }
+            $validator = Validator::make($data, $validationRules, [], $attributeNames);
+
+            if ($validator->fails()) {
+                throw new Exception($validator->errors()->first(), 2000);
             }
 
             $product = ASSETS_INFORMATION::where('MODELNUMBER', $data['PRODUCT_SERIES'])->first();
 
             if (!$product) {
                 throw new Exception("Not Found [PRODUCT_SERIES]", 2000);
-                // $mes_error = (object)[
-                //     'TH' => 'ไม่พบข้อมูลสินค้า',
-                //     'EN' => 'Not found product'
-                // ];
-                // throw new Exception(json_encode($mes_error));
             }
 
             // dd($product);
 
             try {
                 // $check_Down = DB::select("exec SP_Check_DownPercentAndGuarantor @CATE_Input = '" . $product[0]->ASSETS_CATEGORY . "' , @SERIES_Input = '" . $product[0]->SERIES . "' ,@FAC_Input = '" . $data['FACULTY_ID'] . "' , @UNI_Input = '" . $data['UNIVERSITY_ID'] . "' , @DownMAX = '0' , @Guarantor = '0' , @CheckDefault = '0' ");
-                $ASSETS_INFO = DB::select("SET NOCOUNT ON ; exec SP_GET_ASSETS_INFORMATION_REF_DETAIL @SERIES_CODE_INPUT = '" . $product->SERIES . "'  ");
+                $INSURE = DB::select("SET NOCOUNT ON ; exec SP_GET_MT_INSURE_MT_SERIES_DETAIL @SERIES_ID_INPUT = '" . $product->SERIES . "'  ");
+                $responseData = new stdClass;
 
                 $return_data->code = '0000';
                 $return_data->status = 'Sucsess';
-                $return_data->data = $ASSETS_INFO;
+                $return_data->data = $INSURE;
+                // dd($return_data);
 
                 return $return_data;
             } catch (Exception $e) {
-                throw new Exception("Data Error. Please Check variable", 2000);
+                throw new Exception("Data invalid. Please Check variable", 2000);
                 // $mes_error = (object)[
                 //     'TH' => 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
                 //     'EN' => 'Data invalid. please try again'
@@ -81,6 +75,7 @@ class API_GET_ASSEST extends BaseController
             }
 
         } catch (Exception $e) {
+
             $MsgError = [
                 "1000" => [
                     'status' => 'Invalid Data',
@@ -93,6 +88,8 @@ class API_GET_ASSEST extends BaseController
                 ],
             ];
 
+            // dd($e);
+            // $getPrevious = $e->getPrevious();
             if ($e->getPrevious() != null) {
                 return response()->json(array(
                     'code' => '9000',
@@ -103,9 +100,10 @@ class API_GET_ASSEST extends BaseController
 
             return response()->json(array(
                 'code' => (string)$e->getCode() ?: '1000',
-                'status' =>  $MsgError[(string)$e->getCode()]['status'] ?: 'Invalid Data' ,
+                'status' =>  $MsgError[(string)$e->getCode()]['status'] ? : 'Invalid Data' ,
                 'message' => $e->getMessage()
             ));
+
         }
     }
 }

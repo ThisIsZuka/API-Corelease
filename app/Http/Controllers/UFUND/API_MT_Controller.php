@@ -4,8 +4,34 @@ namespace App\Http\Controllers\UFUND;
 
 use Illuminate\Routing\Controller as BaseController;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\UFUND\Error_Exception;
+use App\Models\MT_PREFIX;
+use App\Models\MT_NATIONALITY;
+use App\Models\MT_MARITAL_STATUS;
+use App\Models\MT_OCCUPATION;
+use App\Models\MT_LEVEL_TYPE;
+use App\Models\MT_LEVEL;
+use App\Models\MT_RELATIONSHIP_REF;
+use App\Models\MT_BRANCH_TYPE;
+use App\Models\SETUP_COMPANY_BRANCH;
+use App\Models\MT_UNIVERSITY_NAME;
+use App\Models\MT_FACULTY;
+use App\Models\MT_STATUS;
+use App\Models\MT_SERIES;
+use App\Models\MT_BRAND;
+use App\Models\MT_POST_CODE;
+use App\Models\MT_RESIDENCE_STATUS;
+use App\Models\MT_INSTALLMENT;
+use App\Models\MT_PROVINCE;
+use App\Models\MT_DISTRICT;
+use App\Models\MT_SUB_DISTRICT;
+use App\Models\MT_Narcotic;
+use App\Models\MT_DISEASE;
+use App\Models\ASSETS_INFORMATION;
+use App\Helpers\Helper;
 use Exception;
 use Session;
 
@@ -13,20 +39,24 @@ use Session;
 class API_MT_Controller extends BaseController
 {
 
-    function return_Error($e){
-        $previous = $e->getPrevious();
-            if ($previous) {
-                $message = $previous->getMessage();
-            } else {
-                $message = $e->getMessage();
-            }
+    function return_Error($e)
+    {
+        // $previous = $e->getPrevious();
+        // if ($previous) {
+        //     $message = $previous->getMessage();
+        // } else {
+        //     $message = $e->getMessage();
+        // }
 
-            return response()->json(array(
-                'code' => '2000',
-                'status' => 'Invalid condition',
-                'message' => $message
-                // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
-            ));
+        $Error_Exception = new Error_Exception();
+        return $Error_Exception->Msg_error($e);
+
+        // return response()->json(array(
+        //     'code' => '2000',
+        //     'status' => 'Invalid condition',
+        //     'message' => $message
+        //     // 'message' => 'ระบบเกิดข้อผิดพลาด โปรดลองอีกครั้ง'
+        // ));
     }
 
     // คำนำหน้าชื่อ
@@ -36,9 +66,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_PREFIX')
-                ->select('*')
-                ->get();
+            $MT = MT_PREFIX::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -48,6 +76,7 @@ class API_MT_Controller extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -58,9 +87,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_NATIONALITY')
-                ->select('*')
-                ->get();
+            $MT =  MT_NATIONALITY::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -70,6 +97,7 @@ class API_MT_Controller extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -80,9 +108,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_MARITAL_STATUS')
-                ->select('*')
-                ->get();
+            $MT = MT_MARITAL_STATUS::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -92,6 +118,7 @@ class API_MT_Controller extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -103,10 +130,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_OCCUPATION')
-                ->select('*')
-                ->where('Ocpt_name', 'like', '%นักเรียน%')
-                ->get();
+            $MT = MT_OCCUPATION::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -116,6 +140,7 @@ class API_MT_Controller extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -127,9 +152,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_LEVEL_TYPE')
-                ->select('*')
-                ->get();
+            $MT = MT_LEVEL_TYPE::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -139,6 +162,7 @@ class API_MT_Controller extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -150,9 +174,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_LEVEL')
-                ->select('*')
-                ->get();
+            $MT =   MT_LEVEL::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -162,6 +184,7 @@ class API_MT_Controller extends BaseController
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -173,18 +196,16 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_RELATIONSHIP_REF')
-                ->select('*')
-                ->get();
+            $MT = MT_RELATIONSHIP_REF::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
-
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -196,46 +217,45 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_BRANCH_TYPE')
-                ->select('*')
-                ->where('ACTIVE_STATUS', '=', 'T')
-                ->get();
+            $MT = MT_BRANCH_TYPE::WHERE('ACTIVE_STATUS', 'T')->get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
 
-
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
 
     // สาขา
-    public function SETUP_COMPANY_BRANCH(Request $request)
+    public function SETUP_COMPANY_BRANCH(Request $request, $id)
     {
         try {
 
             $return_data = new \stdClass();
 
-            $data_get = $request->BRANCH_TYPE_ID;
-            $data_search = $request->Search ?: null;
-            // dd($data_search);
+            $validationRules = [
+                'branch_id' => 'required|integer',
+            ];
 
-            $MT = DB::table('dbo.SETUP_COMPANY_BRANCH')
-                ->select('COMP_BRANCH_ID', 'COMPANY_CODE', 'BRANCH_CODE', 'SETUP_COMPANY_BRANCH.BRANCH_TYPE', 'SETUP_COMPANY_BRANCH.BRANCH_NAME', 'BRANCH_SHORT_NAME', 'BRANCH_ADDRESS', 'PHONE_01', 'PHONE_02', 'PHONE_03', 'BRANCH_AD', 'DEP_CODE', 'BRANCH_EMAIL', 'SETUP_COMPANY_BRANCH.ACTIVE_STATUS')
-                ->leftJoin('MT_BRANCH_TYPE', 'SETUP_COMPANY_BRANCH.BRANCH_TYPE', '=', 'MT_BRANCH_TYPE.BRANCH_TYPE_ID')
-                ->where('SETUP_COMPANY_BRANCH.ACTIVE_STATUS', '=', 'T')
-                ->where('MT_BRANCH_TYPE.ACTIVE_STATUS', '=', 'T')
-                ->where('SETUP_COMPANY_BRANCH.BRANCH_TYPE', '=', $data_get)
-                // ->where('BRANCH_SHORT_NAME', 'LIKE', '%' . $data_search . '%')
-                ->where(function ($query) use ($data_search) {
-                    $query->where('BRANCH_SHORT_NAME', 'LIKE', '%' . $data_search . '%');
-                    $query->orWhere('BRANCH_ADDRESS', 'LIKE', '%' . $data_search . '%');
-                })
-                ->get();
+            $attributeNames = [
+                'branch_id' => 'BRANCH_ID',
+            ];
+
+            $validator = Validator::make(['branch_id' => $id], $validationRules, [], $attributeNames);
+
+            if ($validator->fails()) {
+                throw new Exception($validator->errors()->first(), 2000);
+            }
+
+            $BRANCH_TYPE_ID = $request->BRANCH_TYPE_ID;
+            $TxtSearch = $request->Search ?: null;
+
+            $MT = SETUP_COMPANY_BRANCH::getSetupCompanyBranch($BRANCH_TYPE_ID, $TxtSearch);
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -246,187 +266,6 @@ class API_MT_Controller extends BaseController
             return $this->return_Error($e);
         }
     }
-
-
-    // หมวดสินค้า
-    public function MT_CATEGORY()
-    {
-        try {
-
-            $return_data = new \stdClass();
-
-            $MT = DB::table('dbo.MT_CATEGORY')
-                ->select('*')
-                ->where('ACTIVE_STATUS', 'T')
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
-
-    // ยี่ห้อสินค้า
-    public function MT_BRAND()
-    {
-        try {
-
-            $return_data = new \stdClass();
-
-            $MT = DB::table('dbo.MT_BRAND')
-                ->select('*')
-                ->where('ACTIVE_STATUS', '1')
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
-
-    // รุ่นสินค้า
-    public function MT_SERIES(Request $request)
-    {
-        try {
-
-            $return_data = new \stdClass();
-            $data_get = $request->BRAND_ID;
-
-            $MT = DB::table('dbo.MT_SERIES')
-                ->select('*')
-                ->where('BRAND_NAME', 'Apple')
-                ->where('MT_SERIES.ACTIVE_STATUS', 'T')
-                ->where('MT_SERIES.BRAND_ID', $data_get)
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
-
-    // ความจุ
-    public function MT_SUB_SERIES(Request $request)
-    {
-        try {
-
-            $return_data = new \stdClass();
-            $data_get = $request->SERIES_ID;
-
-            $MT = DB::table('dbo.MT_SUB_SERIES')
-                ->select('MT_SUB_SERIES.SUB_SERIES_ID', 'MT_SUB_SERIES.SUB_SERIES_CODE', 'MT_SUB_SERIES.SUB_SERIES_NAME', 'MT_SUB_SERIES.SERIES_ID', 'MT_SUB_SERIES.SERIES_NAME', 'ASSETS_INFORMATION.PRICE', 'MT_SUB_SERIES.ACTIVE_STATUS')
-                ->leftJoin('MT_SERIES', 'MT_SUB_SERIES.SERIES_ID', '=', 'MT_SERIES.SERIES_ID')
-                ->leftJoin('ASSETS_INFORMATION', 'MT_SUB_SERIES.SUB_SERIES_ID', '=', 'ASSETS_INFORMATION.SUB_SERIES')
-                ->where('MT_SUB_SERIES.ACTIVE_STATUS', 'T')
-                ->where('MT_SUB_SERIES.SERIES_ID', $data_get)
-                ->distinct('MT_SUB_SERIES.SUB_SERIES_ID')
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
-
-    // สี
-    public function MT_COLOR(Request $request)
-    {
-        try {
-
-            $return_data = new \stdClass();
-            $data_get = $request->SERIES_ID;
-
-            $MT = DB::table('dbo.MT_COLOR')
-                ->select('MT_COLOR.MT_COLOR_ID', 'MT_COLOR.COLOR_NAME', 'MT_COLOR.SUB_SERIES_ID', 'MT_COLOR.SERIES_ID', 'MT_COLOR.ACTIVE_STATUS')
-                ->leftJoin('MT_SERIES', 'MT_COLOR.SERIES_ID', '=', 'MT_SERIES.SERIES_ID')
-                ->where('MT_COLOR.ACTIVE_STATUS', 'T')
-                ->where('MT_SERIES.SERIES_ID', $data_get)
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
-
-    // อุปกรณ์เสริม
-    public function ASSETS_INFORMATION()
-    {
-        try {
-
-            $return_data = new \stdClass();
-
-            $MT = DB::table('dbo.ASSETS_INFORMATION')
-                ->select('*')
-                ->where('DESCRIPTION', 'like', '%Apple Pencil%')
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
-
-    // บริการคุ้มครองเสริม
-    public function INSURE(Request $request)
-    {
-        try {
-
-            $return_data = new \stdClass();
-            $data_get = $request->SERIES_ID;
-
-            $MT = DB::table('dbo.MT_INSURE')
-                ->select('MT_INSURE.INSURE_PRODUCT_CODE', 'MT_INSURE.INSURE_PRODUCT_NAME', 'MT_INSURE.INSURE_PRICE', 'MT_INSURE.SERIES_ID', 'MT_SERIES.SERIES_NAME')
-                ->leftJoin('MT_SERIES', 'MT_SERIES.SERIES_ID', '=', 'MT_INSURE.SERIES_ID')
-                ->where('MT_INSURE.ACTIVE_STATUS', '=', '1')
-                ->where('MT_SERIES.SERIES_ID', '=', $data_get)
-                ->get();
-
-            $return_data->code = '0000';
-            $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
-
-            return $return_data;
-        } catch (Exception $e) {
-            return $this->return_Error($e);
-        }
-    }
-
 
     // จำนวนงวด
     public function MT_INSTALLMENT()
@@ -435,9 +274,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_INSTALLMENT')
-                ->select('*')
-                ->get();
+            $MT  = MT_INSTALLMENT::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -457,9 +294,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_RESIDENCE_STATUS')
-                ->select('*')
-                ->get();
+            $MT = MT_RESIDENCE_STATUS::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -479,9 +314,7 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_PROVINCE')
-                ->select('*')
-                ->get();
+            $MT = MT_PROVINCE::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -495,22 +328,28 @@ class API_MT_Controller extends BaseController
 
 
     // อำเภอ
-    public function MT_DISTRICT(Request $request)
+    public function MT_DISTRICT(Request $request, $id)
     {
         try {
 
             $return_data = new \stdClass();
-            $data_get = $request->PROVINCE_ID;
+            // $data_get = $request->PROVINCE_ID;
 
-            if ($data_get == null) {
-                return response()->json(array('message' => 'Sorry, wrong Data. Please try again'));
+            $validationRules = [
+                'province_id' => 'required|integer',
+            ];
+
+            $attributeNames = [
+                'province_id' => 'PROVINCE_ID',
+            ];
+
+            $validator = Validator::make(['province_id' => $id], $validationRules, [], $attributeNames);
+
+            if ($validator->fails()) {
+                throw new Exception($validator->errors()->first(), 2000);
             }
 
-            $MT = DB::table('dbo.MT_DISTRICT')
-                ->select('*')
-                ->leftJoin('MT_PROVINCE', 'MT_DISTRICT.PROVINCE_ID', '=', 'MT_PROVINCE.PROVINCE_ID')
-                ->where('MT_DISTRICT.PROVINCE_ID', $data_get)
-                ->get();
+            $MT = MT_DISTRICT::GetDistrictWithProvinceID($id);
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -524,26 +363,36 @@ class API_MT_Controller extends BaseController
 
 
     // ตำบล
-    public function MT_SUB_DISTRICT(Request $request)
+    public function MT_SUB_DISTRICT(Request $request, $id)
     {
         try {
 
             $return_data = new \stdClass();
-            $data_get = $request->DISTRICT_ID;
 
-            $MT = DB::table('dbo.MT_SUB_DISTRICT')
-                ->select('MT_SUB_DISTRICT.SUB_DISTRICT_ID', 'MT_SUB_DISTRICT.SUB_DISTRICT_NAME', 'MT_SUB_DISTRICT.DISTRICT_ID', 'MT_POST_CODE.POST_CODE_ID')
-                ->leftJoin('MT_POST_CODE', 'MT_SUB_DISTRICT.SUB_DISTRICT_ID', '=', 'MT_POST_CODE.SUB_DISTRICT_ID')
-                ->where('DISTRICT_ID', $data_get)
-                ->get();
+            $validationRules = [
+                'district_id' => 'required|integer',
+            ];
+
+            $attributeNames = [
+                'district_id' => 'DISTRICT_ID',
+            ];
+
+            $validator = Validator::make(['district_id' => $id], $validationRules, [], $attributeNames);
+
+            if ($validator->fails()) {
+                throw new Exception($validator->errors()->first(), 2000);
+            }
+
+            $MT_SUB_DISTRICT = MT_SUB_DISTRICT::getSubDistrictsWithPostCode($id);
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
-            $return_data->data = $MT;
+            $return_data->data = $MT_SUB_DISTRICT;
 
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
+            // return Helper::return_Error($e);
         }
     }
 
@@ -554,87 +403,31 @@ class API_MT_Controller extends BaseController
         try {
             $return_data = new \stdClass();
             $data = $request->all();
-            // var_dump($data['PROVINCE_ID']);
-            if (isset($data['PROVINCE_ID'])) {
-                if (!preg_match('/^\d+$/', $data['PROVINCE_ID'])) {
-                    $return_data->status = 'Failed';
-                    $return_data->message = 'Request Type of $(int) [PROVINCE_ID]';
-                } else if ($data['PROVINCE_ID'] == 10) {
-                    if (isset($data['DISTRICT_ID'])) {
-                        if (!preg_match('/^\d+$/', $data['DISTRICT_ID'])) {
-                            $return_data->status = 'Failed';
-                            $return_data->message = 'Request Type of $(int) [DISTRICT_ID]';
-                            return $return_data;
-                        }
-                        $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
-                            ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID')
-                            ->where('PROVINCE_ID', $data['PROVINCE_ID'])
-                            ->where('DISTRICT_ID', $data['DISTRICT_ID'])
-                            ->where(function ($query) use ($data) {
-                                if (isset($data['U_Search'])) {
-                                    $query->where('UNIVERSITY_NAME', 'LIKE', '%' . $data['U_Search'] . '%');
-                                }
-                            })
-                            ->where('MT_UNIVERSITY_ID', '!=', '0')
-                            ->get();
 
-                        $return_data->code = '0000';
-                        $return_data->status = 'Sucsess';
-                        $return_data->data = $MT;
-                    } else {
-                        $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
-                            ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID')
-                            ->where('PROVINCE_ID', $data['PROVINCE_ID'])
-                            ->where(function ($query) use ($data) {
-                                if (isset($data['U_Search'])) {
-                                    $query->where('UNIVERSITY_NAME', 'LIKE', '%' . $data['U_Search'] . '%');
-                                }
-                            })
-                            ->where('MT_UNIVERSITY_ID', '!=', '0')
-                            ->get();
+            $validationRules = [
+                'PROVINCE_ID' => 'nullable|integer',
+                'DISTRICT_ID' => 'nullable|integer',
+                'U_Search' => 'nullable|string'
+            ];
 
-                        $return_data->code = '0000';
-                        $return_data->status = 'Sucsess';
-                        $return_data->data = $MT;
-                    }
-                } else {
-                    $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
-                        ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID')
-                        ->where('PROVINCE_ID', $data['PROVINCE_ID'])
-                        ->where(function ($query) use ($data) {
-                            if (isset($data['U_Search'])) {
-                                $query->where('UNIVERSITY_NAME', 'LIKE', '%' . $data['U_Search'] . '%');
-                            }
-                        })
-                        ->where('MT_UNIVERSITY_ID', '!=', '0')
-                        ->get();
+            $attributeNames = [
+                'PROVINCE_ID' => 'PROVINCE_ID',
+                'DISTRICT_ID' => 'DISTRICT_ID',
+                'U_Search' => 'U_Search'
+            ];
 
-                    $return_data->code = '0000';
-                    $return_data->status = 'Sucsess';
-                    $return_data->data = $MT;
-                }
-            } else {
+            $validator = Validator::make($data, $validationRules, [], $attributeNames);
 
-                $MT = DB::table('dbo.MT_UNIVERSITY_NAME')
-                    ->select('MT_UNIVERSITY_ID', 'UNIVERSITY_CODE', 'UNIVERSITY_NAME', 'PROVINCE_ID', 'DISTRICT_ID')
-                    ->where(function ($query) use ($data) {
-                        if (isset($data['U_Search'])) {
-                            $query->where('UNIVERSITY_NAME', 'LIKE', '%' . $data['U_Search'] . '%');
-                        }
-                    })
-                    ->where('MT_UNIVERSITY_ID', '!=', '0')
-                    // ->orderByRaw("CASE WHEN UNIVERSITY_CODE IS NULL THEN 0 ELSE 1 END DESC")
-                    ->get();
-                    // ->paginate(100);
 
-                // dd($MT);
-
-                $return_data->code = '0000';
-                $return_data->status = 'Sucsess';
-                // $return_data->page = $MT->currentPage();
-                // $return_data->data = $MT->items();
-                $return_data->data = $MT;
+            if ($validator->fails()) {
+                throw new Exception($validator->errors()->first(), 2000);
             }
+
+            $MT = MT_UNIVERSITY_NAME::searchUniversity($data);
+
+            $return_data->code = '0000';
+            $return_data->status = 'Success';
+            $return_data->data = $MT;
 
             return $return_data;
         } catch (Exception $e) {
@@ -651,10 +444,7 @@ class API_MT_Controller extends BaseController
             $return_data = new \stdClass();
             $data_get = $request->MT_UNIVERSITY_ID;
 
-            $MT = DB::table('dbo.MT_FACULTY')
-                ->select('MT_FACULTY_ID', 'FACULTY_NAME', 'MT_CAMPUS_ID', 'MT_UNIVERSITY_ID', 'UNIVERSITY_CODE')
-                ->where('MT_UNIVERSITY_ID', $data_get)
-                ->get();
+            $MT = MT_FACULTY::WHERE('MT_UNIVERSITY_ID', $data_get)->get(['MT_FACULTY_ID', 'FACULTY_NAME', 'MT_CAMPUS_ID', 'MT_UNIVERSITY_ID', 'UNIVERSITY_CODE']);
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
@@ -673,18 +463,56 @@ class API_MT_Controller extends BaseController
 
             $return_data = new \stdClass();
 
-            $MT = DB::table('dbo.MT_STATUS')
-                ->select('*')
-                ->get();
+            $MT = MT_STATUS::get();
 
             $return_data->code = '0000';
             $return_data->status = 'Sucsess';
             $return_data->data = $MT;
-
 
             return $return_data;
         } catch (Exception $e) {
             return $this->return_Error($e);
         }
     }
+
+    
+    // ประวัติการเสพสารเสพติด
+    public function MT_Narcotic()
+    {
+        try {
+
+            $return_data = new \stdClass();
+
+            $MT = MT_Narcotic::get()->where('Active_Status', 1);
+
+            $return_data->code = '0000';
+            $return_data->status = 'Sucsess';
+            $return_data->data = $MT;
+
+            return $return_data;
+        } catch (Exception $e) {
+            return $this->return_Error($e);
+        }
+    }
+
+
+    // โรคประจำตัว
+    public function MT_DISEASE()
+    {
+        try {
+
+            $return_data = new \stdClass();
+
+            $MT = MT_DISEASE::get()->where('Active_Status', 1);
+
+            $return_data->code = '0000';
+            $return_data->status = 'Sucsess';
+            $return_data->data = $MT;
+
+            return $return_data;
+        } catch (Exception $e) {
+            return $this->return_Error($e);
+        }
+    }
+
 }

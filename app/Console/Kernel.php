@@ -35,11 +35,15 @@ class Kernel extends ConsoleKernel
         $schedule->command('cron:PostICareAPI')->daily();
         $schedule->command('cron:Daily365')->daily();
 
-        $schedule->call(function () {
-            $NCB_formatter = new API_NCB_FORMATTER_v13;
-            $d = new DateTime();
-            $NCB_formatter->generate($d->format('Y-m-d'));
-        })->lastDayOfMonth('23:59');
+        $schedule->command('cron:convert_img')
+            ->everySecond()
+            ->between('20:00', '06:00');
+
+        // $schedule->call(function () {
+        //     $NCB_formatter = new API_NCB_FORMATTER_v13;
+        //     $d = new DateTime();
+        //     $NCB_formatter->generate($d->format('Y-m-d'));
+        // })->lastDayOfMonth('23:59');
 
         // $schedule->call(function () {
         //     $NCB_formatter = new API_NCB_FORMATTER_v13;
@@ -54,7 +58,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

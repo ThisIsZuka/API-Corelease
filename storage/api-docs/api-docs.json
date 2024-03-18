@@ -1,39 +1,34 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "L5 OpenApi API-Corelease",
-        "description": "L5 Swagger OpenApi description",
-        "version": "1.2.0"
+        "title": "API UFUND",
+        "description": "Api UFUND",
+        "version": "1.3.0"
     },
     "paths": {
-        "/api/Get_Token": {
+        "/api/GenToken": {
             "post": {
                 "tags": [
-                    "Authentication"
+                    "API Auth"
                 ],
-                "summary": "Login",
-                "description": "Get_Token",
-                "operationId": "Get_Token",
+                "summary": "Auth Get Token",
+                "description": "Authentication for get new token",
+                "operationId": "Gen Token",
                 "requestBody": {
-                    "description": "Customer information",
-                    "required": true,
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "username",
-                                    "password"
-                                ],
                                 "properties": {
                                     "username": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "api_ufund"
+                                        "example": "dev"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "format": "password",
-                                        "example": "U6undp0Rt4l"
+                                        "format": "string",
+                                        "example": "123456789"
                                     }
                                 },
                                 "type": "object"
@@ -50,7 +45,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -69,14 +64,14 @@
                 }
             }
         },
-        "/api/master_prefix": {
+        "/api/master/prefix": {
             "get": {
                 "tags": [
                     "API Personal Information"
                 ],
                 "summary": "Master Data คำนำหน้าชื่อ",
                 "description": "คำนำหน้าชื่อ",
-                "operationId": "Master_prefix",
+                "operationId": "Masterprefix",
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -86,7 +81,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -102,10 +97,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_nationality": {
+        "/api/master/nationality": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -122,7 +122,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -138,10 +138,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_marital_status": {
+        "/api/master/maritalstatus": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -158,7 +163,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -174,10 +179,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_occupation": {
+        "/api/master/occupation": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -194,7 +204,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -210,10 +220,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_level_type": {
+        "/api/master/level/type": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -230,7 +245,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -246,10 +261,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_level": {
+        "/api/master/level": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -266,7 +286,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -282,10 +302,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_rerationship_ref": {
+        "/api/master/rerationshipref": {
             "get": {
                 "tags": [
                     "API Personal Information"
@@ -302,7 +327,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -315,118 +340,25 @@
                                     },
                                     "type": "object"
                                 }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/master_branch_type": {
-            "get": {
-                "tags": [
-                    "API Branch"
-                ],
-                "summary": "Master Data ประเภทสาขา",
-                "description": "ประเภทสาขา",
-                "operationId": "master_branch_type",
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/master_setup_company/{BRANCH_TYPE_ID}": {
-            "post": {
-                "tags": [
-                    "API Branch"
-                ],
-                "summary": "Master Data สาขา",
-                "description": "สาขา",
-                "operationId": "master_setup_company",
-                "parameters": [
-                    {
-                        "name": "BRANCH_TYPE_ID",
-                        "in": "path",
-                        "description": "รหัสประเภทสาขา",
-                        "required": false
-                    }
-                ],
-                "requestBody": {
-                    "description": "Search text",
-                    "required": false,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "Search": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "ขอนแก่น"
-                                    }
-                                },
-                                "type": "object"
                             }
                         }
                     }
                 },
-                "responses": {
-                    "422": {
-                        "description": "Wrong credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "Code": {
-                                            "type": "string",
-                                            "example": "9999"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Sucsess"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "[...]"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
+                "security": [
+                    {
+                        "Authorization": []
                     }
-                }
+                ]
             }
         },
-        "/api/SKU_GetProduct": {
+        "/api/master/narcotic": {
             "get": {
                 "tags": [
-                    "API Product"
+                    "API Personal Information"
                 ],
-                "summary": "สินค้า",
-                "description": "รายการสินค้าที่เปิด",
-                "operationId": "SKU_GetProduct",
+                "summary": "Master Data ประวัติการเสพสารเสพติด",
+                "description": "ประวัติการเสพสารเสพติด",
+                "operationId": "master_narcotic",
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -436,7 +368,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -452,17 +384,22 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_installment": {
+        "/api/master/disease": {
             "get": {
                 "tags": [
-                    "API INSTALLMENT"
+                    "API Personal Information"
                 ],
-                "summary": "Master Data จำนวนงวด",
-                "description": "จำนวนงวด",
-                "operationId": "master_installment",
+                "summary": "Master Data โรคประจำตัว",
+                "description": "โรคประจำตัว",
+                "operationId": "master_disease",
                 "responses": {
                     "422": {
                         "description": "Wrong credentials response",
@@ -472,7 +409,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -488,10 +425,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_residence": {
+        "/api/master/residence": {
             "get": {
                 "tags": [
                     "API Address"
@@ -508,7 +450,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -524,10 +466,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_province": {
+        "/api/master/province": {
             "get": {
                 "tags": [
                     "API Address"
@@ -544,7 +491,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -560,10 +507,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_district/{PROVINCE_ID}": {
+        "/api/master/district/{PROVINCE_ID}": {
             "get": {
                 "tags": [
                     "API Address"
@@ -575,8 +527,12 @@
                     {
                         "name": "PROVINCE_ID",
                         "in": "path",
-                        "description": "รหัสจังหวัด เช่น 10",
-                        "required": false
+                        "description": "PROVINCE ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
                     }
                 ],
                 "responses": {
@@ -588,7 +544,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -604,10 +560,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_sub_district/{DISTRICT_ID}": {
+        "/api/master/sub/district/{DISTRICT_ID}": {
             "get": {
                 "tags": [
                     "API Address"
@@ -619,8 +580,12 @@
                     {
                         "name": "DISTRICT_ID",
                         "in": "path",
-                        "description": "รหัสอำเภอ เช่น 1001",
-                        "required": false
+                        "description": "DISTRICT ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1001
+                        }
                     }
                 ],
                 "responses": {
@@ -632,7 +597,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -648,10 +613,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_university": {
+        "/api/master/university": {
             "post": {
                 "tags": [
                     "API University"
@@ -696,7 +666,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -712,10 +682,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/master_faculty": {
+        "/api/master/faculty": {
             "get": {
                 "tags": [
                     "API University"
@@ -727,8 +702,12 @@
                     {
                         "name": "MT_UNIVERSITY_ID",
                         "in": "query",
-                        "description": "รหัสมหาวิทยาลัย เช่น 2",
-                        "required": false
+                        "description": "UNIVERSITY ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 2
+                        }
                     }
                 ],
                 "responses": {
@@ -740,7 +719,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -756,10 +735,544 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/new_Quotation": {
+        "/api/master/branch/type": {
+            "get": {
+                "tags": [
+                    "API Branch"
+                ],
+                "summary": "Master Data ประเภทสาขา",
+                "description": "ประเภทสาขา",
+                "operationId": "master_branch_type",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/setupcompany/{BRANCH_TYPE_ID}": {
+            "post": {
+                "tags": [
+                    "API Branch"
+                ],
+                "summary": "Master Data สาขา",
+                "description": "สาขา",
+                "operationId": "master_setup_company",
+                "parameters": [
+                    {
+                        "name": "BRANCH_TYPE_ID",
+                        "in": "path",
+                        "description": "รหัสประเภทสาขา",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 2
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Search text",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Search": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "ขอนแก่น"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/category": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "Category",
+                "description": "Category",
+                "operationId": "Category",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/brand": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "Brand",
+                "description": "Brand",
+                "operationId": "Brand",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/series/{BRAND_ID}": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "Series",
+                "description": "Series",
+                "operationId": "Series",
+                "parameters": [
+                    {
+                        "name": "BRAND_ID",
+                        "in": "path",
+                        "description": "id product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/color/{SERIES_ID}": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "Color",
+                "description": "Color Product",
+                "operationId": "ColorProduct",
+                "parameters": [
+                    {
+                        "name": "SERIES_ID",
+                        "in": "path",
+                        "description": "id product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 85
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/assets/information": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "Accessories",
+                "description": "Accessories",
+                "operationId": "Accessories",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/product/list": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "รายการสินค้า",
+                "description": "รายการสินค้าที่เปิดขาย",
+                "operationId": "product list",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number of the product list",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/product/{id}": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "สินค้า",
+                "description": "ค้นหาสินค้าจาก ID",
+                "operationId": "productById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": 190199455443
+                        }
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/product/all": {
+            "get": {
+                "tags": [
+                    "API Product"
+                ],
+                "summary": "รายการสินค้าทั้งหมด",
+                "description": "รายการสินค้าทั้งหมด",
+                "operationId": "product all",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/master/installment": {
+            "get": {
+                "tags": [
+                    "API INSTALLMENT"
+                ],
+                "summary": "Master Data จำนวนงวด",
+                "description": "จำนวนงวด",
+                "operationId": "master_installment",
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Code": {
+                                            "type": "string",
+                                            "example": "0000"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Sucsess"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
+            }
+        },
+        "/api/new/quotation": {
             "post": {
                 "tags": [
                     "API QUOTATION"
@@ -781,6 +1294,7 @@
                                     "UNIVERSITY_ID",
                                     "FACULTY_ID",
                                     "PRODUCT_SERIES",
+                                    "PROD_SUM_PRICE",
                                     "DOWN_SUM_AMT",
                                     "INSTALL_NUM",
                                     "PREFIX",
@@ -808,6 +1322,9 @@
                                     "STUDENTCARD_FILE",
                                     "FACE_FILE",
                                     "STUDENT_ID",
+                                    "NATIONALITY_CODE",
+                                    "Narcotic_ID",
+                                    "Disease_ID",
                                     "A1_NO",
                                     "A1_PROVINCE",
                                     "A1_DISTRICT",
@@ -853,6 +1370,11 @@
                                         "format": "string",
                                         "example": "194252038338"
                                     },
+                                    "PROD_SUM_PRICE": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "42000.00"
+                                    },
                                     "DOWN_SUM_AMT": {
                                         "type": "string",
                                         "format": "string",
@@ -868,10 +1390,19 @@
                                         "format": "string",
                                         "example": "484"
                                     },
+                                    "ACS_SUM": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
                                     "INSURE_ID": {
                                         "type": "string",
                                         "format": "string",
                                         "example": "42"
+                                    },
+                                    "INSURE_SUM": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "8300.00"
                                     },
                                     "PREFIX": {
                                         "type": "string",
@@ -1030,6 +1561,21 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "https://www.google.co.th/maps"
+                                    },
+                                    "NATIONALITY_CODE": {
+                                        "type": "integer",
+                                        "format": "int",
+                                        "example": "1"
+                                    },
+                                    "Narcotic_ID": {
+                                        "type": "integer",
+                                        "format": "int",
+                                        "example": "1"
+                                    },
+                                    "Disease_ID": {
+                                        "type": "integer",
+                                        "format": "int",
+                                        "example": "1"
                                     },
                                     "EMAILGuarantor": {
                                         "type": "string",
@@ -1263,7 +1809,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -1282,19 +1828,19 @@
                 },
                 "security": [
                     {
-                        "Api-Token": []
+                        "Authorization": []
                     }
                 ]
             }
         },
-        "/api/SKUCheckDownGua": {
+        "/api/sku/checkdownguarantor": {
             "post": {
                 "tags": [
                     "API Check"
                 ],
                 "summary": "ตรวจสอบจำนวนเงินดาวน์ขั้นต่ำ , ผู้ค้ำประกัน",
-                "description": "new custome",
-                "operationId": "SKUCheckDownGua",
+                "description": "Check DownGuarantor",
+                "operationId": "SKU Check DownGuarantor",
                 "requestBody": {
                     "description": "Product information",
                     "required": true,
@@ -1347,7 +1893,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -1363,10 +1909,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/SKU_ASSETS_INSURANCE": {
+        "/api/sku/assetsinsurance": {
             "post": {
                 "tags": [
                     "API Check"
@@ -1404,7 +1955,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -1420,10 +1971,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         },
-        "/api/Check_Tenor": {
+        "/api/check/tenor": {
             "post": {
                 "tags": [
                     "API Check"
@@ -1461,7 +2017,7 @@
                                     "properties": {
                                         "Code": {
                                             "type": "string",
-                                            "example": "9999"
+                                            "example": "0000"
                                         },
                                         "status": {
                                             "type": "string",
@@ -1477,16 +2033,21 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Authorization": []
+                    }
+                ]
             }
         }
     },
     "components": {
         "securitySchemes": {
-            "Api-Token": {
+            "Authorization": {
                 "type": "apiKey",
                 "description": "Login with username and password to get the authentication token",
-                "name": "api-token",
+                "name": "Authorization",
                 "in": "header"
             }
         }

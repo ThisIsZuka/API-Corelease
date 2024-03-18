@@ -27,18 +27,13 @@ use App\Http\Controllers\E_Tax\Service_E_Tax;
 |
 */
 
-// Route::get('/', function () {
-//     return view('NCBMonthly');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('test_post_api', function () {
     return view('test_api');
 });
-
-Route::post('test_new_prospect_cus', [API_PROSPECT_CUSTOMER::class, 'NEW_PROSPECT_CUSTOMER']);
-
-
-Route::get('test_EF', [Check_Calculator::class, 'test_EF']);
 
 
 Route::get('loop_resize', [Image_resize_Controller::class, 'Job_Resize']);

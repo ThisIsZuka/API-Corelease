@@ -18,7 +18,6 @@ class Error_Exception extends BaseController
 {
     public function Msg_error($e)
     {
-
         // dd($e->getMessage());
         
         $MsgError = [
@@ -28,6 +27,12 @@ class Error_Exception extends BaseController
             "2000" => [
                 'status' => 'Invalid Condition',
             ],
+            "4100" => [
+                'status' => 'Missing credentials',
+            ],
+            "4110" => [
+                'status' => 'Invalid credentials',
+            ],
             "9000" => [
                 'status' => 'System Error',
             ],
@@ -35,16 +40,16 @@ class Error_Exception extends BaseController
 
         if ($e->getPrevious() != null) {
             return response()->json(array(
-                'code' => '9000',
+                'code' => 9000,
                 'status' =>  'System Error',
                 'message' => $e->getPrevious()->getMessage(),
             ));
         }
 
         return response()->json(array(
-            'code' => (string)$e->getCode() ?: '1000',
-            'status' => isset($MsgError[(string)$e->getCode()]['status']) ? $MsgError[(string)$e->getCode()]['status'] : 'Invalid Data' ,
-            'message' => $e->getMessage()
+            'code' => (int)$e->getCode() ?: 9000,
+            'status' => isset($MsgError[(string)$e->getCode()]['status']) ? $MsgError[(string)$e->getCode()]['status'] : 'System Error' ,
+            'message' => $e->getMessage(),
             // 'message' => 'System Error. Please try again'
         ));
     }

@@ -48,6 +48,8 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            $this->mapRoutes();
         });
     }
 
@@ -67,5 +69,18 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('web', function (Request $request) {
             return Limit::perMinute(1000);
         });
+    }
+
+    /**
+     * Define the "local" routes for the application.
+     *
+     * @return void
+     */
+    protected function mapRoutes()
+    {
+        Route::prefix('local')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/local.php'));
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
@@ -136,7 +137,7 @@ class API_SCB_Bill_H2H extends BaseController
         if ($time_set >= '23:00:00' && $time_set <= '23:14:59') {
             // dd($dateNow->format('d'));
             $tranDate_set = $tranDate_set->day(min($dateNow->format('d'), $tranDate_set->daysInMonth));
-        }else if($time_set >= '23:15:00' && $time_set <= '23:59:59'){
+        } else if ($time_set >= '23:15:00' && $time_set <= '23:59:59') {
             $tranDate_set = $tranDate_set->subDay();
         }
 
@@ -206,6 +207,16 @@ class API_SCB_Bill_H2H extends BaseController
             $this->Check_ref($data);
 
             $this->Insert_Request($data);
+
+            // Log the response
+            Log::info('Response JSON:', [
+                "response" => "verify",
+                "resCode" => "0000",
+                "resMesg" => "Success",
+                "tranID" => $data['tranID'],
+                "reference2" => $data['reference2'],
+                "paymentID" => self::$SCB_BILLER_ID
+            ]);
 
             return response()->json(array(
                 "response" => "verify",

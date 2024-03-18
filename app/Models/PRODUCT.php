@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class PRODUCT extends Model
+{
+    protected $table = 'PRODUCT';
+
+    public $timestamps = false;
+
+    use HasFactory;
+
+    protected $primaryKey = 'PRODUCT_ID';
+
+    protected $fillable = [
+        'PRODUCT_ID',
+        'APP_ID',
+        'QUOTATION_ID',
+        'PRODUCT_CODE',
+        'PRODUCT_TYPE',
+        'PRODUCT_CATEGORY',
+        'PRODUCT_BAND',
+        'PRODUCT_SERIES',
+        'PRODUCT_SUB_SERIES',
+        'PRODUCT_COLOR',
+        'PROD_PRICE',
+        'PROD_VAT',
+        'PROD_SUM_PRICE',
+        'DOWN_PERCENT',
+        'DOWN_AMT',
+        'DOWN_VAT',
+        'DOWN_SUM_AMT',
+        'HP_AMT',
+        'HP_INVEST_AMT',
+        'INTEREST_FLAT',
+        'INTEREST_EFFECTIVE',
+        'INSTALL_NUM',
+        'INTERST_TOTAL',
+        'INTEREST_VAT',
+        'INTEREST_AMT',
+        'HP_SUM',
+        'INSTALL_NUM_FINAL',
+        'INSTALL_AMT',
+        'INSTALL_AMT_FINAL',
+        'INSTALL_VAT',
+        'INSTALL_VAT_FINAL',
+        'INSTALL_SUM',
+        'INSTALL_SUM_FINAL',
+        'HP_VAT_SUM',
+        'PAY_DOWN_TYPE',
+        'DUEDATE_NUM',
+        'FRIST_PAY_DATE',
+        'DESCRIPTION',
+        'MODEL_NAME',
+        'MODEL_NUMBER',
+        'SERIAL_NUMBER',
+        'ABM_STARTDATE',
+        'ABM_ENDDATE',
+        'ABM_NUMBER',
+        'SIGNATURE_CONFIRM',
+        'IMAGE_DELIVER',
+        'CREDIT_LIMIT',
+        'ACS_ID',
+        'ACS_DES',
+        'ACS_PRICE',
+        'ACS_VAT',
+        'ACS_SUM',
+        'INSURE_ID',
+        'INSURE_DES',
+        'INSURE_SUM',
+        'PROD_TOTAL',
+        'PROD_TOTAL_VAT',
+        'PROD_TOTAL_AMT',
+        'Tradein_AMT',
+        'CREATE_DATE',
+        'UPDATE_DATE',
+        'NAME_MAKE',
+        'DELIVERY_ID',
+        'REMARK',
+        'DEFAULT_DOWN_PERCENT',
+        'Icare_Des',
+        'Icare_Percent',
+        'Icare_Price',
+        'DOWN_SUM_VAT',
+        'DOWN_SUM_TOTAL',
+        'DOWN_PAY_AMT',
+        'AMT_PERCENT',
+        'TYPE_LOAN_HP',
+        'FEE_TOTAL_AMT',
+        'FEE_TOTAL',
+        'FEE_VAT',
+        'Balloon_Type',
+        'TRADE_IN_TYPE',
+        'INSTALL_NUM_BALLOON',
+        'TRADE_IN_INSTALL',
+        'PACKAGE_ID',
+        'PACKAGE_AMT',
+        'PACKAGE_VAT',
+        'PACKAGE_SUM_AMT',
+        'DISCOUNT_AMT',
+        'DISCOUNT_VAT',
+        'DISCOUNT_SUM_AMT',
+        'TRADE_IN_DISCOUNT_AMT',
+        'TRADE_IN_DISCOUNT_VAT',
+        'TRADE_IN_DISCOUNT_SUM_AMT',
+    ];
+}
